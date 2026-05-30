@@ -73,9 +73,9 @@ export default function ServiceDetailPage({ params }) {
             </div>
             <div>
               <SearchCheck size={34} />
-              <h2>Common searches this page covers</h2>
-              <p>Customers often look for help using phrases like:</p>
-              <div className="search-chip-row">{service.searchTerms.map((term) => <span key={term}>{term}</span>)}</div>
+              <h2>Common lock and security problems</h2>
+              <p>Whether it is a stiff uPVC door, lost keys, tenant changeover, key safe fitting or a security concern at a home, holiday let or business, Brodley Locksmiths provides practical help across Clacton, Harwich, Frinton, Walton and the wider Tendring area.</p>
+              <div className="search-chip-row">{service.reasons.slice(0, 4).map((reason) => <span key={reason}>{reason}</span>)}</div>
             </div>
           </div>
 

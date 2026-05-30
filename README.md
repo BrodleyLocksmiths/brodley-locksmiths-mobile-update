@@ -89,3 +89,9 @@ This updated package adds:
 
 Most wording for the new service pages and articles is in `lib/siteData.js`.
 The quote form is in `components/QuoteForm.jsx` and opens the visitor's email app with a pre-filled quote request to `info@brodley-locksmiths.com`.
+
+
+## Vercel install note
+Set Install Command to: corepack enable && pnpm install --no-frozen-lockfile
+Build Command: pnpm run build
+Framework: Next.js

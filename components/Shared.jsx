@@ -302,6 +302,11 @@ export function ServicesInternalLinks({ current }) {
 export function ProofHubSection() {
   const links = [
     {
+      href: '/get-secure-check',
+      title: 'Get Secure Property Check',
+      text: 'Use the interactive lock, door, window and access checklist to spot common security concerns and find the right Brodley Locksmiths service.'
+    },
+    {
       href: '/recent-work',
       title: 'Recent locksmith work',
       text: 'See the types of lock changes, older lock repairs, snapped key callouts, key safe installations and security upgrades Brodley Locksmiths helps with across Tendring.'

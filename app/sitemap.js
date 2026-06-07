@@ -11,6 +11,7 @@ export default function sitemap() {
     '/contact',
     '/blog',
     '/reviews',
+    '/get-secure-check',
     '/recent-work',
     '/case-studies',
     '/why-choose-brodley-locksmiths',

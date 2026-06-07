@@ -8,6 +8,7 @@ import { contact, servicePages, site } from '@/lib/siteData';
 const nav = [
   { label: 'Home', href: '/' },
   { label: 'Services', href: '/services' },
+  { label: 'Get Secure Check', href: '/get-secure-check' },
   { label: 'Areas', href: '/areas' },
   { label: 'Blog', href: '/blog' },
   { label: 'Reviews', href: '/reviews' },

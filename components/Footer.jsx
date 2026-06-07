@@ -23,6 +23,7 @@ export default function Footer() {
           <h2>Main Pages</h2>
           <Link href="/">Home</Link>
           <Link href="/services">Services</Link>
+          <Link href="/get-secure-check">Get Secure Property Check</Link>
           <Link href="/areas">Areas</Link>
           <Link href="/blog">Advice Blog</Link>
           <Link href="/reviews">Reviews</Link>

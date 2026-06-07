@@ -32,17 +32,39 @@ export default function BlogPostPage({ params }) {
           <div className="article-meta"><CalendarDays size={16} /> {post.readTime}</div>
           <p className="article-intro">{post.intro}</p>
           <div className="article-content">
-            {post.sections.map((section) => (
-              <section key={section.h}>
-                <h2>{section.h}</h2>
-                <p>{section.p}</p>
-              </section>
-            ))}
+            {post.sections.map((section) => {
+              const paragraphs = Array.isArray(section.p) ? section.p : [section.p];
+              return (
+                <section key={section.h}>
+                  <h2>{section.h}</h2>
+                  {paragraphs.map((paragraph, index) => (
+                    <p key={index}>{paragraph}</p>
+                  ))}
+                  {section.bullets?.length ? (
+                    <ul className="article-bullets">
+                      {section.bullets.map((item) => <li key={item}>{item}</li>)}
+                    </ul>
+                  ) : null}
+                  {section.links?.length ? (
+                    <div className="article-link-row">
+                      {section.links.map((item) => (
+                        <Link key={item.href} href={item.href} className="article-pill-link">
+                          {item.label} <ArrowRight size={15} />
+                        </Link>
+                      ))}
+                    </div>
+                  ) : null}
+                </section>
+              );
+            })}
           </div>
-          <div className="related-box">
-            <h2>Need practical help?</h2>
-            <p>Brodley Locksmiths provides lock changes, uPVC door repairs, lock upgrades, key safes and security surveys across Tendring.</p>
-            <Link href="/quote" className="text-link">Request a quote <ArrowRight size={16} /></Link>
+          <div className="related-box article-sales-box">
+            <h2>Get Secure with Brodley Locksmiths</h2>
+            <p>Need help with locks, uPVC doors, key safes, landlord access, holiday lets or a security concern in Tendring? Brodley Locksmiths provides practical locksmith advice and professional workmanship across Clacton, Harwich, Frinton, Walton, Manningtree, Brightlingsea and surrounding villages.</p>
+            <div>
+              <Link href="/quote" className="text-link">Request a quote <ArrowRight size={16} /></Link>
+              <Link href="/contact" className="text-link">Contact Brodley Locksmiths <ArrowRight size={16} /></Link>
+            </div>
           </div>
           <ServicesInternalLinks />
         </div>

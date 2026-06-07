@@ -298,6 +298,50 @@ export function ServicesInternalLinks({ current }) {
   );
 }
 
+
+export function ProofHubSection() {
+  const links = [
+    {
+      href: '/recent-work',
+      title: 'Recent locksmith work',
+      text: 'See the types of lock changes, older lock repairs, snapped key callouts, key safe installations and security upgrades Brodley Locksmiths helps with across Tendring.'
+    },
+    {
+      href: '/case-studies',
+      title: 'Review-led case studies',
+      text: 'Read customer-inspired stories showing how clear advice, repair-first thinking and tidy workmanship can help save time, stress and unnecessary replacement costs.'
+    },
+    {
+      href: '/why-choose-brodley-locksmiths',
+      title: 'Why choose Brodley Locksmiths',
+      text: 'A local locksmith service built around trust, practical security advice, prompt communication and the Get Secure approach.'
+    },
+    {
+      href: '/example-security-survey-report',
+      title: 'Example security survey report',
+      text: 'See how a Brodley Locksmiths security review can break down lock, door, window, key safe and outbuilding priorities in plain English.'
+    }
+  ];
+  return (
+    <section className="section charcoal">
+      <div className="container">
+        <SectionHeader eyebrow="Proof & Practical Advice" title="Real locksmith work, clear security thinking and stronger local trust.">
+          Customers want to know they are choosing the right local locksmith. These pages show how Brodley Locksmiths approaches common lock, door and security problems across Tendring.
+        </SectionHeader>
+        <div className="blog-grid preview">
+          {links.map((item) => (
+            <article className="blog-card" key={item.href}>
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+              <Link href={item.href} className="text-link">View page <ArrowRight size={16} /></Link>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export function BlogPreview() {
   const posts = blogPosts.slice(0, 3);
   return (

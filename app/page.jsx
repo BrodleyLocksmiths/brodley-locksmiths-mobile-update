@@ -1,5 +1,5 @@
 import JsonLd from '@/components/JsonLd';
-import { AreasPreview, BlogPreview, ContactCTA, FaqSection, Hero, LocalSeoSection, ReviewsSection, SectionHeader, ServicesGrid, TrustSection } from '@/components/Shared';
+import { AreasPreview, BlogPreview, ContactCTA, FaqSection, Hero, LocalSeoSection, ReviewsSection, ProofHubSection, SectionHeader, ServicesGrid, TrustSection } from '@/components/Shared';
 import { coreFaqs } from '@/lib/siteData';
 import { faqSchema, localBusinessSchema, pageMetadata, websiteSchema } from '@/lib/schema';
 
@@ -26,6 +26,7 @@ export default function HomePage() {
       <LocalSeoSection />
       <TrustSection />
       <ReviewsSection />
+      <ProofHubSection />
       <BlogPreview />
       <AreasPreview />
       <FaqSection faqs={coreFaqs} />

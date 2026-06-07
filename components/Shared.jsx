@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { CheckCircle2, Phone, Mail, ArrowRight, MapPinned, Star, BadgeCheck, Wrench, Camera, MessageSquare, ClipboardCheck, HelpCircle } from 'lucide-react';
-import { blogPosts, contact, coreFaqs, locations, servicePages, site } from '@/lib/siteData';
+import { blogPosts, contact, coreFaqs, customerReviews, locations, servicePages, site } from '@/lib/siteData';
 
 export function SectionHeader({ eyebrow, title, children }) {
   return (
@@ -176,17 +176,44 @@ export function TrustSection() {
   );
 }
 
+export function StarRating({ rating = 5 }) {
+  return (
+    <div className="star-rating" aria-label={`${rating} out of 5 stars`}>
+      {Array.from({ length: 5 }).map((_, index) => (
+        <Star key={index} size={18} className={index < rating ? 'star-filled' : ''} />
+      ))}
+    </div>
+  );
+}
+
+export function ReviewCards({ limit }) {
+  const items = limit ? customerReviews.slice(0, limit) : customerReviews;
+  return (
+    <div className="review-grid">
+      {items.map((review) => (
+        <article className="review-card" key={`${review.name}-${review.service}`}>
+          <StarRating rating={review.rating} />
+          <blockquote>“{review.quote}”</blockquote>
+          <div className="review-author">
+            <strong>{review.name}</strong>
+            <span>{review.service}</span>
+          </div>
+        </article>
+      ))}
+    </div>
+  );
+}
+
 export function ReviewsSection() {
   return (
     <section className="section charcoal">
       <div className="container">
-        <SectionHeader eyebrow="Local Locksmith Service" title="Trusted locksmith work for homes, landlords and local businesses.">When you need a locksmith in Tendring, you want clear advice, careful workmanship and a service that respects your property. Brodley Locksmiths helps with everyday lock changes, uPVC door repairs, security upgrades and practical protection for local homes and businesses.</SectionHeader>
-        <div className="trust-cards">
-          {[
-            ['Lock changes after moving home', 'Secure your new property by replacing unknown keys and upgrading weak cylinders on front, rear and side doors.'],
-            ['uPVC door repair experience', 'Support for common door problems including stiff handles, dropped doors, misaligned keeps and failing multipoint mechanisms.'],
-            ['Tendring-wide coverage', 'Local locksmith services for Clacton-on-Sea, Harwich, Frinton, Walton, Brightlingsea, Manningtree and nearby villages.']
-          ].map(([title, text]) => <div className="trust-card" key={title}><Star size={30} /><h3>{title}</h3><p>{text}</p></div>)}
+        <SectionHeader eyebrow="5-Star Customer Reviews" title="Trusted locksmith work across Tendring.">
+          Customers choose Brodley Locksmiths for prompt help, honest advice, tidy workmanship and practical security improvements. From lock changes after lost keys to uPVC door repairs, higher-security locks and key safe fitting, every job is handled with care.
+        </SectionHeader>
+        <ReviewCards limit={3} />
+        <div className="center review-cta">
+          <Link href="/reviews" className="btn btn-outline big">Read more reviews <ArrowRight size={20} /></Link>
         </div>
       </div>
     </section>

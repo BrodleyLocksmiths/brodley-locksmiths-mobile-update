@@ -25,6 +25,7 @@ export default function Footer() {
           <Link href="/services">Services</Link>
           <Link href="/areas">Areas</Link>
           <Link href="/blog">Advice Blog</Link>
+          <Link href="/reviews">Reviews</Link>
           <Link href="/faqs">FAQs</Link>
           <Link href="/about">About</Link>
           <Link href="/contact">Contact</Link>

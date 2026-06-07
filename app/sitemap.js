@@ -10,6 +10,7 @@ export default function sitemap() {
     '/about',
     '/contact',
     '/blog',
+    '/reviews',
     '/quote'
   ];
   const serviceUrls = servicePages.map((s) => `/services/${s.slug}`);

@@ -23,7 +23,9 @@ const featuredMobileServices = [
   'key-safes',
   'landlord-locksmith-services',
   'holiday-let-guest-house-security',
-  'caravan-holiday-park-locksmith-services'
+  'caravan-holiday-park-locksmith-services',
+  'broken-key-extraction',
+  'patio-door-lock-repairs'
 ];
 
 export default function Header() {

@@ -31,6 +31,9 @@ export default function Footer() {
           <Link href="/case-studies">Case Studies</Link>
           <Link href="/why-choose-brodley-locksmiths">Why Choose Brodley Locksmiths</Link>
           <Link href="/example-security-survey-report">Example Security Survey</Link>
+          <Link href="/pricing-guide">Pricing Guide</Link>
+          <Link href="/workmanship-promise">Workmanship Promise</Link>
+          <Link href="/leave-a-review">Leave a Review</Link>
           <Link href="/faqs">FAQs</Link>
           <Link href="/about">About</Link>
           <Link href="/contact">Contact</Link>

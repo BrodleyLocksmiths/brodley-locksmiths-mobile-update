@@ -95,3 +95,6 @@ The quote form is in `components/QuoteForm.jsx` and opens the visitor's email ap
 Set Install Command to: corepack enable && pnpm install --no-frozen-lockfile
 Build Command: pnpm run build
 Framework: Next.js
+
+
+Update added: broken key extraction, door handle replacement, door alignment and adjustment, patio door lock repairs, pricing guide, workmanship promise, leave-a-review page, and expanded recent work/case studies.

@@ -37,6 +37,47 @@ const recentWork = [
     text: 'A block of flats needed stronger door security and a practical key safe solution. Brodley Locksmiths fitted a higher-security lock and key safe, helping improve access management for residents, visitors or trusted keyholders.',
     links: [{ label: 'Key safes', href: '/services/key-safes' }, { label: 'Care access and key safes', href: '/services/locksmith-for-care-access-key-safes' }]
   },
+
+  {
+    icon: DoorOpen,
+    title: 'Front door would not lock late in the evening',
+    service: 'Door Alignment & Lock Replacement',
+    area: 'Tendring area',
+    text: 'A customer called when the front door would not lock. Brodley Locksmiths attended quickly, replaced the lock where needed and realigned the door so it operated properly again. This type of job shows why stiff handles and awkward doors should be checked early.',
+    links: [{ label: 'Door alignment & adjustment', href: '/services/door-alignment-adjustment' }, { label: 'uPVC door repairs', href: '/services/upvc-door-repairs-tendring' }]
+  },
+  {
+    icon: KeyRound,
+    title: 'Broken key removed from French doors',
+    service: 'Broken Key Extraction',
+    area: 'Tendring area',
+    text: 'A key had snapped in a garden French door lock. Brodley Locksmiths attended at a convenient time, removed the broken key and helped the customer restore proper use of the door without unnecessary fuss.',
+    links: [{ label: 'Broken key extraction', href: '/services/broken-key-extraction' }, { label: 'Patio door lock repairs', href: '/services/patio-door-lock-repairs' }]
+  },
+  {
+    icon: DoorOpen,
+    title: 'Patio door handle and lock repaired',
+    service: 'Patio Door Lock Repair',
+    area: 'Tendring area',
+    text: 'A customer had a broken handle and lock on patio doors. Brodley Locksmiths explained what needed doing, provided a clear price and completed the repair so the rear access point felt secure and usable again.',
+    links: [{ label: 'Patio door lock repairs', href: '/services/patio-door-lock-repairs' }, { label: 'Door handle replacement', href: '/services/door-handle-replacement' }]
+  },
+  {
+    icon: ShieldCheck,
+    title: 'Window locks repaired and security improved',
+    service: 'Window Lock Repairs',
+    area: 'Clacton-on-Sea / Tendring',
+    text: 'Customer feedback mentions window locks being fixed professionally and helpfully. Window locks are often overlooked, but they can be an important part of a whole-property Get Secure check, especially on ground-floor rooms and rear-facing windows.',
+    links: [{ label: 'Window lock repairs', href: '/services/window-lock-repairs' }, { label: 'Security surveys', href: '/services/security-surveys' }]
+  },
+  {
+    icon: LockKeyhole,
+    title: 'Premises handover with all locks changed',
+    service: 'Property Handover Lock Change',
+    area: 'Little Pals Forest School',
+    text: 'After taking over premises, the customer needed all locks changed so they could regain control over access. Brodley Locksmiths completed the work swiftly and to a high standard, making the property ready for the new keyholders.',
+    links: [{ label: 'Lock changes', href: '/services/lock-changes' }, { label: 'Commercial locksmith services', href: '/services/locksmith-for-small-businesses' }]
+  },
   {
     icon: DoorOpen,
     title: 'Snapped key and urgent access on a Sunday evening',
@@ -60,7 +101,7 @@ export default function RecentWorkPage() {
           <div>
             <p className="eyebrow red">Get Secure</p>
             <h2>Practical help for real lock and door problems.</h2>
-            <p>These recent work examples are based on genuine customer feedback and common locksmith jobs Brodley Locksmiths carries out: lost keys, older lock repairs, snapped keys, key safe fitting and higher-security lock upgrades.</p>
+            <p>These recent work examples are drawn from genuine customer feedback and typical locksmith callouts across Tendring: lost keys, snapped keys, stiff doors, patio door lock repairs, window lock issues, key safes and property handovers.</p>
           </div>
           <div className="review-summary-actions">
             <a href={contact.phoneHref} className="btn btn-red big"><Phone size={20} /> Call {contact.phoneDisplay}</a>

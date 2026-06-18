@@ -16,7 +16,10 @@ export default function sitemap() {
     '/case-studies',
     '/why-choose-brodley-locksmiths',
     '/example-security-survey-report',
-    '/quote'
+    '/quote',
+    '/leave-a-review',
+    '/workmanship-promise',
+    '/pricing-guide'
   ];
   const serviceUrls = servicePages.map((s) => `/services/${s.slug}`);
   const areaUrls = townPages.map((t) => `/areas/${t.slug}`);

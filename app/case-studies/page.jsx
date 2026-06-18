@@ -34,6 +34,35 @@ const caseStudies = [
     outcome: 'The customer highlighted the competitive price, high-quality work and courteous service.',
     links: [{ label: 'Key Safes', href: '/services/key-safes' }, { label: 'Security Surveys', href: '/services/security-surveys' }]
   },
+
+  {
+    title: 'Door would not lock: lock replacement and realignment',
+    challenge: 'A customer contacted Brodley Locksmiths because the front door would not lock, creating an immediate security concern and a risk that the door could become unusable.',
+    approach: 'Ron attended promptly, replaced the lock where required and realigned the door so the lock and door worked together properly rather than leaving the mechanism under strain.',
+    outcome: 'The customer described it as 5-star service and would recommend Brodley Locksmiths.',
+    links: [{ label: 'Door Alignment & Adjustment', href: '/services/door-alignment-adjustment' }, { label: 'Door Repairs', href: '/services/door-repairs' }]
+  },
+  {
+    title: 'Broken key: garden French door lock restored',
+    challenge: 'A key had broken in the lock of garden French doors, leaving the customer needing a careful repair without making the lock problem worse.',
+    approach: 'Brodley Locksmiths attended at a suitable time, removed the broken key and dealt with the lock issue professionally and efficiently.',
+    outcome: 'The customer highlighted the professional, quick work and reasonable price.',
+    links: [{ label: 'Broken Key Extraction', href: '/services/broken-key-extraction' }, { label: 'Patio Door Lock Repairs', href: '/services/patio-door-lock-repairs' }]
+  },
+  {
+    title: 'Patio doors: broken handle and lock repaired',
+    challenge: 'A customer had a broken patio door handle and lock, affecting both everyday use and rear-door security.',
+    approach: 'Ron attended within a few hours, explained what needed to be done, gave a clear price and carried out the repair.',
+    outcome: 'The customer was really happy with the work and said they could not recommend Brodley Locksmiths enough.',
+    links: [{ label: 'Patio Door Lock Repairs', href: '/services/patio-door-lock-repairs' }, { label: 'Door Handle Replacement', href: '/services/door-handle-replacement' }]
+  },
+  {
+    title: 'Window lock repairs: small faults with real security value',
+    challenge: 'Window locks needed attention, creating a weak point that could easily be missed if only main doors were checked.',
+    approach: 'Brodley Locksmiths dealt with the window lock issue professionally, helping restore confidence in the security of the property.',
+    outcome: 'Customer feedback praised the helpful, professional service and high standard of work.',
+    links: [{ label: 'Window Lock Repairs', href: '/services/window-lock-repairs' }, { label: 'Security Surveys', href: '/services/security-surveys' }]
+  },
   {
     title: 'Snapped key: urgent access problem handled calmly',
     challenge: 'A customer snapped a key and could not gain entry on a Sunday evening, creating a stressful situation.',
@@ -56,7 +85,7 @@ export default function CaseStudiesPage() {
           <div>
             <p className="eyebrow red">Get Secure</p>
             <h2>Real problems, practical locksmith solutions.</h2>
-            <p>These case studies are based on genuine customer feedback. They are written to show the problem, the Brodley Locksmiths approach and the outcome without adding unsupported details.</p>
+            <p>These case studies are based on genuine customer feedback and real locksmith situations: lost keys, stiff doors, broken keys, patio door lock faults, window lock issues, key safes and property handovers across Tendring.</p>
           </div>
           <div className="review-summary-actions">
             <a href={contact.phoneHref} className="btn btn-red big"><Phone size={20} /> Call {contact.phoneDisplay}</a>

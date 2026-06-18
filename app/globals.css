@@ -431,3 +431,11 @@ details p { margin: 1rem 0 0; }
   .choice-card { grid-template-columns: 32px 1fr; padding: .85rem; border-radius: 18px; }
   .choice-card small { grid-column: 1 / -1; }
 }
+.assistant-summary-card { margin: 1rem 0 1rem; display: flex; gap: .9rem; align-items: flex-start; border: 1px solid rgba(199,161,107,.24); background: linear-gradient(135deg, rgba(199,161,107,.12), rgba(48,50,55,.62)); border-radius: 24px; padding: 1rem; }
+.assistant-summary-card svg { color: var(--red); flex: none; margin-top: .15rem; }
+.assistant-summary-card strong { display: block; color: var(--gold); margin-bottom: .35rem; font-size: 1.05rem; }
+.assistant-summary-card p { margin: 0; color: #e4e4e7; line-height: 1.6; }
+.assistant-summary-card em { display: block; margin-top: .65rem; color: white; font-style: normal; font-weight: 850; line-height: 1.5; }
+@media (max-width: 640px) {
+  .assistant-summary-card { border-radius: 18px; padding: .9rem; }
+}

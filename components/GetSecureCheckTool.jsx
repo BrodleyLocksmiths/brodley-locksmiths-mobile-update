@@ -10,6 +10,7 @@ import {
   ClipboardCheck,
   Home,
   KeyRound,
+  MessageSquare,
   Mail,
   Phone,
   RotateCcw,
@@ -90,8 +91,18 @@ const coreQuestions = [
     question: 'How do your main doors feel when locking and unlocking?',
     options: [
       { label: 'They lock smoothly without lifting, forcing or pulling the door', positive: 4, good: 'Smooth locking is a good sign that the door and locking points are working together.' },
-      { label: 'One door is slightly stiff, catches or sometimes needs lifting', reliability: 3, services: ['/services/upvc-door-repairs-tendring', '/services/door-repairs'], concern: 'A stiff or dropped door can put strain on the lock and multipoint mechanism.' },
-      { label: 'A door often jams, needs forcing or feels close to failing', reliability: 6, security: 1, services: ['/services/multipoint-lock-repairs', '/services/upvc-door-mechanism-replacement'], concern: 'Forcing a stiff door can turn a repairable issue into a failed mechanism or lockout.' }
+      { label: 'One door is slightly stiff, catches or sometimes needs lifting', reliability: 5, services: ['/services/upvc-door-repairs-tendring', '/services/door-repairs', '/services/multipoint-lock-repairs'], concern: 'Even mild stiffness can be an early warning sign. If the door drops further or the mechanism strains, it can increase the chance of being locked out, locked in or unable to secure the property.' },
+      { label: 'A door often jams, needs forcing or feels close to failing', reliability: 9, security: 1, services: ['/services/multipoint-lock-repairs', '/services/upvc-door-mechanism-replacement', '/services/upvc-door-repairs-tendring'], concern: 'A door that needs forcing should be treated as urgent. It can fail without warning and may leave someone locked out, locked in or unable to lock the door at night.' }
+    ]
+  },
+  {
+    id: 'handle-key-feel',
+    group: 'Early warning signs',
+    question: 'When using the key or handle, do you notice any warning signs?',
+    options: [
+      { label: 'No — the key turns cleanly and the handle feels firm', positive: 4, good: 'A smooth key turn and firm handle suggest the lock and door are not under obvious strain.' },
+      { label: 'Sometimes — the key sticks, the handle feels loose or it takes a second attempt', reliability: 4, services: ['/services/upvc-door-repairs-tendring', '/services/euro-cylinder-replacement', '/services/multipoint-lock-repairs'], concern: 'Small changes in the feel of a key or handle can be an early sign of wear, poor alignment or a cylinder beginning to fail.' },
+      { label: 'Often — the key is difficult, the handle feels very loose or the door feels unreliable', reliability: 8, security: 1, services: ['/services/multipoint-lock-repairs', '/services/upvc-door-mechanism-replacement', '/services/euro-cylinder-replacement'], concern: 'Repeated key or handle problems raise the risk of a failed lock, snapped key, lockout or being unable to secure the door properly.' }
     ]
   },
   {
@@ -248,7 +259,7 @@ const serviceLabels = {
 };
 
 function levelFor(score, type) {
-  const high = type === 'reliability' ? 10 : 11;
+  const high = type === 'reliability' ? 12 : 11;
   const medium = type === 'reliability' ? 5 : 6;
   if (score >= high) return { label: 'High priority', tone: 'high' };
   if (score >= medium) return { label: 'Worth checking', tone: 'medium' };
@@ -262,9 +273,45 @@ function explainSecurity(score) {
 }
 
 function explainReliability(score) {
-  if (score >= 10) return 'Your answers suggest a higher risk of being locked out, locked in or having a door mechanism fail. Stiff doors, loose handles and failing multipoint locks are best checked early.';
+  if (score >= 12) return 'Your answers suggest a higher risk of being locked out, locked in or having a door mechanism fail. Stiff doors, loose handles, difficult keys and failing multipoint locks are best checked early.';
   if (score >= 5) return 'There are early warning signs that a door, handle, cylinder or mechanism may need attention. A repair or adjustment now can prevent a more stressful failure later.';
   return 'Your door and lock reliability answers look positive. Keep an eye on any new stiffness, grinding, lifting or handle movement.';
+}
+
+function getAssistantSummary({ totals, property, area, location, answeredCount }) {
+  const place = location?.trim() || area.label.split('/')[0].trim();
+  if (!answeredCount) {
+    return `Start with the simple questions below and the check will build a clearer picture for ${property.label.toLowerCase()} security in ${place}. It will look at both security and the chance of door or lock failure.`;
+  }
+
+  if (totals.reliability >= 12 && totals.security >= 11) {
+    return `Based on your answers, I would treat this as a priority check. There are signs of both security risk and door or lock reliability risk at this ${property.label.toLowerCase()} in ${place}. Brodley Locksmiths can help you decide whether the best first step is a lock change, anti-snap upgrade, uPVC door repair, multipoint mechanism repair or a wider security survey.`;
+  }
+
+  if (totals.reliability >= 12) {
+    return `The biggest concern from your answers is reliability. If a door is stiff, the handle is loose, the key is difficult or the mechanism feels strained, it can become a lockout or lock-in problem rather than just an inconvenience. A door and mechanism check would be a sensible next step.`;
+  }
+
+  if (totals.security >= 11) {
+    return `The main concern from your answers is security and key control. Unknown keys, older cylinders, weak access points or shared-access arrangements can usually be improved with practical steps such as lock changes, anti-snap upgrades, key safes or a focused security survey.`;
+  }
+
+  if (totals.reliability >= 5 || totals.security >= 6) {
+    return `Your answers show a few areas worth checking rather than an obvious emergency. This is often the best time to act, because small issues such as stiff doors, old cylinders or unclear key control can usually be sorted before they become stressful or expensive.`;
+  }
+
+  if (totals.positive >= 12) {
+    return `Your answers are encouraging. You already have several good security habits in place. If anything changes, such as moving home, tenant turnover, lost keys, a stiff door or a new access need, Brodley Locksmiths can help you keep things secure and reliable.`;
+  }
+
+  return `Your answers do not suggest a major immediate issue, but the check has highlighted useful areas to keep an eye on. If you would like peace of mind, a quick Get Secure visit can confirm whether your locks, doors, windows and access points are working as they should.`;
+}
+
+function getNextStepText(totals) {
+  if (totals.reliability >= 12) return 'Recommended next step: arrange a door, lock or mechanism check before the problem turns into a lockout or lock-in.';
+  if (totals.security >= 11) return 'Recommended next step: arrange a security survey or targeted lock upgrade to deal with the most important weak points first.';
+  if (totals.reliability >= 5 || totals.security >= 6) return 'Recommended next step: ask Brodley Locksmiths which small improvements would give the best security and reliability benefit.';
+  return 'Recommended next step: keep this checklist in mind and contact Brodley Locksmiths when anything starts to feel stiff, worn, uncertain or insecure.';
 }
 
 export default function GetSecureCheckTool() {
@@ -303,6 +350,8 @@ export default function GetSecureCheckTool() {
   const securityLevel = levelFor(totals.security, 'security');
   const reliabilityLevel = levelFor(totals.reliability, 'reliability');
   const positiveLevel = totals.positive >= 14 ? 'Strong habits' : totals.positive >= 8 ? 'Good habits' : 'Building picture';
+  const assistantSummary = getAssistantSummary({ totals, property, area, location, answeredCount: answeredOptions.length });
+  const nextStepText = getNextStepText(totals);
 
   const emailBody = encodeURIComponent([
     'Hello Brodley Locksmiths,',
@@ -315,6 +364,10 @@ export default function GetSecureCheckTool() {
     `Security risk result: ${securityLevel.label} (${totals.security})`,
     `Door and lock reliability result: ${reliabilityLevel.label} (${totals.reliability})`,
     `Positive security habits: ${positiveLevel} (${totals.positive})`,
+    '',
+    'Summary:',
+    assistantSummary,
+    nextStepText,
     '',
     'Answers:',
     ...(answeredOptions.length ? answeredOptions.map(({ question, option }) => `- ${question.question}: ${option.label}`) : ['- No questions answered yet']),
@@ -373,7 +426,7 @@ export default function GetSecureCheckTool() {
         <div className="score-stack">
           <ScoreCard icon={ShieldCheck} title="Security risk" level={securityLevel.label} tone={securityLevel.tone} score={totals.security} text={explainSecurity(totals.security)} />
           <ScoreCard icon={Wrench} title="Door & lock reliability" level={reliabilityLevel.label} tone={reliabilityLevel.tone} score={totals.reliability} text={explainReliability(totals.reliability)} />
-          <ScoreCard icon={Award} title="Positive habits" level={positiveLevel} tone="positive" score={totals.positive} text="This score recognises the good security habits you already have, so the check stays fair and useful rather than only looking for problems." />
+          <ScoreCard icon={Award} title="Positive habits" level={positiveLevel} tone="positive" score={totals.positive} text="This recognises strengths already in place, such as known key control, smooth-locking doors, working window locks and planned access." />
         </div>
       </section>
 
@@ -408,7 +461,15 @@ export default function GetSecureCheckTool() {
         <div>
           <p className="eyebrow red">Your Get Secure summary</p>
           <h2>What your answers suggest</h2>
-          <p>The check separates security risk from door and lock reliability risk. That means it can highlight burglary/key-control concerns as well as the risk of being locked out, locked in or left with a failed uPVC or composite door mechanism.</p>
+          <div className="assistant-summary-card">
+            <MessageSquare size={26} />
+            <div>
+              <strong>Your practical summary</strong>
+              <p>{assistantSummary}</p>
+              <em>{nextStepText}</em>
+            </div>
+          </div>
+          <p>The check separates security risk from door and lock reliability risk. That means it can highlight key-control concerns as well as the chance of being locked out, locked in or left with a failed uPVC, composite or multipoint door mechanism.</p>
           <div className="summary-grid">
             <SummaryBox title="Things you are doing well" items={totals.good.length ? totals.good : ['Answer a few questions to see positive habits recognised here.']} positive />
             <SummaryBox title="Areas worth checking" items={totals.concerns.length ? totals.concerns : ['No major concerns selected yet. Keep answering to build a fuller picture.']} />
@@ -422,7 +483,7 @@ export default function GetSecureCheckTool() {
         <div className="security-action-card advanced-action-card">
           <KeyRound size={34} />
           <h3>Ready to Get Secure?</h3>
-          <p>Brodley Locksmiths can turn your check results into practical advice for lock changes, anti-snap upgrades, uPVC door repairs, key safes, garage locks, window locks and security surveys across Tendring.</p>
+          <p>Send your results through and Brodley Locksmiths can give practical advice on the most sensible next step, whether that is a lock change, anti-snap upgrade, uPVC door repair, key safe, garage lock, window lock or security survey across Tendring.</p>
           <div className="button-row">
             <a href={contact.phoneHref} className="btn btn-red"><Phone size={18} /> Call {contact.phoneDisplay}</a>
             <a href={mailHref} className="btn btn-outline"><Mail size={18} /> Email my results</a>

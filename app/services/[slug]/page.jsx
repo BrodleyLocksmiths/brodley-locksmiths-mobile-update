@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { ArrowRight, CheckCircle2, Mail, Phone, MapPin, SearchCheck } from 'lucide-react';
+import { ArrowRight, CheckCircle2, Mail, Phone, MapPin, SearchCheck, ClipboardCheck } from 'lucide-react';
 import JsonLd from '@/components/JsonLd';
 import { ContactCTA, FaqSection, ServicesInternalLinks } from '@/components/Shared';
 import { contact, coreFaqs, servicePages } from '@/lib/siteData';
@@ -49,6 +49,7 @@ export default function ServiceDetailPage({ params }) {
             <div className="button-row">
               <a href={contact.phoneHref} className="btn btn-red big"><Phone size={20} /> {service.cta}</a>
               <a href={contact.emailHref} className="btn btn-outline big"><Mail size={20} /> Email Us</a>
+              <Link href="/get-secure-check" className="btn btn-outline big"><ClipboardCheck size={20} /> Check Your Property</Link>
             </div>
           </div>
           <div className="includes-panel mobile-priority-panel">
@@ -89,6 +90,10 @@ export default function ServiceDetailPage({ params }) {
               <p>Available throughout Tendring, including Clacton-on-Sea, Frinton-on-Sea, Walton-on-the-Naze, Harwich, Dovercourt, Manningtree, Brightlingsea and surrounding villages.</p>
               <Link href="/areas" className="text-link">View all areas <ArrowRight size={16} /></Link>
             </div>
+          </div>
+          <div className="get-secure-inline-cta">
+            <p>Not sure whether you need a repair, lock upgrade, key safe or full security survey? Use the Get Secure Property Check to spot common security and door reliability concerns first.</p>
+            <Link href="/get-secure-check" className="btn btn-red"><ClipboardCheck size={18} /> Try the Get Secure Property Check</Link>
           </div>
           <ServicesInternalLinks current={service.slug} />
         </div>

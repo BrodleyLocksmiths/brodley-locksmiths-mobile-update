@@ -27,6 +27,7 @@ export function Hero() {
           <div className="button-row">
             <a href={contact.phoneHref} className="btn btn-red big">Call {contact.phoneDisplay} <Phone size={20} /></a>
             <Link href="/services" className="btn btn-outline big">View Services <ArrowRight size={20} /></Link>
+            <Link href="/get-secure-check" className="btn btn-outline big get-secure-hero-link">Try the Get Secure Check <ClipboardCheck size={20} /></Link>
           </div>
           <div className="mini-card-grid">
             {[
@@ -45,6 +46,8 @@ export function Hero() {
             {['Front and rear door lock strength', 'uPVC mechanism condition and alignment', 'Cylinder snapping and forced-entry risk', 'Window locks and accessible openings', 'Garages, sheds, gates and side access', 'Key control for tenants, guests and staff'].map((item) => <div key={item}><CheckCircle2 size={20} /> {item}</div>)}
           </div>
           <Link href="/services/security-surveys" className="text-link">View security surveys <ArrowRight size={16} /></Link>
+          <br />
+          <Link href="/get-secure-check" className="text-link">Try the Get Secure Property Check <ArrowRight size={16} /></Link>
         </div>
       </div>
     </section>
@@ -258,6 +261,7 @@ export function ContactCTA() {
         <div className="button-row center-row">
           <a href={contact.phoneHref} className="btn btn-black big"><Phone size={20} /> {contact.phoneDisplay}</a>
           <a href={contact.emailHref} className="btn btn-gold big"><Mail size={20} /> Email Brodley Locksmiths</a>
+          <Link href="/get-secure-check" className="btn btn-black big">Get Secure Check <ClipboardCheck size={20} /></Link>
         </div>
       </div>
     </section>

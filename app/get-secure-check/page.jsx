@@ -17,16 +17,16 @@ const checkFaqs = [
     a: 'It is useful for homes, landlords, holiday lets, guest houses, static caravans, flats and small businesses across Tendring, including Clacton-on-Sea, Frinton, Walton, Harwich, Dovercourt, Manningtree, Brightlingsea, St Osyth and surrounding villages.'
   },
   {
-    q: 'What should I do if the check shows several concerns?',
-    a: 'If the check highlights several possible concerns, contact Brodley Locksmiths for advice. A lock change, anti-snap upgrade, uPVC door repair, key safe, garage lock or security survey may be recommended depending on the property.'
+    q: 'What should I do if the check shows security or door reliability concerns?',
+    a: 'If the check highlights security concerns or a higher risk of lock, door or mechanism failure, contact Brodley Locksmiths for advice. A lock change, anti-snap upgrade, uPVC door repair, key safe, garage lock or security survey may be recommended depending on the property.'
   }
 ];
 
 export const metadata = pageMetadata({
   title: 'Free Home Security Check Tendring | Get Secure Property Check',
-  description: 'Use the Brodley Locksmiths Get Secure Property Check to spot common lock, uPVC door, window, key safe and access concerns across Tendring, Clacton, Harwich, Frinton and nearby areas.',
+  description: 'Use the Brodley Locksmiths Get Secure Property Check to score property security, door reliability, key control, uPVC door issues, key safe access and window lock concerns across Tendring.',
   path: '/get-secure-check',
-  keywords: 'home security check Tendring, property security check Clacton, lock security check Tendring, uPVC door security check, Get Secure Brodley Locksmiths'
+  keywords: 'home security check Tendring, property security check Clacton, lock security check Tendring, uPVC door security check, lockout risk check, door reliability check, Get Secure Brodley Locksmiths'
 });
 
 export default function GetSecureCheckPage() {
@@ -39,8 +39,8 @@ export default function GetSecureCheckPage() {
       ]} />
       <PageShell
         eyebrow="Get Secure Property Check"
-        title="Check your locks, doors, windows and access points."
-        intro="Use this quick security check to spot common issues around your home, rental property, holiday let, guest house, static caravan or business premises. If anything stands out, Brodley Locksmiths can help you Get Secure across Tendring."
+        title="Check your property security and door reliability."
+        intro="Use this simple multi-choice check to spot security risks, key-control issues, uPVC door problems, window concerns and the chance of being locked out or stuck with a failed mechanism. It also highlights what you are already doing well, so the advice stays fair, useful and easy to understand."
       >
         <GetSecureCheckTool />
       </PageShell>

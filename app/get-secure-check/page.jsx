@@ -6,7 +6,7 @@ import { breadcrumbSchema, faqSchema, localBusinessSchema, pageMetadata } from '
 const checkFaqs = [
   {
     q: 'What is the Get Secure Property Check?',
-    a: 'The Get Secure Property Check is a simple online checklist from Brodley Locksmiths to help you spot common lock, door, window and access concerns before requesting advice or a security survey.'
+    a: 'The Get Secure Property Check is an online checklist from Brodley Locksmiths that helps you review property type, local context, locks, doors, windows, key control, key safes and early warning signs before requesting advice or a security survey.'
   },
   {
     q: 'Can the online check replace a professional locksmith visit?',
@@ -18,7 +18,7 @@ const checkFaqs = [
   },
   {
     q: 'What should I do if the check shows security or door reliability concerns?',
-    a: 'If the check highlights security concerns or a higher risk of lock, door or mechanism failure, contact Brodley Locksmiths for advice. A lock change, anti-snap upgrade, uPVC door repair, key safe, garage lock or security survey may be recommended depending on the property.'
+    a: 'If the check highlights security concerns or a higher risk of lock, door or mechanism failure, contact Brodley Locksmiths for advice. Depending on your answers, a lock change, anti-snap upgrade, uPVC door repair, multipoint lock repair, key safe, window lock repair, garage lock or security survey may be the most sensible next step.'
   }
 ];
 
@@ -40,7 +40,7 @@ export default function GetSecureCheckPage() {
       <PageShell
         eyebrow="Get Secure Property Check"
         title="Check your property security and door reliability."
-        intro="Use this simple multi-choice check to spot security risks, key-control issues, uPVC door problems, window concerns and the chance of being locked out or stuck with a failed mechanism. It also highlights what you are already doing well, so the advice stays fair, useful and easy to understand."
+        intro="Use this friendly multi-choice check to review locks, doors, windows, keys, access points and early warning signs around your property. It gives separate security and door reliability results, highlights positive habits already in place, and suggests sensible next steps for getting secure across Tendring."
       >
         <GetSecureCheckTool />
       </PageShell>

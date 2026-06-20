@@ -1,71 +1,53 @@
-# Brodley Locksmiths — Full Launch Polish Update
+# Brodley Locksmiths — Launch-Polished Next.js Website
 
-This package is the current polished Next.js website build for Brodley Locksmiths. It keeps the premium red / gold / charcoal design, the Tendring service and area pages, reviews, advice pages and the advanced **Get Secure Property Check**.
+This is the current Brodley Locksmiths Next.js website package for Vercel. It includes the red/gold/charcoal brand design, Tendring service and area pages, reviews, blog content, emergency pages, quote form and advanced **Get Secure Property Check**.
 
-## What this update adds
+## This update adds
 
-- Focused homepage service section and clearer top-of-page calls to action
-- Urgent route for doors that will not lock, lockouts, lock-ins and unsafe access
-- New pages:
-  - `/services/emergency-locksmith-tendring`
-  - `/services/locked-out-non-destructive-entry`
-  - `/services/door-will-not-lock`
-- Improved Get Secure Property Check:
-  - property-specific question paths
-  - town/area context that personalises advice but does **not** automatically increase a score
-  - stronger door reliability / lockout / lock-in warning weighting
-  - urgent first question and urgent call route
-  - clearer assistant-style summary, good habits and practical next steps
-  - direct result sending, copy and save options
-- Direct quote and Get Secure enquiry endpoint with a graceful email-app fallback
-- Optional photo upload on quote requests (JPG, PNG or WEBP, up to 2MB)
-- Privacy Policy and Cookie Policy pages, plus privacy notes on enquiry forms
-- Accessibility and mobile improvements: earlier mobile menu switch, Escape-to-close menu, focus states and improved urgent route visibility
-- Favicon, Apple icon and web manifest
-- Review/profile links in the footer and `sameAs` structured data
-- Redirects prepared for important old website URLs
-- Staging-safe search settings: previews are blocked from indexing until the launch setting is changed
-- Cleaner sitemap behaviour and no meta-keywords output
-- Blog bylines, updated dates and practical local-advice notes
+- A clearer, fairer **Everyday lock-up** question in the Get Secure tool, with stronger positive scoring and more natural wording.
+- A three-step, assistant-style **Suggested order** within the Get Secure results, based on the customer’s answers.
+- Extra Get Secure enquiry details: preferred contact method, best time to contact and the type of help the customer wants.
+- A stronger quote form with property type and best-contact-time fields.
+- More reliable direct enquiry handling, including safe image-file checks for optional lock/door photos.
+- A customer-friendly 404 page for old or mistyped links.
+- Accessibility polish: skip link, current-page navigation labels, visible focus handling and reduced-motion support.
 
-## Vercel settings — keep these as they are
+## Vercel settings
+
+Use these settings, which match the workflow that already works for this project:
 
 ```text
-Framework: Next.js
+Framework Preset: Next.js
 Node.js Version: 20.x
 Install Command: corepack enable && yarn install --network-timeout 600000
 Build Command: yarn build
 Output Directory: leave blank
 ```
 
-Keep `.yarnrc` at the project root:
+Keep `.yarnrc` in the project root:
 
 ```text
 network-timeout 600000
 enableTelemetry 0
 ```
 
-## Important: staging / launch setting
+## Testing before launch
 
-This package is intentionally set to **not be indexed yet** so the Vercel preview does not compete with the current website in Google.
-
-In Vercel, add this environment variable for Preview and Production while you are still testing:
+The website stays hidden from search engines while this environment variable is set:
 
 ```text
 NEXT_PUBLIC_LAUNCH_READY=false
 ```
 
-When the main domain is ready to switch to this site, change it to:
+When the main domain is moved to Vercel and you are ready for Google to index the new site, change it to:
 
 ```text
 NEXT_PUBLIC_LAUNCH_READY=true
 ```
 
-Then redeploy. That activates normal indexing, robots and sitemap behaviour.
+## Direct form submissions
 
-## Direct form sending — recommended before launch
-
-The website will fall back to opening an email if direct form sending is not configured. For a proper lead form, add the following Vercel environment variables using a verified email-sending domain with Resend:
+The quote form and Get Secure Property Check can send directly to `info@brodley-locksmiths.com` once Resend is configured in Vercel. Add these environment variables in **Vercel → Project → Settings → Environment Variables**:
 
 ```text
 RESEND_API_KEY=re_your_resend_api_key
@@ -73,35 +55,12 @@ ENQUIRY_FROM=Brodley Locksmiths <website@your-verified-domain.co.uk>
 ENQUIRY_TO=info@brodley-locksmiths.com
 ```
 
-The included `/api/enquiry` route sends quote requests and Get Secure results directly to the business email address. Do not put the Resend API key into GitHub or client-side code.
+`ENQUIRY_FROM` must use an address/domain verified in Resend. Until this is configured, the forms fall back to opening the customer’s email app.
 
-## Launch sequence
+## Before switching the live domain
 
-1. Deploy and test the Vercel preview on desktop and mobile.
-2. Test every Call, Quote, Email and Get Secure button.
-3. Test a direct quote form and Get Secure submission after configuring the Resend variables.
-4. Connect `www.brodley-locksmiths.com` to Vercel.
-5. Redirect the non-www domain to the preferred `www` version in the Vercel domain settings.
-6. Change `NEXT_PUBLIC_LAUNCH_READY` to `true` and redeploy.
-7. The old route redirects are already included in `next.config.js`.
-8. Add the final site in Google Search Console and submit:
-
-```text
-https://www.brodley-locksmiths.com/sitemap.xml
-```
-
-## Ongoing content that still needs real business material
-
-- Add genuine job photos to Recent Work and Case Studies as they become available.
-- Add new genuine reviews with customer permission / platform wording where appropriate.
-- Update blog dates when material changes substantially.
-- Review Search Console data after launch to decide which service and area pages need strengthening next.
-
-## Editing content
-
-- Main services, areas, FAQs, reviews, blog content and contact details: `lib/siteData.js`
-- Global styling: `app/globals.css`
-- Direct quote form: `components/QuoteForm.jsx`
-- Get Secure Property Check: `components/GetSecureCheckTool.jsx`
-- Direct enquiry endpoint: `app/api/enquiry/route.js`
-- Redirects: `next.config.js`
+- Test the Call, Quote, Email and Get Secure buttons on a phone and desktop.
+- Test a real quote-form submission and a Get Secure result submission.
+- Add genuine job photos and any new reviews you want included.
+- Keep `NEXT_PUBLIC_LAUNCH_READY=false` during testing.
+- When ready, connect the main domain in Vercel, enable indexing, and submit the sitemap in Google Search Console.

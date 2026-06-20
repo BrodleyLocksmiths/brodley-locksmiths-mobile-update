@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import { usePathname } from 'next/navigation';
 import { Menu, X, Phone } from 'lucide-react';
 import { contact, servicePages, site } from '@/lib/siteData';
 
@@ -27,6 +28,7 @@ const featuredMobileServices = [
 
 export default function Header() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     function onKeyDown(event) {
@@ -47,7 +49,7 @@ export default function Header() {
           <img src={site.headerLogo} alt="Brodley Locksmiths locksmith and security specialist logo" className="header-logo" />
         </Link>
         <nav className="desktop-nav" aria-label="Main navigation">
-          {nav.map((item) => <Link key={item.href} href={item.href}>{item.label}</Link>)}
+          {nav.map((item) => <Link key={item.href} href={item.href} aria-current={pathname === item.href ? 'page' : undefined}>{item.label}</Link>)}
         </nav>
         <div className="header-actions">
           <Link href="/quote" className="btn btn-ghost small">Request Quote</Link>
@@ -57,7 +59,7 @@ export default function Header() {
       </div>
       {open && (
         <nav className="mobile-menu" id="mobile-navigation" aria-label="Mobile navigation">
-          {nav.map((item) => <Link onClick={() => setOpen(false)} key={item.href} href={item.href}>{item.label}</Link>)}
+          {nav.map((item) => <Link onClick={() => setOpen(false)} key={item.href} href={item.href} aria-current={pathname === item.href ? 'page' : undefined}>{item.label}</Link>)}
           <Link onClick={() => setOpen(false)} href="/blog">Advice Blog</Link>
           <Link onClick={() => setOpen(false)} href="/quote">Request a Quote</Link>
           <div className="mobile-sep" />

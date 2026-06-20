@@ -16,9 +16,10 @@ function safeAttachment(data = {}) {
 
   const filename = clean(photo.filename, 120).replace(/[^a-zA-Z0-9._-]/g, '-') || 'enquiry-photo.jpg';
   const content = String(photo.content || '').replace(/\s/g, '');
+  const allowed = /\.(jpe?g|png|webp)$/i;
 
   // Base64 image data only. Keep this intentionally modest for a fast, reliable enquiry form.
-  if (!/^[A-Za-z0-9+/]+={0,2}$/.test(content) || content.length > 3_000_000) return null;
+  if (!allowed.test(filename) || !/^[A-Za-z0-9+/]+={0,2}$/.test(content) || content.length > 3_000_000) return null;
 
   return { filename, content };
 }
@@ -32,7 +33,8 @@ function linesFromData(data = {}) {
     ['Property type', data.propertyType],
     ['Service requested', data.service],
     ['Urgency', data.urgency],
-    ['Preferred contact time', data.preferredContact],
+    ['Preferred contact', data.preferredContact],
+    ['Best time to contact', data.bestTime],
     ['Message', data.message],
     ['Get Secure summary', data.report]
   ];
@@ -46,8 +48,15 @@ function linesFromData(data = {}) {
     .join('\n\n');
 }
 
+export const runtime = 'nodejs';
+export const maxDuration = 10;
+
 export async function POST(request) {
   try {
+    const contentType = request.headers.get('content-type') || '';
+    if (!contentType.includes('application/json')) {
+      return NextResponse.json({ ok: false, error: 'Please send the form again.' }, { status: 415 });
+    }
     const payload = await request.json();
     const type = clean(payload.type, 40) || 'Website enquiry';
     const data = payload.data || {};

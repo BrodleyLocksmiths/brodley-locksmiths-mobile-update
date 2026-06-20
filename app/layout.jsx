@@ -37,9 +37,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en-GB">
       <body>
+        <a className="skip-link" href="#main-content">Skip to main content</a>
         <Header />
         <EmergencyBar />
-        <main>{children}</main>
+        <main id="main-content">{children}</main>
         <Footer />
         </body>
     </html>

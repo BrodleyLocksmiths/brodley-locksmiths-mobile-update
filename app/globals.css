@@ -534,3 +534,29 @@ body.menu-open { overflow: hidden; }
 .photo-upload-label input[type="file"] { width: 100%; border: 1px dashed rgba(199,161,107,.48); background: rgba(17,18,20,.5); color: #f4f4f5; border-radius: 14px; padding: .72rem; font: inherit; }
 .photo-upload-label input[type="file"]::file-selector-button { margin-right: .7rem; border: 0; border-radius: 10px; padding: .5rem .7rem; background: var(--gold); color: var(--deep); font: inherit; font-weight: 850; cursor: pointer; }
 .photo-upload-label small { color: var(--muted); line-height: 1.45; }
+
+
+/* Conversion & accessibility polish */
+.skip-link { position: fixed; left: 1rem; top: -4rem; z-index: 1000; background: var(--gold); color: var(--deep); border-radius: 10px; padding: .7rem .9rem; font-weight: 900; transition: top .18s ease; }
+.skip-link:focus { top: 1rem; }
+.question-helper { margin: .45rem 0 0; max-width: 58ch; color: var(--muted); font-size: .94rem; line-height: 1.5; }
+.action-plan-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .85rem; margin: 1.2rem 0; }
+.action-plan-card { display: grid; gap: .55rem; min-height: 180px; padding: 1.05rem; border: 1px solid rgba(255,255,255,.13); border-radius: 18px; background: rgba(17,18,20,.62); color: #f4f4f5; transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease; }
+.action-plan-card:hover { transform: translateY(-2px); border-color: rgba(199,161,107,.72); box-shadow: 0 15px 35px rgba(0,0,0,.18); }
+.action-plan-card strong { color: var(--gold); font-size: 1rem; }
+.action-plan-card p { margin: 0; color: #d4d4d8; line-height: 1.55; font-size: .93rem; }
+.action-plan-card span { margin-top: auto; display: inline-flex; align-items: center; gap: .38rem; color: white; font-weight: 850; font-size: .88rem; }
+.action-plan-card.urgent { border-color: rgba(244,52,45,.6); background: linear-gradient(145deg, rgba(244,52,45,.15), rgba(17,18,20,.78)); }
+.action-plan-card.urgent strong { color: #ff746e; }
+.action-plan-card.priority { border-color: rgba(199,161,107,.5); }
+.action-plan-card.positive { border-color: rgba(98,190,137,.38); }
+.action-plan-card.positive strong { color: #9be2b5; }
+.not-found-page .narrow { max-width: 760px; }
+.not-found-icon { color: var(--gold); margin: 0 auto 1rem; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
+}
+@media (max-width: 900px) {
+  .action-plan-grid { grid-template-columns: 1fr; }
+  .action-plan-card { min-height: auto; }
+}

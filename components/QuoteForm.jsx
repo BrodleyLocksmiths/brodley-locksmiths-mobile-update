@@ -26,8 +26,10 @@ export default function QuoteForm() {
     email: '',
     location: '',
     service: 'Lock change',
+    propertyType: 'Home / homeowner',
     urgency: 'Flexible / advice needed',
     preferredContact: 'Phone call',
+    bestTime: 'Any time',
     message: '',
     website: ''
   });
@@ -95,9 +97,11 @@ export default function QuoteForm() {
       `Phone: ${form.phone}`,
       `Email: ${form.email}`,
       `Town / area: ${form.location}`,
+      `Property type: ${form.propertyType}`,
       `Service: ${form.service}`,
       `Urgency: ${form.urgency}`,
       `Preferred contact: ${form.preferredContact}`,
+      `Best time to contact: ${form.bestTime}`,
       '',
       'Message:',
       form.message,
@@ -158,6 +162,17 @@ export default function QuoteForm() {
         <label>Phone<input required value={form.phone} onChange={(e) => update('phone', e.target.value)} placeholder="Best number to call" autoComplete="tel" inputMode="tel" /></label>
         <label>Email<input type="email" value={form.email} onChange={(e) => update('email', e.target.value)} placeholder="Email address (optional)" autoComplete="email" /></label>
         <label>Town / area<input required value={form.location} onChange={(e) => update('location', e.target.value)} placeholder="e.g. Clacton, Harwich, Frinton" autoComplete="address-level2" /></label>
+        <label>Property type
+          <select value={form.propertyType} onChange={(e) => update('propertyType', e.target.value)}>
+            <option>Home / homeowner</option>
+            <option>Landlord / rental property</option>
+            <option>Holiday let / guest accommodation</option>
+            <option>Static caravan / holiday park</option>
+            <option>Small business / commercial</option>
+            <option>Care access / elderly relative</option>
+            <option>Other / not sure</option>
+          </select>
+        </label>
         <label>Service needed
           <select value={form.service} onChange={(e) => update('service', e.target.value)}>
             {services.map((service) => <option key={service}>{service}</option>)}
@@ -176,6 +191,14 @@ export default function QuoteForm() {
             <option>Phone call</option>
             <option>Text message</option>
             <option>Email</option>
+          </select>
+        </label>
+        <label>Best time to contact
+          <select value={form.bestTime} onChange={(e) => update('bestTime', e.target.value)}>
+            <option>Any time</option>
+            <option>Morning</option>
+            <option>Afternoon</option>
+            <option>Evening</option>
           </select>
         </label>
         <label className="photo-upload-label">Photo of the issue <span>(optional)</span>

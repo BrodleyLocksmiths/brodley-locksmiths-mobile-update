@@ -294,12 +294,14 @@ const questions = [
   },
   {
     id: 'security-habits',
-    group: 'Everyday habits',
-    question: 'Which best describes your everyday locking routine?',
+    group: 'Everyday lock-up',
+    question: 'How does your usual lock-up routine feel?',
+    helper: 'There is no perfect answer — choose the option that feels closest to everyday life.',
     options: [
-      { label: 'Consistent — doors and windows are locked, keys are controlled and issues are dealt with early', positive: 5, good: 'Good daily habits make a real difference to property security.' },
-      { label: 'Mostly good, but some areas have not been checked for a while', security: 2, reliability: 1, services: ['/services/security-surveys'], concern: 'A quick review can help spot small issues before they become expensive or urgent.' },
-      { label: 'Patchy — some locks, keys, windows or access points are not really under control', security: 5, reliability: 2, services: ['/services/security-surveys', '/services/lock-upgrades'], concern: 'When several small issues build up, a security survey can help put them in priority order.' }
+      { label: 'Confident — I make a quick check that external doors are secure, keys are accounted for and obvious windows are locked', positive: 5, good: 'A simple, consistent lock-up check is one of the strongest day-to-day security habits.' },
+      { label: 'Generally organised — I lock up as normal, but I would like more confidence around spare keys, windows or less-used doors', positive: 2, security: 1, services: ['/services/security-surveys'], good: 'You already have a sensible routine in place; a quick review can make the less-obvious areas easier to manage.', concern: 'A few less-used access points or spare-key arrangements may be worth checking when convenient.' },
+      { label: 'A few things can get missed — for example a window, patio door, outbuilding or spare key arrangement', security: 4, reliability: 1, services: ['/services/security-surveys', '/services/garage-shed-gate-locks'], concern: 'Small gaps are common. Putting the main access points in a simple order can make the property easier to secure day to day.' },
+      { label: 'I am not very confident about who has keys or whether all access points are secure', security: 7, reliability: 1, services: ['/services/security-surveys', '/services/lock-changes', '/services/lock-upgrades'], concern: 'When key history and access points feel uncertain, a practical security review can help identify the most useful first steps.' }
     ]
   },
   {
@@ -434,7 +436,36 @@ function buildNextStep(totals) {
   return 'Suggested next step: keep this checklist in mind and contact Brodley Locksmiths if anything starts to feel stiff, worn, insecure or uncertain.';
 }
 
-function buildReport({ property, area, location, totals, securityLevel, reliabilityLevel, assistantSummary, nextStepText, answeredOptions }) {
+
+function buildActionPlan(totals) {
+  if (totals.emergency) {
+    return [
+      { title: '1. Get the property secure', text: 'Call now if the door will not lock, someone is locked in or out, or the property cannot be secured safely.', href: '/services/emergency-locksmith-tendring', label: 'Urgent locksmith help', tone: 'urgent' },
+      { title: '2. Avoid forcing the handle', text: 'Extra force can damage a cylinder or multipoint mechanism. Leave the door in the safest position you can until it is checked.', href: '/services/door-will-not-lock', label: 'Door will not lock', tone: 'urgent' },
+      { title: '3. Keep the summary', text: 'Your answers can help explain the issue quickly when you call or send an enquiry.', href: '/quote', label: 'Request help', tone: 'neutral' }
+    ];
+  }
+
+  const plan = [];
+  if (totals.reliability >= 9) {
+    plan.push({ title: 'Protect the door from a bigger failure', text: 'Stiffness, lifting, loose handles or second attempts are early signs worth dealing with before they create a lockout or lock-in.', href: '/services/door-alignment-adjustment', label: 'Door alignment & repair', tone: 'priority' });
+  }
+  if (totals.security >= 9) {
+    plan.push({ title: 'Regain control of access', text: 'Start with keys, cylinders and the entrances that matter most. Small upgrades can often make a noticeable difference.', href: '/services/lock-changes', label: 'Lock changes & upgrades', tone: 'priority' });
+  }
+  if (totals.services.includes('/services/key-safes')) {
+    plan.push({ title: 'Make shared access simpler', text: 'A properly fitted key safe or clear access plan can reduce stress for family, carers, guests, tenants or trusted trades.', href: '/services/key-safes', label: 'Key safe options', tone: 'positive' });
+  }
+  if (!plan.length) {
+    plan.push({ title: 'Keep the good habits going', text: 'Your answers suggest a sound starting point. Check doors, keys and access points whenever something starts to feel different.', href: '/services/security-surveys', label: 'Optional security check', tone: 'positive' });
+  }
+  if (plan.length < 3) {
+    plan.push({ title: 'Use a clear order', text: 'Deal with anything that affects safe entry, exit or locking first. Then work through security upgrades and less-urgent access points.', href: '/get-secure-check', label: 'Keep this check handy', tone: 'neutral' });
+  }
+  return plan.slice(0, 3);
+}
+
+function buildReport({ property, area, location, totals, securityLevel, reliabilityLevel, assistantSummary, nextStepText, answeredOptions, actionPlan }) {
   return [
     'Get Secure Property Check Results',
     '',
@@ -449,6 +480,9 @@ function buildReport({ property, area, location, totals, securityLevel, reliabil
     'Practical summary:',
     assistantSummary,
     nextStepText,
+    '',
+    'Suggested order:',
+    ...actionPlan.map((item) => `- ${item.title}: ${item.text}`),
     '',
     'Things already looking positive:',
     ...(totals.good.length ? totals.good.slice(0, 8).map((item) => `- ${item}`) : ['- Complete more questions to build this section.']),
@@ -472,7 +506,7 @@ export default function GetSecureCheckTool() {
   const [propertyType, setPropertyType] = useState('home');
   const [copied, setCopied] = useState(false);
   const [saved, setSaved] = useState(false);
-  const [lead, setLead] = useState({ name: '', phone: '', email: '', preferredContact: 'Phone call', website: '' });
+  const [lead, setLead] = useState({ name: '', phone: '', email: '', preferredContact: 'Phone call', bestTime: 'Any time', helpType: 'A quick call to talk it through', website: '' });
   const [sendState, setSendState] = useState('idle');
   const [sendMessage, setSendMessage] = useState('');
 
@@ -531,7 +565,8 @@ export default function GetSecureCheckTool() {
   const reliabilityLevel = levelFor(totals.reliability, 'reliability');
   const assistantSummary = buildAssistantSummary({ totals, property, area, location, answeredCount: answeredOptions.length });
   const nextStepText = buildNextStep(totals);
-  const reportText = buildReport({ property, area, location, totals, securityLevel, reliabilityLevel, assistantSummary, nextStepText, answeredOptions });
+  const actionPlan = buildActionPlan(totals);
+  const reportText = buildReport({ property, area, location, totals, securityLevel, reliabilityLevel, assistantSummary, nextStepText, answeredOptions, actionPlan });
   const emailHref = `${contact.emailHref}?subject=${encodeURIComponent('Get Secure Property Check Results')}&body=${encodeURIComponent(['Hello Brodley Locksmiths,', '', 'I completed the Get Secure Property Check and would like some advice.', '', reportText, '', 'My contact details:', `Name: ${lead.name || 'Not provided'}`, `Phone: ${lead.phone || 'Not provided'}`, `Email: ${lead.email || 'Not provided'}`, `Preferred contact: ${lead.preferredContact}`, '', 'Please contact me about the best next step.'].join('\n'))}`;
 
   function setAnswer(questionId, option) {
@@ -547,7 +582,7 @@ export default function GetSecureCheckTool() {
     setAreaId('unsure');
     setCopied(false);
     setSaved(false);
-    setLead({ name: '', phone: '', email: '', preferredContact: 'Phone call', website: '' });
+    setLead({ name: '', phone: '', email: '', preferredContact: 'Phone call', bestTime: 'Any time', helpType: 'A quick call to talk it through', website: '' });
     setSendState('idle');
     setSendMessage('');
   }
@@ -599,7 +634,8 @@ export default function GetSecureCheckTool() {
             location: location || area.label,
             service: totals.emergency ? 'Urgent door / lock issue' : 'Property security and reliability check',
             urgency: urgencyLabel(totals),
-            message: 'Customer completed the Get Secure Property Check and would like advice.',
+            bestTime: lead.bestTime,
+            message: `Customer completed the Get Secure Property Check. Requested help: ${lead.helpType}.`,
             report: reportText
           }
         })
@@ -683,6 +719,7 @@ export default function GetSecureCheckTool() {
               <div>
                 <p className="eyebrow red">{item.group}</p>
                 <h2>{item.question}</h2>
+                {item.helper && <p className="question-helper">{item.helper}</p>}
               </div>
             </div>
             <div className="choice-grid">
@@ -719,6 +756,15 @@ export default function GetSecureCheckTool() {
             <span>Overall priority: <strong>{urgencyLabel(totals)}</strong></span>
             <span>{answeredOptions.length} of {visibleQuestions.length} questions answered</span>
           </div>
+          <div className="action-plan-grid" aria-label="Suggested next steps">
+            {actionPlan.map((item) => (
+              <Link href={item.href} className={`action-plan-card ${item.tone}`} key={item.title}>
+                <strong>{item.title}</strong>
+                <p>{item.text}</p>
+                <span>{item.label} <ArrowRight size={15} /></span>
+              </Link>
+            ))}
+          </div>
           <div className="summary-grid deeper-summary-grid">
             <SummaryBox title="Things already looking positive" items={totals.good.length ? totals.good : ['Answer a few questions and this section will show what is already working well.']} positive />
             <SummaryBox title="Things worth checking" items={totals.concerns.length ? totals.concerns : ['No major concerns selected yet. Keep answering to build a fuller picture.']} />
@@ -745,6 +791,8 @@ export default function GetSecureCheckTool() {
             <label>Phone number<input value={lead.phone} onChange={(event) => updateLead('phone', event.target.value)} placeholder="Best number to call" inputMode="tel" autoComplete="tel" /></label>
             <label>Email address<input type="email" value={lead.email} onChange={(event) => updateLead('email', event.target.value)} placeholder="Optional if you prefer email" autoComplete="email" /></label>
             <label>Preferred contact<select value={lead.preferredContact} onChange={(event) => updateLead('preferredContact', event.target.value)}><option>Phone call</option><option>Text message</option><option>Email</option></select></label>
+            <label>Best time to contact<select value={lead.bestTime} onChange={(event) => updateLead('bestTime', event.target.value)}><option>Any time</option><option>Morning</option><option>Afternoon</option><option>Evening</option></select></label>
+            <label>What would be most useful?<select value={lead.helpType} onChange={(event) => updateLead('helpType', event.target.value)}><option>A quick call to talk it through</option><option>A quote or visit</option><option>Advice on a specific door or lock</option><option>I would just like to keep my results for now</option></select></label>
             <label className="honeypot-field" aria-hidden="true">Leave this blank<input tabIndex="-1" autoComplete="off" value={lead.website} onChange={(event) => updateLead('website', event.target.value)} /></label>
             <button type="submit" className="btn btn-outline" disabled={sendState === 'sending'}><Send size={18} /> {sendState === 'sending' ? 'Sending…' : 'Send my check'}</button>
           </form>

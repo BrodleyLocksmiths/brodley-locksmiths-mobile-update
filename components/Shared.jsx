@@ -26,9 +26,10 @@ export function Hero() {
           <p>Brodley Locksmiths provides professional lock installations, lock upgrades, lock changes, uPVC door repairs and property security surveys for homes, landlords and businesses across Clacton-on-Sea, Frinton, Walton, Harwich, Dovercourt, Manningtree, Brightlingsea and surrounding Tendring villages.</p>
           <div className="button-row">
             <a href={contact.phoneHref} className="btn btn-red big">Call {contact.phoneDisplay} <Phone size={20} /></a>
-            <Link href="/services" className="btn btn-outline big">View Services <ArrowRight size={20} /></Link>
+            <Link href="/quote" className="btn btn-outline big">Request a Quote <ArrowRight size={20} /></Link>
             <Link href="/get-secure-check" className="btn btn-outline big get-secure-hero-link">Try the Get Secure Check <ClipboardCheck size={20} /></Link>
           </div>
+          <Link href="/services/door-will-not-lock" className="hero-urgent-link">Door will not lock properly? Get urgent door and lock help <ArrowRight size={16} /></Link>
           <div className="mini-card-grid">
             {[
               ['Prompt Local Service', 'Locksmith and door repair support across Tendring.'],
@@ -54,10 +55,13 @@ export function Hero() {
   );
 }
 
-export function ServicesGrid({ compact = false }) {
+export function ServicesGrid({ compact = false, slugs, limit }) {
+  const items = slugs
+    ? slugs.map((slug) => servicePages.find((service) => service.slug === slug)).filter(Boolean)
+    : limit ? servicePages.slice(0, limit) : servicePages;
   return (
     <div className="services-grid">
-      {servicePages.map((service) => {
+      {items.map((service) => {
         const Icon = service.icon;
         return (
           <article className="service-card" key={service.slug}>
@@ -76,6 +80,7 @@ export function ServicesGrid({ compact = false }) {
 
 export function ServicesByCategory() {
   const categoryOrder = [
+    'Urgent locksmith help',
     'Core locksmith services',
     'Door repairs & mechanisms',
     'Access, care & key safes',
@@ -117,6 +122,7 @@ export function ServicesByCategory() {
 
 function categoryIntro(category) {
   const intros = {
+    'Urgent locksmith help': 'Fast access and door-security routes for lockouts, lock-ins, snapped keys and doors that will not lock properly.',
     'Core locksmith services': 'Everyday locksmith help for locks, keys, upgrades and stronger property security across Tendring.',
     'Door repairs & mechanisms': 'Help for uPVC, composite and timber doors that are stiff, dropped, jammed or no longer locking smoothly.',
     'Access, care & key safes': 'Practical access solutions for carers, family members, elderly relatives, trusted trades and emergency access.',
@@ -257,10 +263,10 @@ export function ContactCTA() {
       <div className="container">
         <p className="eyebrow dark">Get Secure</p>
         <h2>Need locks changed, upgraded or a door repaired?</h2>
-        <p>Contact Brodley Locksmiths for lock installations, lock upgrades, lock changes, door repairs and property security surveys across Tendring.</p>
+        <p>Contact Brodley Locksmiths for lock installations, lock upgrades, lock changes, door repairs and property security surveys across Tendring. For a door that will not lock, a lockout or a lock-in, call first.</p>
         <div className="button-row center-row">
           <a href={contact.phoneHref} className="btn btn-black big"><Phone size={20} /> {contact.phoneDisplay}</a>
-          <a href={contact.emailHref} className="btn btn-gold big"><Mail size={20} /> Email Brodley Locksmiths</a>
+          <Link href="/quote" className="btn btn-gold big">Request a Quote <ArrowRight size={20} /></Link>
           <Link href="/get-secure-check" className="btn btn-black big">Get Secure Check <ClipboardCheck size={20} /></Link>
         </div>
       </div>

@@ -1,6 +1,7 @@
 import './globals.css';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import EmergencyBar from '@/components/EmergencyBar';
 import { site } from '@/lib/siteData';
 
 export const metadata = {
@@ -18,7 +19,12 @@ export const metadata = {
     telephone: true,
     email: true,
     address: false
-  }
+  },
+  icons: {
+    icon: '/icon.png',
+    apple: '/apple-icon.png'
+  },
+  manifest: '/manifest.webmanifest'
 };
 
 export const viewport = {
@@ -32,6 +38,7 @@ export default function RootLayout({ children }) {
     <html lang="en-GB">
       <body>
         <Header />
+        <EmergencyBar />
         <main>{children}</main>
         <Footer />
         </body>

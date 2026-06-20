@@ -1,100 +1,107 @@
-# Brodley Locksmiths — SEO Optimised Next.js Website
+# Brodley Locksmiths — Full Launch Polish Update
 
-This is a production-ready Next.js website package for Brodley Locksmiths.
+This package is the current polished Next.js website build for Brodley Locksmiths. It keeps the premium red / gold / charcoal design, the Tendring service and area pages, reviews, advice pages and the advanced **Get Secure Property Check**.
 
-## What is included
+## What this update adds
 
-- Premium red/gold/charcoal design using the supplied logo and background assets
-- Real URL structure for service and area pages
-- SEO metadata on every page
-- LocalBusiness, Service, FAQ and Breadcrumb structured data
-- Sitemap and robots.txt generation
-- Click-to-call and email links
-- Responsive mobile layout
-- Pages for services, areas, FAQs, about and contact
+- Focused homepage service section and clearer top-of-page calls to action
+- Urgent route for doors that will not lock, lockouts, lock-ins and unsafe access
+- New pages:
+  - `/services/emergency-locksmith-tendring`
+  - `/services/locked-out-non-destructive-entry`
+  - `/services/door-will-not-lock`
+- Improved Get Secure Property Check:
+  - property-specific question paths
+  - town/area context that personalises advice but does **not** automatically increase a score
+  - stronger door reliability / lockout / lock-in warning weighting
+  - urgent first question and urgent call route
+  - clearer assistant-style summary, good habits and practical next steps
+  - direct result sending, copy and save options
+- Direct quote and Get Secure enquiry endpoint with a graceful email-app fallback
+- Optional photo upload on quote requests (JPG, PNG or WEBP, up to 2MB)
+- Privacy Policy and Cookie Policy pages, plus privacy notes on enquiry forms
+- Accessibility and mobile improvements: earlier mobile menu switch, Escape-to-close menu, focus states and improved urgent route visibility
+- Favicon, Apple icon and web manifest
+- Review/profile links in the footer and `sameAs` structured data
+- Redirects prepared for important old website URLs
+- Staging-safe search settings: previews are blocked from indexing until the launch setting is changed
+- Cleaner sitemap behaviour and no meta-keywords output
+- Blog bylines, updated dates and practical local-advice notes
 
-## Main contact details
-
-- Phone: 07825 494999
-- Email: info@brodley-locksmiths.com
-- Domain expected: https://www.brodley-locksmiths.com
-
-## Install locally
-
-```bash
-npm install
-npm run dev
-```
-
-Then open:
+## Vercel settings — keep these as they are
 
 ```text
-http://localhost:3000
+Framework: Next.js
+Node.js Version: 20.x
+Install Command: corepack enable && yarn install --network-timeout 600000
+Build Command: yarn build
+Output Directory: leave blank
 ```
 
-## Build for production
+Keep `.yarnrc` at the project root:
 
-```bash
-npm run build
-npm run start
+```text
+network-timeout 600000
+enableTelemetry 0
 ```
 
-## Deploy to Vercel
+## Important: staging / launch setting
 
-1. Create a free Vercel account.
-2. Upload/import this project.
-3. Vercel should detect Next.js automatically.
-4. Deploy.
-5. Add your domain: `brodley-locksmiths.com` and `www.brodley-locksmiths.com`.
-6. Follow Vercel's DNS instructions.
-7. Once live, submit `https://www.brodley-locksmiths.com/sitemap.xml` in Google Search Console.
+This package is intentionally set to **not be indexed yet** so the Vercel preview does not compete with the current website in Google.
 
-## Important after launch
+In Vercel, add this environment variable for Preview and Production while you are still testing:
 
-- Add real Google reviews to the reviews section.
-- Add real before/after work photos.
-- Optimise Google Business Profile.
-- Build consistent local citations.
-- Connect Google Search Console and Analytics.
-- Test structured data using Google's Rich Results Test.
+```text
+NEXT_PUBLIC_LAUNCH_READY=false
+```
+
+When the main domain is ready to switch to this site, change it to:
+
+```text
+NEXT_PUBLIC_LAUNCH_READY=true
+```
+
+Then redeploy. That activates normal indexing, robots and sitemap behaviour.
+
+## Direct form sending — recommended before launch
+
+The website will fall back to opening an email if direct form sending is not configured. For a proper lead form, add the following Vercel environment variables using a verified email-sending domain with Resend:
+
+```text
+RESEND_API_KEY=re_your_resend_api_key
+ENQUIRY_FROM=Brodley Locksmiths <website@your-verified-domain.co.uk>
+ENQUIRY_TO=info@brodley-locksmiths.com
+```
+
+The included `/api/enquiry` route sends quote requests and Get Secure results directly to the business email address. Do not put the Resend API key into GitHub or client-side code.
+
+## Launch sequence
+
+1. Deploy and test the Vercel preview on desktop and mobile.
+2. Test every Call, Quote, Email and Get Secure button.
+3. Test a direct quote form and Get Secure submission after configuring the Resend variables.
+4. Connect `www.brodley-locksmiths.com` to Vercel.
+5. Redirect the non-www domain to the preferred `www` version in the Vercel domain settings.
+6. Change `NEXT_PUBLIC_LAUNCH_READY` to `true` and redeploy.
+7. The old route redirects are already included in `next.config.js`.
+8. Add the final site in Google Search Console and submit:
+
+```text
+https://www.brodley-locksmiths.com/sitemap.xml
+```
+
+## Ongoing content that still needs real business material
+
+- Add genuine job photos to Recent Work and Case Studies as they become available.
+- Add new genuine reviews with customer permission / platform wording where appropriate.
+- Update blog dates when material changes substantially.
+- Review Search Console data after launch to decide which service and area pages need strengthening next.
 
 ## Editing content
 
-Most text, areas and services are in:
-
-```text
-lib/siteData.js
-```
-
-Global styling is in:
-
-```text
-app/globals.css
-```
-
-## Added pages in this version
-
-This updated package adds:
-
-- `/services/key-safes`
-- `/services/upvc-door-mechanism-replacement`
-- `/services/landlord-locksmith-services`
-- `/services/holiday-let-guest-house-security`
-- `/blog`
-- `/blog/should-i-change-locks-after-moving-house`
-- `/blog/why-is-my-upvc-door-hard-to-lock`
-- `/blog/anti-snap-locks-explained`
-- `/blog/landlord-lock-change-checklist`
-- `/quote`
-
-Most wording for the new service pages and articles is in `lib/siteData.js`.
-The quote form is in `components/QuoteForm.jsx` and opens the visitor's email app with a pre-filled quote request to `info@brodley-locksmiths.com`.
-
-
-## Vercel install note
-Set Install Command to: corepack enable && pnpm install --no-frozen-lockfile
-Build Command: pnpm run build
-Framework: Next.js
-
-
-Update added: broken key extraction, door handle replacement, door alignment and adjustment, patio door lock repairs, pricing guide, workmanship promise, leave-a-review page, and expanded recent work/case studies.
+- Main services, areas, FAQs, reviews, blog content and contact details: `lib/siteData.js`
+- Global styling: `app/globals.css`
+- Direct quote form: `components/QuoteForm.jsx`
+- Get Secure Property Check: `components/GetSecureCheckTool.jsx`
+- Direct enquiry endpoint: `app/api/enquiry/route.js`
+- Redirects: `next.config.js`

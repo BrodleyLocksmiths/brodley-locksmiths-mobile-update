@@ -9,6 +9,12 @@ export default function Footer() {
           <img src={site.headerLogo} alt="Brodley Locksmiths logo" className="footer-logo" />
           <p>Premium locksmith, door repair and security survey services across Tendring, including Clacton-on-Sea, Frinton-on-Sea, Walton-on-the-Naze, Harwich, Dovercourt, Manningtree and Brightlingsea.</p>
           <p className="footer-contact"><a href={contact.phoneHref}>{contact.phoneDisplay}</a><br /><a href={contact.emailHref}>{contact.email}</a></p>
+          <div className="footer-profile-links" aria-label="Brodley Locksmiths profile links">
+            <a href={site.profiles[0]} target="_blank" rel="noreferrer">Facebook</a>
+            <a href={site.profiles[1]} target="_blank" rel="noreferrer">Yell</a>
+            <a href={site.profiles[2]} target="_blank" rel="noreferrer">Checkatrade</a>
+            <a href={site.profiles[3]} target="_blank" rel="noreferrer">MyBuilder</a>
+          </div>
         </div>
         <div>
           <h2>Services</h2>
@@ -38,6 +44,8 @@ export default function Footer() {
           <Link href="/about">About</Link>
           <Link href="/contact">Contact</Link>
           <Link href="/quote">Request a Quote</Link>
+          <Link href="/privacy-policy">Privacy Policy</Link>
+          <Link href="/cookie-policy">Cookie Policy</Link>
         </div>
       </div>
       <div className="copyright">© {new Date().getFullYear()} Brodley Locksmiths. Locksmith and security services across Tendring.</div>

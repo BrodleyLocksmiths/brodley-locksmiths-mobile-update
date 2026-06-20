@@ -1,6 +1,11 @@
 import { site } from '@/lib/siteData';
 
 export default function robots() {
+  if (!site.launchReady) {
+    return {
+      rules: { userAgent: '*', disallow: '/' }
+    };
+  }
   return {
     rules: {
       userAgent: '*',

@@ -17,10 +17,11 @@ export default function HomePage() {
       <Hero />
       <section className="section deep">
         <div className="container">
-          <SectionHeader eyebrow="Core Services" title="Locksmith services built around security, reliability and tidy workmanship.">
-            Whether you need a lock changed, a door repaired, a key safe fitted or a full security review, Brodley Locksmiths provides practical advice, professional workmanship and a security-first approach across Tendring.
+          <SectionHeader eyebrow="Core Services" title="The locksmith help most Tendring customers need.">
+            Start with the service that best matches the problem. For urgent access or a door that will not lock, call Brodley Locksmiths directly. For planned work, request a quote or use the Get Secure Property Check.
           </SectionHeader>
-          <ServicesGrid />
+          <ServicesGrid slugs={['lock-changes', 'lock-upgrades', 'upvc-door-repairs-tendring', 'multipoint-lock-repairs', 'security-surveys', 'key-safes']} />
+          <div className="center homepage-services-link"><a className="btn btn-outline big" href="/services">View all locksmith services</a></div>
         </div>
       </section>
       <LocalSeoSection />

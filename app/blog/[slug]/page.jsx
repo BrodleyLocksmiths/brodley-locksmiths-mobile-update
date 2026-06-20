@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { ArrowRight, CalendarDays } from 'lucide-react';
+import { ArrowRight, CalendarDays, UserRound } from 'lucide-react';
 import JsonLd from '@/components/JsonLd';
 import { ContactCTA, FaqSection, ServicesInternalLinks } from '@/components/Shared';
 import { blogPosts } from '@/lib/siteData';
@@ -30,7 +30,9 @@ export default function BlogPostPage({ params }) {
           <p className="eyebrow gold">Locksmith Advice</p>
           <h1>{post.title}</h1>
           <div className="article-meta"><CalendarDays size={16} /> {post.readTime}</div>
+          <div className="article-byline"><UserRound size={16} /> Written by <strong>Ron Brodley</strong> <span>•</span> Updated June 2026 <span>•</span> Tendring locksmith advice</div>
           <p className="article-intro">{post.intro}</p>
+          <div className="article-practical-note"><strong>Local practical note:</strong> This guide is written for the types of homes, rentals, holiday properties and businesses found across Tendring. A door, lock or key issue can have several causes, so the most useful next step is always based on the actual property and how the lock is behaving.</div>
           <div className="article-content">
             {post.sections.map((section) => {
               const paragraphs = Array.isArray(section.p) ? section.p : [section.p];

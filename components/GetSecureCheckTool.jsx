@@ -6,7 +6,6 @@ import {
   ArrowRight,
   Award,
   CheckCircle2,
-  ClipboardCheck,
   Copy,
   FileText,
   Home,
@@ -17,6 +16,7 @@ import {
   Phone,
   RotateCcw,
   ShieldCheck,
+  Send,
   Wrench
 } from 'lucide-react';
 import { contact } from '@/lib/siteData';
@@ -27,56 +27,42 @@ const propertyTypes = [
     label: 'Home / homeowner',
     intro: 'A practical check for locks, doors, windows, keys, outbuildings and everyday home security.',
     starter: 'We will look at home access, lock condition, door reliability, window security and common weak points around a typical Tendring property.',
-    securityBase: 0,
-    reliabilityBase: 0
   },
   {
     id: 'landlord',
     label: 'Landlord / rental property',
     intro: 'A rental-focused check for tenant changes, key control, door reliability, key safes and maintenance warning signs.',
     starter: 'Rental properties need strong key control and doors that tenants can lock easily without forcing handles or damaging mechanisms.',
-    securityBase: 2,
-    reliabilityBase: 1
   },
   {
     id: 'holiday-let',
     label: 'Holiday let',
     intro: 'A guest-turnover check for key safes, access routines, door wear, lock changes and reliable arrival/departure access.',
     starter: 'Holiday lets often have more key use, repeated door operation and guest access routines, so reliable locking and clear key control matter.',
-    securityBase: 3,
-    reliabilityBase: 1
   },
   {
     id: 'guest-house',
     label: 'Guest house / accommodation',
     intro: 'A higher-use property check for guest doors, staff keys, access points, window locks and everyday lock reliability.',
     starter: 'Guest accommodation can put more wear on locks, handles and doors, especially where several people use the same access points every day.',
-    securityBase: 3,
-    reliabilityBase: 2
   },
   {
     id: 'caravan',
     label: 'Static caravan / holiday park',
     intro: 'A caravan and holiday park check for seasonal access, lost keys, key safes, door locks, sheds, gates and guest handovers.',
     starter: 'Static caravans and holiday park properties often need simple, reliable access plans, especially before busy holiday periods.',
-    securityBase: 3,
-    reliabilityBase: 2
   },
   {
     id: 'business',
     label: 'Small business',
     intro: 'A business premises check for front/rear access, staff keys, storage areas, side doors, windows and lock reliability.',
     starter: 'Small businesses should look at customer entrances, rear doors, staff key control, stock/storage areas and how quickly a failed lock would disrupt opening.',
-    securityBase: 3,
-    reliabilityBase: 2
   },
   {
     id: 'care',
     label: 'Elderly relative / care access',
     intro: 'A safe-access check for carers, family, key safes, smooth-locking doors and reducing lockout or lock-in risk.',
     starter: 'For elderly relatives or care access, the main priority is safe, reliable entry without leaving spare keys in risky places.',
-    securityBase: 2,
-    reliabilityBase: 2
   }
 ];
 
@@ -84,64 +70,50 @@ const areaOptions = [
   {
     id: 'clacton',
     label: 'Clacton / Great Clacton / Holland-on-Sea / Jaywick',
-    securityBase: 2,
-    reliabilityBase: 1,
     note: 'Busy coastal and residential areas often benefit from good key control, uPVC door checks, anti-snap lock upgrades and secure access planning for flats, rentals and holiday properties.',
-    publicData: 'Police.uk and Essex Police local maps can be used as a snapshot for reported local crime, but they are anonymised and should be treated as a guide rather than a property-specific risk rating.',
+    publicData: 'Your selected area is used to tailor practical advice around property layout, coastal exposure, access arrangements and common local property types. It does not change your score on its own.',
     focus: ['uPVC door repairs', 'anti-snap lock upgrades', 'lock changes', 'key safes']
   },
   {
     id: 'frinton-walton',
     label: 'Frinton / Walton / Kirby / Great Holland',
-    securityBase: 2,
-    reliabilityBase: 1,
     note: 'Coastal homes, holiday properties and well-used uPVC or composite doors can benefit from lock upgrades, door alignment checks, window locks and key safe placement advice.',
-    publicData: 'Local crime maps are useful for general awareness, but a good property check still comes down to doors, cylinders, windows, key control and access routes.',
+    publicData: 'Your selected area is used to tailor practical advice around property layout, coastal exposure, access arrangements and common local property types. It does not change your score on its own.',
     focus: ['composite door repairs', 'window lock repairs', 'holiday let security', 'security surveys']
   },
   {
     id: 'harwich-dovercourt',
     label: 'Harwich / Dovercourt / Parkeston / Oakley',
-    securityBase: 2,
-    reliabilityBase: 2,
     note: 'Older doors, rental homes, coastal weather and small business premises make door reliability, cylinder suitability and rear access worth checking.',
-    publicData: 'Public crime data can show broad local patterns, but lock condition and door reliability need an on-site check when there are warning signs.',
+    publicData: 'Your selected area is used to tailor practical advice around property layout, coastal exposure, access arrangements and common local property types. It does not change your score on its own.',
     focus: ['multipoint lock repairs', 'door alignment', 'business security', 'euro cylinder replacement']
   },
   {
     id: 'manningtree',
     label: 'Manningtree / Lawford / Mistley / Bradfield',
-    securityBase: 1,
-    reliabilityBase: 1,
     note: 'Homes, village properties, garages, sheds, side access and outbuildings often benefit from a practical all-round security review.',
-    publicData: 'Village and edge-of-town properties should think beyond the front door and include garages, gates, sheds and spare-key habits.',
+    publicData: 'Your selected area is used to tailor practical advice around property layout, coastal exposure, access arrangements and common local property types. It does not change your score on its own.',
     focus: ['garage locks', 'shed and gate locks', 'security surveys', 'lock upgrades']
   },
   {
     id: 'brightlingsea',
     label: 'Brightlingsea / Alresford / Thorrington',
-    securityBase: 2,
-    reliabilityBase: 1,
     note: 'Coastal homes, holiday accommodation and everyday residential doors may need attention to alignment, cylinders, window locks and weather-related wear.',
-    publicData: 'Coastal exposure and repeated seasonal use can affect doors and locks, so reliability risk is worth checking as well as security.',
+    publicData: 'Your selected area is used to tailor practical advice around property layout, coastal exposure, access arrangements and common local property types. It does not change your score on its own.',
     focus: ['door alignment', 'patio door lock repairs', 'window lock repairs', 'key safes']
   },
   {
     id: 'villages',
     label: 'Tendring villages / rural property',
-    securityBase: 1,
-    reliabilityBase: 1,
     note: 'Rural and village properties should consider outbuildings, garages, gates, side access, spare keys and practical emergency access.',
-    publicData: 'Public crime maps can be checked for local awareness, but rural security often depends on lighting, side access, outbuildings and whether keys are controlled.',
+    publicData: 'Your selected area is used to tailor practical advice around property layout, coastal exposure, access arrangements and common local property types. It does not change your score on its own.',
     focus: ['shed and gate locks', 'garage locks', 'key safes', 'security surveys']
   },
   {
     id: 'unsure',
     label: 'Not sure / nearby area',
-    securityBase: 1,
-    reliabilityBase: 0,
     note: 'A basic check of doors, locks, windows, key control and access points is still a useful starting point.',
-    publicData: 'For a fuller local picture, Brodley Locksmiths can discuss your town, property type and access concerns when you get in touch.',
+    publicData: 'Your selected area is used to tailor practical advice around property layout, coastal exposure, access arrangements and common local property types. It does not change your score on its own.',
     focus: ['security surveys', 'lock changes', 'door repairs']
   }
 ];
@@ -222,12 +194,34 @@ const serviceInfo = {
   '/services/locksmith-for-small-businesses': {
     label: 'Small Business Locksmith',
     text: 'For staff keys, front and rear access, shop doors, storage areas and business lock reliability.'
+  },
+  '/services/emergency-locksmith-tendring': {
+    label: 'Emergency Locksmith',
+    text: 'For lockouts, lock-ins, snapped keys or doors that cannot be secured safely.'
+  },
+  '/services/locked-out-non-destructive-entry': {
+    label: 'Locked Out / Gain Entry',
+    text: 'For prompt, careful entry help when you are unable to get into a home or business.'
+  },
+  '/services/door-will-not-lock': {
+    label: 'Door Will Not Lock',
+    text: 'For stiff, dropped or jammed doors that may leave a property insecure or someone unable to get out.'
   }
 };
 
 const allServices = Object.keys(serviceInfo);
 
 const questions = [
+  {
+    id: 'secure-now',
+    group: 'First, a quick safety check',
+    question: 'Can you lock and secure the property safely right now?',
+    options: [
+      { label: 'Yes — the property is secure and doors are working normally', positive: 4, good: 'The property is secure right now, which is a good starting point.' },
+      { label: 'Mostly — it locks, but a door is stiff or I am not fully confident', reliability: 8, services: ['/services/door-will-not-lock', '/services/door-alignment-adjustment'], concern: 'A door that is starting to feel stiff or unreliable is worth checking before it becomes a lockout, lock-in or security issue.' },
+      { label: 'No — a door will not lock, someone is locked out/in, or the property cannot be secured', reliability: 15, security: 5, urgent: true, services: ['/services/emergency-locksmith-tendring', '/services/locked-out-non-destructive-entry', '/services/door-will-not-lock'], concern: 'This may need urgent attention because the property may be insecure or someone may be unable to enter or leave safely.' }
+    ]
+  },
   {
     id: 'key-control',
     group: 'Keys & access',
@@ -406,6 +400,10 @@ function urgencyLabel(totals) {
 
 function buildAssistantSummary({ totals, property, area, location, answeredCount }) {
   const place = location?.trim() ? location.trim() : area.label;
+  const immediate = totals.emergency;
+  if (immediate) {
+    return `Your first answer suggests an urgent access or security issue at this ${property.label.toLowerCase()} in ${place}. The priority is to get the property secure and make sure nobody is left locked out, locked in or relying on a door that may fail further.`;
+  }
   if (answeredCount === 0) {
     return `Start with the questions above and the check will build a more useful picture for your ${property.label.toLowerCase()} in ${place}. It will look separately at security, key control and the chance of door or lock failure.`;
   }
@@ -428,6 +426,7 @@ function buildAssistantSummary({ totals, property, area, location, answeredCount
 }
 
 function buildNextStep(totals) {
+  if (totals.emergency) return 'Suggested next step: call Brodley Locksmiths now so the door, lock or access problem can be dealt with before it becomes more stressful or leaves the property insecure.';
   if (totals.reliability >= 18) return 'Suggested next step: arrange a door and lock reliability check, especially if any door needs lifting, pulling, forcing or repeated attempts to lock.';
   if (totals.security >= 18) return 'Suggested next step: arrange a security survey or lock review to look at key control, cylinders, window locks, outbuildings and access points.';
   if (totals.services.includes('/services/key-safes')) return 'Suggested next step: consider whether a properly fitted key safe or access plan would make the property safer and easier to manage.';
@@ -473,6 +472,9 @@ export default function GetSecureCheckTool() {
   const [propertyType, setPropertyType] = useState('home');
   const [copied, setCopied] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [lead, setLead] = useState({ name: '', phone: '', email: '', preferredContact: 'Phone call', website: '' });
+  const [sendState, setSendState] = useState('idle');
+  const [sendMessage, setSendMessage] = useState('');
 
   const property = propertyTypes.find((item) => item.id === propertyType) || propertyTypes[0];
   const area = areaOptions.find((item) => item.id === areaId) || areaOptions[areaOptions.length - 1];
@@ -481,10 +483,11 @@ export default function GetSecureCheckTool() {
 
   const totals = useMemo(() => {
     const base = {
-      security: property.securityBase + area.securityBase,
-      reliability: property.reliabilityBase + area.reliabilityBase,
+      security: 0,
+      reliability: 0,
       positive: 0,
       urgentCount: 0,
+      emergency: false,
       services: ['/services/security-surveys'],
       good: [],
       concerns: []
@@ -494,17 +497,24 @@ export default function GetSecureCheckTool() {
       base.security += option.security || 0;
       base.reliability += option.reliability || 0;
       base.positive += option.positive || 0;
-      if (option.urgent) base.urgentCount += 1;
+      if (option.urgent) {
+        base.urgentCount += 1;
+        if (option.label.startsWith('No — a door will not lock')) base.emergency = true;
+      }
       if (option.good) base.good.push(option.good);
       if (option.concern) base.concerns.push(option.concern);
       (option.services || []).forEach((service) => base.services.push(service));
     });
 
-    area.focus.forEach((focus) => {
-      const match = allServices.find((href) => serviceInfo[href].label.toLowerCase().includes(focus.split(' ')[0]));
-      if (match && (base.security >= 9 || base.reliability >= 9)) base.services.push(match);
-    });
+    // Area information personalises advice only; it does not automatically add risk points.
+    if (base.concerns.length) {
+      area.focus.forEach((focus) => {
+        const match = allServices.find((href) => serviceInfo[href].label.toLowerCase().includes(focus.split(' ')[0]));
+        if (match) base.services.push(match);
+      });
+    }
 
+    if (base.emergency) base.services.push('/services/emergency-locksmith-tendring', '/services/locked-out-non-destructive-entry', '/services/door-will-not-lock');
     if (base.reliability >= 9) base.services.push('/services/upvc-door-repairs-tendring', '/services/door-alignment-adjustment');
     if (base.reliability >= 16) base.services.push('/services/multipoint-lock-repairs');
     if (base.security >= 9) base.services.push('/services/lock-changes', '/services/anti-snap-lock-upgrades');
@@ -522,7 +532,7 @@ export default function GetSecureCheckTool() {
   const assistantSummary = buildAssistantSummary({ totals, property, area, location, answeredCount: answeredOptions.length });
   const nextStepText = buildNextStep(totals);
   const reportText = buildReport({ property, area, location, totals, securityLevel, reliabilityLevel, assistantSummary, nextStepText, answeredOptions });
-  const emailHref = `${contact.emailHref}?subject=${encodeURIComponent('Get Secure Property Check Results')}&body=${encodeURIComponent(['Hello Brodley Locksmiths,', '', 'I completed the Get Secure Property Check and would like some advice.', '', reportText, '', 'Please contact me about the best next step.'].join('\n'))}`;
+  const emailHref = `${contact.emailHref}?subject=${encodeURIComponent('Get Secure Property Check Results')}&body=${encodeURIComponent(['Hello Brodley Locksmiths,', '', 'I completed the Get Secure Property Check and would like some advice.', '', reportText, '', 'My contact details:', `Name: ${lead.name || 'Not provided'}`, `Phone: ${lead.phone || 'Not provided'}`, `Email: ${lead.email || 'Not provided'}`, `Preferred contact: ${lead.preferredContact}`, '', 'Please contact me about the best next step.'].join('\n'))}`;
 
   function setAnswer(questionId, option) {
     setAnswers((current) => ({ ...current, [questionId]: option }));
@@ -537,6 +547,9 @@ export default function GetSecureCheckTool() {
     setAreaId('unsure');
     setCopied(false);
     setSaved(false);
+    setLead({ name: '', phone: '', email: '', preferredContact: 'Phone call', website: '' });
+    setSendState('idle');
+    setSendMessage('');
   }
 
   async function copyResults() {
@@ -554,6 +567,60 @@ export default function GetSecureCheckTool() {
       setSaved(true);
     } catch (error) {
       setSaved(false);
+    }
+  }
+
+  function updateLead(field, value) {
+    setLead((current) => ({ ...current, [field]: value }));
+    if (sendState !== 'idle') {
+      setSendState('idle');
+      setSendMessage('');
+    }
+  }
+
+  async function sendResults(event) {
+    event.preventDefault();
+    if (!lead.name || (!lead.phone && !lead.email)) {
+      setSendState('error');
+      setSendMessage('Please add your name and a phone number or email address.');
+      return;
+    }
+    setSendState('sending');
+    setSendMessage('Sending your check…');
+    try {
+      const response = await fetch('/api/enquiry', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          type: 'Get Secure Property Check',
+          data: {
+            ...lead,
+            propertyType: property.label,
+            location: location || area.label,
+            service: totals.emergency ? 'Urgent door / lock issue' : 'Property security and reliability check',
+            urgency: urgencyLabel(totals),
+            message: 'Customer completed the Get Secure Property Check and would like advice.',
+            report: reportText
+          }
+        })
+      });
+      const result = await response.json();
+      if (response.ok && result.ok) {
+        setSendState('success');
+        setSendMessage('Thanks — your Get Secure check has been sent. Brodley Locksmiths will use the contact details you supplied to get back to you.');
+        return;
+      }
+      if (result.fallback) {
+        setSendState('fallback');
+        setSendMessage('Your results are ready in an email so you can send them now. For urgent issues, please call.');
+        window.location.href = emailHref;
+        return;
+      }
+      setSendState('error');
+      setSendMessage(result.error || 'The check could not send right now. Please call or email instead.');
+    } catch {
+      setSendState('error');
+      setSendMessage('The check could not send right now. Please call or email instead.');
     }
   }
 
@@ -595,6 +662,13 @@ export default function GetSecureCheckTool() {
         </div>
 
         <div className="score-stack">
+          {totals.emergency && (
+            <div className="tool-urgent-alert" role="alert">
+              <strong>Urgent door or access issue</strong>
+              <p>A door may not be secure, or somebody may be locked out or in. Calling is usually the quickest route.</p>
+              <a href={contact.phoneHref} className="btn btn-red"><Phone size={18} /> Call {contact.phoneDisplay}</a>
+            </div>
+          )}
           <ScoreCard icon={ShieldCheck} title="Security risk" level={securityLevel.label} tone={securityLevel.tone} score={totals.security} text={securityLevel.text} />
           <ScoreCard icon={Wrench} title="Door & lock reliability" level={reliabilityLevel.label} tone={reliabilityLevel.tone} score={totals.reliability} text={reliabilityLevel.text} />
           <ScoreCard icon={Award} title="Positive habits" level={positiveLevel(totals.positive)} tone="positive" score={totals.positive} text="This recognises the good things already in place, such as known key control, smooth-locking doors, working window locks and planned access." />
@@ -659,18 +733,30 @@ export default function GetSecureCheckTool() {
             ))}
           </div>
         </div>
-        <div className="security-action-card advanced-action-card">
+        <aside className="security-action-card advanced-action-card">
           <KeyRound size={34} />
-          <h3>Send your check to Brodley Locksmiths</h3>
-          <p>Send the results through and Brodley Locksmiths can give practical advice on the most sensible next step, whether that is a lock change, anti-snap upgrade, uPVC door repair, key safe, garage lock, window lock or security survey across Tendring.</p>
+          <h3>{totals.emergency ? 'Get urgent locksmith help' : 'Send your check to Brodley Locksmiths'}</h3>
+          <p>{totals.emergency ? 'A door that will not lock, a lockout or a lock-in can become more stressful quickly. Call now for the fastest response, or send the summary below if it is safe to do so.' : 'Send the results through for practical advice on the most sensible next step, whether that is a lock change, anti-snap upgrade, uPVC door repair, key safe, garage lock, window lock or security survey across Tendring.'}</p>
           <div className="button-row stacked-actions">
             <a href={contact.phoneHref} className="btn btn-red"><Phone size={18} /> Call {contact.phoneDisplay}</a>
-            <a href={emailHref} className="btn btn-outline"><Mail size={18} /> Email my results</a>
+          </div>
+          <form className="tool-lead-form" onSubmit={sendResults}>
+            <label>Your name<input required value={lead.name} onChange={(event) => updateLead('name', event.target.value)} placeholder="Your name" autoComplete="name" /></label>
+            <label>Phone number<input value={lead.phone} onChange={(event) => updateLead('phone', event.target.value)} placeholder="Best number to call" inputMode="tel" autoComplete="tel" /></label>
+            <label>Email address<input type="email" value={lead.email} onChange={(event) => updateLead('email', event.target.value)} placeholder="Optional if you prefer email" autoComplete="email" /></label>
+            <label>Preferred contact<select value={lead.preferredContact} onChange={(event) => updateLead('preferredContact', event.target.value)}><option>Phone call</option><option>Text message</option><option>Email</option></select></label>
+            <label className="honeypot-field" aria-hidden="true">Leave this blank<input tabIndex="-1" autoComplete="off" value={lead.website} onChange={(event) => updateLead('website', event.target.value)} /></label>
+            <button type="submit" className="btn btn-outline" disabled={sendState === 'sending'}><Send size={18} /> {sendState === 'sending' ? 'Sending…' : 'Send my check'}</button>
+          </form>
+          {sendMessage && <p className={`form-status ${sendState}`} role="status">{sendMessage}</p>}
+          <div className="button-row stacked-actions secondary-tool-actions">
+            <a href={emailHref} className="btn btn-outline"><Mail size={18} /> Email results instead</a>
             <button type="button" className="btn btn-outline" onClick={copyResults}><Copy size={18} /> {copied ? 'Copied' : 'Copy results'}</button>
             <button type="button" className="btn btn-outline" onClick={saveResults}><FileText size={18} /> {saved ? 'Saved on this device' : 'Save results'}</button>
           </div>
+          <p className="form-note tool-privacy-note">By sending your check, you are asking Brodley Locksmiths to use these details to respond. <Link href="/privacy-policy">Privacy Policy</Link></p>
           <button type="button" className="text-link reset-button" onClick={reset}><RotateCcw size={16} /> Reset check</button>
-        </div>
+        </aside>
       </section>
     </div>
   );

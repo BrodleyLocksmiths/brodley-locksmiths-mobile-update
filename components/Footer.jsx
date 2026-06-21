@@ -35,6 +35,7 @@ export default function Footer() {
           <Link href="/blog">Advice Blog</Link>
           <Link href="/reviews">Reviews</Link>
           <Link href="/recent-work">Recent Work</Link>
+          <Link href="/real-work-gallery">Real Work Gallery</Link>
           <Link href="/case-studies">Case Studies</Link>
           <Link href="/why-choose-brodley-locksmiths">Why Choose Brodley Locksmiths</Link>
           <Link href="/example-security-survey-report">Example Security Survey</Link>

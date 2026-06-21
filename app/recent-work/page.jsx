@@ -1,13 +1,15 @@
 import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
 import { ContactCTA, PageShell, ReviewCards, SectionHeader } from '@/components/Shared';
+import { GateUpgradePhotos, WorkPhotoCard } from '@/components/RealWork';
+import { realWorkById } from '@/lib/realWork';
 import { contact } from '@/lib/siteData';
 import { breadcrumbSchema, localBusinessSchema, pageMetadata } from '@/lib/schema';
 import { ArrowRight, BadgeCheck, KeyRound, DoorOpen, LockKeyhole, ShieldCheck, Phone, Mail } from 'lucide-react';
 
 export const metadata = pageMetadata({
   title: 'Recent Locksmith Work Tendring | Brodley Locksmiths',
-  description: 'Recent locksmith work from Brodley Locksmiths across Tendring, including lock changes, snapped key callouts, older lock repairs, key safes and higher-security door locks.',
+  description: 'Recent locksmith work and genuine job photographs from Brodley Locksmiths across Tendring, including lock changes, uPVC door work, gate security, key safes and commercial door locks.',
   path: '/recent-work',
   keywords: 'recent locksmith work Tendring, locksmith Clacton reviews, lock repairs Tendring, key safe fitting Clacton, lock changes Tendring'
 });
@@ -108,6 +110,17 @@ export default function RecentWorkPage() {
             <a href={contact.emailHref} className="btn btn-outline big"><Mail size={20} /> Email Brodley Locksmiths</a>
           </div>
         </section>
+
+        <section className="section-inset real-work-section">
+          <SectionHeader eyebrow="Genuine Job Photos" title="Real lock, door and access work.">
+            A selection of genuine Brodley Locksmiths job photographs. Sensitive details such as keys and key-safe information are protected before images are used publicly.
+          </SectionHeader>
+          <div className="real-work-grid real-work-grid-featured">
+            {['upvc-door-repair-on-site', 'era-cylinder-black-handle', 'key-safe-fitted', 'commercial-door-lock-work'].map((id) => <WorkPhotoCard key={id} photo={realWorkById[id]} compact />)}
+          </div>
+        </section>
+
+        <GateUpgradePhotos />
 
         <div className="blog-grid">
           {recentWork.map((job) => {

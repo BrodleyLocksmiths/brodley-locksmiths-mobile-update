@@ -362,6 +362,11 @@ export function ProofHubSection() {
       text: 'See the types of lock changes, older lock repairs, snapped key callouts, key safe installations and security upgrades Brodley Locksmiths helps with across Tendring.'
     },
     {
+      href: '/real-work-gallery',
+      title: 'Real work photo gallery',
+      text: 'View genuine job photography showing lock, door, gate, access and commercial locksmith work, with sensitive details protected before publication.'
+    },
+    {
       href: '/case-studies',
       title: 'Review-led case studies',
       text: 'Read customer-inspired stories showing how clear advice, repair-first thinking and tidy workmanship can help save time, stress and unnecessary replacement costs.'

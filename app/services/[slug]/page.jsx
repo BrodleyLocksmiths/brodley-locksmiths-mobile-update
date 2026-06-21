@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { ArrowRight, CheckCircle2, Mail, Phone, MapPin, SearchCheck, ClipboardCheck, ShieldCheck } from 'lucide-react';
 import JsonLd from '@/components/JsonLd';
 import { ContactCTA, FaqSection, GateSecurityFeature, ServicesInternalLinks } from '@/components/Shared';
+import { GateUpgradePhotos, ServiceWorkGallery } from '@/components/RealWork';
 import { contact, coreFaqs, servicePages } from '@/lib/siteData';
 import { breadcrumbSchema, faqSchema, localBusinessSchema, pageMetadata, serviceSchema } from '@/lib/schema';
 
@@ -99,6 +100,9 @@ export default function ServiceDetailPage({ params }) {
               <div className="search-chip-row">{service.reasons.slice(0, 4).map((reason) => <span key={reason}>{reason}</span>)}</div>
             </div>
           </div>
+
+          <ServiceWorkGallery serviceSlug={service.slug} />
+          {service.slug === 'gatemate-gate-security' && <GateUpgradePhotos />}
 
           <div className="content-grid compact-content-grid">
             <div className="info-box">

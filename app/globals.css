@@ -600,3 +600,54 @@ body.menu-open { overflow: hidden; }
   .gate-security-feature-aside { border-radius: 20px; }
   .gatemate-point-grid { grid-template-columns: 1fr; }
 }
+
+/* Genuine job photography */
+.deep-soft { background: radial-gradient(circle at 76% 12%, rgba(199,161,107,.1), transparent 28%), rgba(15,16,18,.36); }
+.real-work-preview { border-top: 1px solid rgba(199,161,107,.12); border-bottom: 1px solid rgba(199,161,107,.12); }
+.real-work-heading-row { display: flex; align-items: end; justify-content: space-between; gap: 2rem; margin-bottom: 1.65rem; }
+.real-work-heading-row > div { max-width: 800px; }
+.real-work-heading-row h2 { color: white; font-size: clamp(2rem, 4vw, 3.1rem); line-height: 1.04; margin: .4rem 0 .8rem; }
+.real-work-heading-row p { margin: 0; max-width: 760px; }
+.real-work-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.15rem; }
+.real-work-grid-two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.real-work-grid-featured { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.real-work-gallery-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.real-work-card { border: 1px solid var(--line); overflow: hidden; border-radius: 26px; background: rgba(48,50,55,.78); box-shadow: 0 22px 50px rgba(0,0,0,.18); display: flex; flex-direction: column; }
+.real-work-card-compact { border-radius: 22px; }
+.real-work-image-wrap { position: relative; background: #0f1012; min-height: 225px; overflow: hidden; }
+.real-work-card-compact .real-work-image-wrap { min-height: 205px; }
+.real-work-image { display: block; width: 100%; height: 100%; min-height: inherit; max-height: 360px; object-fit: cover; object-position: center; transition: transform .35s ease; }
+.real-work-card:hover .real-work-image { transform: scale(1.035); }
+.real-work-label, .real-work-category { position: absolute; top: 14px; z-index: 1; display: inline-flex; align-items: center; border-radius: 999px; padding: .42rem .68rem; font-size: .76rem; font-weight: 900; letter-spacing: .02em; backdrop-filter: blur(10px); }
+.real-work-label { left: 14px; color: white; background: rgba(244,52,45,.92); }
+.real-work-category { right: 14px; color: var(--deep); background: rgba(199,161,107,.96); }
+.real-work-copy { padding: 1.2rem 1.2rem 1.3rem; }
+.real-work-card-compact .real-work-copy { padding: 1rem 1rem 1.1rem; }
+.real-work-copy h3 { color: white; margin: 0 0 .45rem; font-size: 1.27rem; line-height: 1.15; }
+.real-work-card-compact .real-work-copy h3 { font-size: 1.1rem; }
+.real-work-copy p { margin: 0; font-size: .95rem; line-height: 1.55; }
+.service-work-gallery { margin: 1.3rem 0; border: 1px solid var(--line); background: linear-gradient(135deg, rgba(48,50,55,.76), rgba(17,18,20,.74)); border-radius: 30px; padding: 1.55rem; box-shadow: 0 22px 50px rgba(0,0,0,.18); }
+.service-work-gallery-intro { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.25rem; }
+.service-work-gallery-intro .icon-box { flex: none; margin: 0; }
+.service-work-gallery-intro h2, .gate-upgrade-photos h2 { color: var(--gold); margin: .25rem 0 .5rem; font-size: 1.7rem; }
+.service-work-gallery-intro p, .gate-upgrade-photos p { margin: 0; }
+.service-work-gallery-link { margin-top: 1.25rem; }
+.gate-upgrade-photos { margin: 2.5rem 0; border: 1px solid rgba(199,161,107,.3); background: radial-gradient(circle at 85% 10%, rgba(244,52,45,.12), transparent 32%), rgba(17,18,20,.58); border-radius: 32px; padding: 1.55rem; }
+.gate-upgrade-photos-heading { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.2rem; }
+.gate-upgrade-photos-heading .icon-box { flex: none; margin: 0; }
+.real-work-section { margin-top: 2.6rem; }
+.real-work-gallery-intro { margin-bottom: 2rem; }
+
+@media (max-width: 1100px) {
+  .real-work-grid-featured { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .real-work-grid, .real-work-gallery-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 640px) {
+  .real-work-heading-row { display: grid; align-items: start; gap: 1rem; }
+  .real-work-grid, .real-work-grid-two, .real-work-grid-featured, .real-work-gallery-grid { grid-template-columns: 1fr; }
+  .real-work-image-wrap, .real-work-card-compact .real-work-image-wrap { min-height: 245px; }
+  .real-work-card { border-radius: 22px; }
+  .service-work-gallery, .gate-upgrade-photos { border-radius: 24px; padding: 1.1rem; }
+  .service-work-gallery-intro, .gate-upgrade-photos-heading { gap: .75rem; }
+  .service-work-gallery-intro h2, .gate-upgrade-photos h2 { font-size: 1.45rem; }
+}

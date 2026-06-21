@@ -1,13 +1,15 @@
 import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
 import { ContactCTA, PageShell, SectionHeader } from '@/components/Shared';
+import { GateUpgradePhotos, WorkPhotoCard } from '@/components/RealWork';
+import { realWorkById } from '@/lib/realWork';
 import { contact } from '@/lib/siteData';
 import { breadcrumbSchema, localBusinessSchema, pageMetadata } from '@/lib/schema';
 import { ArrowRight, BadgeCheck, CheckCircle2, Phone, Mail } from 'lucide-react';
 
 export const metadata = pageMetadata({
   title: 'Locksmith Case Studies Tendring | Brodley Locksmiths',
-  description: 'Review-inspired locksmith case studies from Brodley Locksmiths across Tendring, including lost keys, older lock repairs, snapped keys, key safes and security upgrades.',
+  description: 'Review-led locksmith case studies and genuine work photographs from Brodley Locksmiths across Tendring, covering locks, doors, gate security, key safes and security upgrades.',
   path: '/case-studies',
   keywords: 'locksmith case studies Tendring, lock change case study Clacton, key safe case study Tendring, locksmith reviews Clacton'
 });
@@ -92,6 +94,17 @@ export default function CaseStudiesPage() {
             <a href={contact.emailHref} className="btn btn-outline big"><Mail size={20} /> Email Brodley Locksmiths</a>
           </div>
         </section>
+
+        <section className="section-inset real-work-section">
+          <SectionHeader eyebrow="Photo Evidence" title="Examples from completed locksmith work.">
+            These photographs show the type of lock, door, gate and access work carried out by Brodley Locksmiths. They sit alongside the review-led case studies below without assigning a customer review to the wrong job.
+          </SectionHeader>
+          <div className="real-work-grid real-work-grid-featured">
+            {['upvc-door-repair-on-site', 'yale-nightlatch-inside', 'anti-snap-cylinder-fitment'].map((id) => <WorkPhotoCard key={id} photo={realWorkById[id]} compact />)}
+          </div>
+        </section>
+
+        <GateUpgradePhotos />
 
         <div className="blog-grid">
           {caseStudies.map((study) => (

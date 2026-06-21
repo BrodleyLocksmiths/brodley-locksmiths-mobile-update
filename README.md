@@ -67,3 +67,7 @@ ENQUIRY_TO=info@brodley-locksmiths.com
 - Add genuine job photos and any new reviews you want included.
 - Keep `NEXT_PUBLIC_LAUNCH_READY=false` during testing.
 - When ready, connect the main domain in Vercel, enable indexing, and submit the sitemap in Google Search Console.
+
+## Real job photo update
+
+This package includes a new `/real-work-gallery` page plus genuine job photography on the homepage, Recent Work, Case Studies and relevant service pages. Images are web-optimised and sensitive key/key-safe detail has been obscured. Use `REAL-WORK-PHOTO-WORKFLOW.md` when supplying future job photos so they can be added accurately.

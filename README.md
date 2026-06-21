@@ -1,16 +1,19 @@
-# Brodley Locksmiths — Launch-Polished Next.js Website
+# Brodley Locksmiths — GateMate® & Outdoor Security Update
 
 This is the current Brodley Locksmiths Next.js website package for Vercel. It includes the red/gold/charcoal brand design, Tendring service and area pages, reviews, blog content, emergency pages, quote form and advanced **Get Secure Property Check**.
 
 ## This update adds
 
-- A clearer, fairer **Everyday lock-up** question in the Get Secure tool, with stronger positive scoring and more natural wording.
-- A three-step, assistant-style **Suggested order** within the Get Secure results, based on the customer’s answers.
-- Extra Get Secure enquiry details: preferred contact method, best time to contact and the type of help the customer wants.
-- A stronger quote form with property type and best-contact-time fields.
-- More reliable direct enquiry handling, including safe image-file checks for optional lock/door photos.
-- A customer-friendly 404 page for old or mistyped links.
-- Accessibility polish: skip link, current-page navigation labels, visible focus handling and reduced-motion support.
+- A dedicated **GateMate® Gate Security** service page for side gates, garden gates, sheds, workshops, garages and rear access.
+- A customer-friendly GateMate® feature block on the homepage and key related pages: Security Surveys, Garage/Shed/Gate Locks and Caravan & Holiday Park Locksmith Services.
+- A new in-depth local guide: **How to Secure a Side Gate, Garden Gate, Shed and Rear Access**.
+- A richer outdoor-access question inside the **Get Secure Property Check**, with security and reliability weighting for stiff, rusty, misaligned or insecure gates.
+- GateMate® recommendations in Get Secure result cards and assistant-style next steps where outdoor access needs attention.
+- A private `GATEMATE-REAL-JOBS-READY.md` template for turning future real jobs and photos into credible Recent Work and Case Study entries without publishing invented examples.
+
+## GateMate® wording
+
+This website uses GateMate® as a product brand reference only. It does not claim that Brodley Locksmiths is an official GateMate® installer, stockist or manufacturer. Product suitability and availability should always be confirmed after the gate, access requirements and site conditions have been assessed.
 
 ## Vercel settings
 

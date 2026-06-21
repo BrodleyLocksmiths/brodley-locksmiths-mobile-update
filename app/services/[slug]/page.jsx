@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { ArrowRight, CheckCircle2, Mail, Phone, MapPin, SearchCheck, ClipboardCheck } from 'lucide-react';
+import { ArrowRight, CheckCircle2, Mail, Phone, MapPin, SearchCheck, ClipboardCheck, ShieldCheck } from 'lucide-react';
 import JsonLd from '@/components/JsonLd';
-import { ContactCTA, FaqSection, ServicesInternalLinks } from '@/components/Shared';
+import { ContactCTA, FaqSection, GateSecurityFeature, ServicesInternalLinks } from '@/components/Shared';
 import { contact, coreFaqs, servicePages } from '@/lib/siteData';
 import { breadcrumbSchema, faqSchema, localBusinessSchema, pageMetadata, serviceSchema } from '@/lib/schema';
 
@@ -24,6 +24,24 @@ function ServiceListCard({ title, items }) {
         {items.map((item) => <div key={item}><CheckCircle2 size={18} /> <span>{item}</span></div>)}
       </div>
     </div>
+  );
+}
+
+
+function GateMateSpotlight({ spotlight }) {
+  return (
+    <section className="gatemate-spotlight" aria-label="GateMate gate security feature">
+      <div className="gatemate-mark">OUTDOOR<br />ACCESS</div>
+      <div>
+        <p className="eyebrow gold">{spotlight.eyebrow}</p>
+        <h2>{spotlight.title}</h2>
+        <p>{spotlight.text}</p>
+        <div className="gatemate-point-grid">
+          {spotlight.bullets.map((item) => <div key={item}><ShieldCheck size={18} /> <span>{item}</span></div>)}
+        </div>
+        <p className="gatemate-note">{spotlight.note}</p>
+      </div>
+    </section>
   );
 }
 
@@ -66,6 +84,8 @@ export default function ServiceDetailPage({ params }) {
             <ServiceListCard title="The Brodley Locksmiths approach" items={service.approach} />
           </div>
 
+          {service.spotlight && <GateMateSpotlight spotlight={service.spotlight} />}
+
           <div className="local-service-panel">
             <div>
               <MapPin size={34} />
@@ -95,6 +115,7 @@ export default function ServiceDetailPage({ params }) {
             <p>Not sure whether you need a repair, lock upgrade, key safe or full security survey? Use the Get Secure Property Check to spot common security and door reliability concerns first.</p>
             <Link href="/get-secure-check" className="btn btn-red"><ClipboardCheck size={18} /> Try the Get Secure Property Check</Link>
           </div>
+          {['garage-shed-gate-locks', 'caravan-holiday-park-locksmith-services', 'security-surveys'].includes(service.slug) && <GateSecurityFeature compact />}
           <ServicesInternalLinks current={service.slug} />
         </div>
       </section>

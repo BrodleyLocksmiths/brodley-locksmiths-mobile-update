@@ -179,6 +179,10 @@ const serviceInfo = {
     label: 'Garage, Shed & Gate Locks',
     text: 'For side access, tools, bikes, garden equipment, garages and outbuildings.'
   },
+  '/services/gatemate-gate-security': {
+    label: 'GateMate® Gate Security',
+    text: 'For practical side-gate, rear-access, shed and workshop security with suitable outdoor hardware and key control.'
+  },
   '/services/caravan-holiday-park-locksmith-services': {
     label: 'Caravan & Holiday Park Locksmiths',
     text: 'For static caravan lock changes, holiday park access, key safes and seasonal handovers.'
@@ -280,6 +284,18 @@ const questions = [
       { label: 'Well secured — useful items, tools and side routes are protected', positive: 4, good: 'Secured outbuildings and side access make the whole property harder to target.' },
       { label: 'Basic — there are locks, but they are old or not confidence-inspiring', security: 3, services: ['/services/garage-shed-gate-locks', '/services/security-surveys'], concern: 'Older shed, garage and gate locks may not match the value of what they protect.' },
       { label: 'Weak — tools, bikes, gates or outbuildings are easy to access', security: 6, services: ['/services/garage-shed-gate-locks', '/services/security-surveys'], concern: 'Weak side access and outbuildings can increase risk around the whole property.' }
+    ]
+  },
+  {
+    id: 'outdoor-gate-access',
+    group: 'Side & rear access',
+    question: 'How secure is the gate or outdoor access route to the rear of the property?',
+    helper: 'Choose the closest answer. This includes side gates, garden gates, workshop gates and outdoor access around sheds or garages.',
+    options: [
+      { label: 'Not relevant — there is no gate or outdoor route that needs securing', positive: 1, good: 'There is no separate outdoor access route adding another obvious security point.' },
+      { label: 'Well controlled — the gate closes cleanly, locks properly and access is limited to the right people', positive: 4, good: 'A secure, usable gate helps control access to the rear of the property and any outbuildings behind it.' },
+      { label: 'Could be better — the gate has a basic, stiff, rusty or awkward lock, or key control is unclear', security: 5, reliability: 4, services: ['/services/gatemate-gate-security', '/services/garage-shed-gate-locks'], concern: 'A gate that is awkward to lock or has unclear key control can end up being left unsecured, especially in poor weather or during busy periods.' },
+      { label: 'Weak or unreliable — it does not secure properly, is easy to open, or gives easy access to sheds, storage or the rear of the property', security: 8, reliability: 5, services: ['/services/gatemate-gate-security', '/services/garage-shed-gate-locks', '/services/security-surveys'], concern: 'Rear access is worth prioritising when a gate does not secure properly or makes sheds, storage areas, patios or rear doors easier to reach.' }
     ]
   },
   {
@@ -418,6 +434,9 @@ function buildAssistantSummary({ totals, property, area, location, answeredCount
   if (totals.security >= 18) {
     return `For this ${property.label.toLowerCase()} in ${place}, the main concern is security and access control. The answers point towards key history, older cylinders, shared access or weak points that would benefit from a lock change, anti-snap upgrade, key safe or security survey.`;
   }
+  if (totals.services.includes('/services/gatemate-gate-security')) {
+    return `For this ${property.label.toLowerCase()} in ${place}, outdoor access is worth bringing into the security plan. A side or rear gate does not need to be complicated, but it should close cleanly, lock reliably and only give access to the right people. A GateMate® gate-security check can look at the lock, hinges, closing line and key control together.`;
+  }
   if (totals.good.length >= 4 && totals.concerns.length <= 2) {
     return `Your answers show several good habits already in place for this ${property.label.toLowerCase()}. There may still be a couple of areas worth checking, but the overall picture is positive. A quick Get Secure visit can confirm whether anything needs attention.`;
   }
@@ -431,6 +450,7 @@ function buildNextStep(totals) {
   if (totals.emergency) return 'Suggested next step: call Brodley Locksmiths now so the door, lock or access problem can be dealt with before it becomes more stressful or leaves the property insecure.';
   if (totals.reliability >= 18) return 'Suggested next step: arrange a door and lock reliability check, especially if any door needs lifting, pulling, forcing or repeated attempts to lock.';
   if (totals.security >= 18) return 'Suggested next step: arrange a security survey or lock review to look at key control, cylinders, window locks, outbuildings and access points.';
+  if (totals.services.includes('/services/gatemate-gate-security')) return 'Suggested next step: check that the side or rear gate closes cleanly, locks reliably and gives controlled access to the garden, shed, garage or rear of the property.';
   if (totals.services.includes('/services/key-safes')) return 'Suggested next step: consider whether a properly fitted key safe or access plan would make the property safer and easier to manage.';
   if (totals.services.includes('/services/anti-snap-lock-upgrades')) return 'Suggested next step: check whether the main door cylinders are suitable, especially on uPVC or composite doors.';
   return 'Suggested next step: keep this checklist in mind and contact Brodley Locksmiths if anything starts to feel stiff, worn, insecure or uncertain.';
@@ -452,6 +472,9 @@ function buildActionPlan(totals) {
   }
   if (totals.security >= 9) {
     plan.push({ title: 'Regain control of access', text: 'Start with keys, cylinders and the entrances that matter most. Small upgrades can often make a noticeable difference.', href: '/services/lock-changes', label: 'Lock changes & upgrades', tone: 'priority' });
+  }
+  if (totals.services.includes('/services/gatemate-gate-security')) {
+    plan.push({ title: 'Secure side and rear access', text: 'A gate that closes, throws and locks cleanly makes the rear of the property, sheds and storage less accessible. Check the lock, key control, hinges and alignment together.', href: '/services/gatemate-gate-security', label: 'GateMate® gate security', tone: 'priority' });
   }
   if (totals.services.includes('/services/key-safes')) {
     plan.push({ title: 'Make shared access simpler', text: 'A properly fitted key safe or clear access plan can reduce stress for family, carers, guests, tenants or trusted trades.', href: '/services/key-safes', label: 'Key safe options', tone: 'positive' });

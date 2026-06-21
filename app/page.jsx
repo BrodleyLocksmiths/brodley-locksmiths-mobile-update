@@ -1,5 +1,5 @@
 import JsonLd from '@/components/JsonLd';
-import { AreasPreview, BlogPreview, ContactCTA, FaqSection, Hero, LocalSeoSection, ReviewsSection, ProofHubSection, SectionHeader, ServicesGrid, TrustSection } from '@/components/Shared';
+import { AreasPreview, BlogPreview, ContactCTA, FaqSection, GateSecurityFeature, Hero, LocalSeoSection, ReviewsSection, ProofHubSection, SectionHeader, ServicesGrid, TrustSection } from '@/components/Shared';
 import { coreFaqs } from '@/lib/siteData';
 import { faqSchema, localBusinessSchema, pageMetadata, websiteSchema } from '@/lib/schema';
 
@@ -22,6 +22,7 @@ export default function HomePage() {
           </SectionHeader>
           <ServicesGrid slugs={['lock-changes', 'lock-upgrades', 'upvc-door-repairs-tendring', 'multipoint-lock-repairs', 'security-surveys', 'key-safes']} />
           <div className="center homepage-services-link"><a className="btn btn-outline big" href="/services">View all locksmith services</a></div>
+          <GateSecurityFeature />
         </div>
       </section>
       <LocalSeoSection />

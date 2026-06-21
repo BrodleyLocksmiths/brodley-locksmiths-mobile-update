@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { CheckCircle2, Phone, Mail, ArrowRight, MapPinned, Star, BadgeCheck, Wrench, Camera, MessageSquare, ClipboardCheck, HelpCircle } from 'lucide-react';
+import { CheckCircle2, Phone, Mail, ArrowRight, MapPinned, Star, BadgeCheck, Wrench, Camera, MessageSquare, ClipboardCheck, HelpCircle, ShieldCheck, KeyRound } from 'lucide-react';
 import { blogPosts, contact, coreFaqs, customerReviews, locations, servicePages, site } from '@/lib/siteData';
 
 export function SectionHeader({ eyebrow, title, children }) {
@@ -88,6 +88,7 @@ export function ServicesByCategory() {
     'Holiday lets, guest houses & caravan sites',
     'Small business security',
     'Move-in & key control',
+    'Outdoor access & gate security',
     'Security surveys & advice'
   ];
   const grouped = categoryOrder
@@ -130,9 +131,43 @@ function categoryIntro(category) {
     'Holiday lets, guest houses & caravan sites': 'Access, key safe, lock change and door repair support for Tendring’s coastal accommodation market.',
     'Small business security': 'Lock, door and key control support for shops, offices, workshops, storage areas and local business premises.',
     'Move-in & key control': 'Services for new homeowners, new tenants and anyone who needs to regain control of property keys.',
+    'Outdoor access & gate security': 'Practical locks and access control for side gates, garden gates, sheds, workshops and outdoor storage.',
     'Security surveys & advice': 'Security reviews for homes, landlords, businesses and accommodation providers who want clear priorities.'
   };
   return intros[category] || 'Local locksmith support across Tendring.';
+}
+
+
+export function GateSecurityFeature({ compact = false }) {
+  return (
+    <section className={`gate-security-feature ${compact ? 'gate-security-feature-compact' : ''}`}>
+      <div className="gate-security-feature-copy">
+        <p className="eyebrow gold">Outdoor access</p>
+        <h2>GateMate® gate security for side gates, sheds and rear access.</h2>
+        <p>A side or rear gate can be the easy route to a garden, shed, garage, workshop or rear door. Brodley Locksmiths can assess the gate, access needs and outdoor exposure before advising on a practical GateMate® lock or other suitable security upgrade.</p>
+        <div className="gate-security-feature-points">
+          <span><ShieldCheck size={18} /> Key-controlled access where appropriate</span>
+          <span><KeyRound size={18} /> Better key control for homes, rentals and holiday properties</span>
+          <span><Wrench size={18} /> Alignment, hinges and keeps checked with the lock setup</span>
+        </div>
+        <div className="button-row gate-security-feature-actions">
+          <Link href="/services/gatemate-gate-security" className="btn btn-red">Explore GateMate® gate security <ArrowRight size={18} /></Link>
+          <Link href="/get-secure-check" className="btn btn-outline">Check garden & side access <ClipboardCheck size={18} /></Link>
+        </div>
+      </div>
+      <aside className="gate-security-feature-aside">
+        <p className="eyebrow red">Worth checking</p>
+        <h3>Does your gate close and lock as easily as it should?</h3>
+        <ul>
+          <li>Side gate gives access to the rear of the property</li>
+          <li>Gate is stiff, dropped, rusty or difficult to lock</li>
+          <li>Tools, bikes, sheds or storage sit behind the gate</li>
+          <li>Guests, tenants, staff, family or carers need controlled access</li>
+        </ul>
+        <Link href="/blog/how-to-secure-a-side-gate-garden-gate-shed-and-rear-access" className="text-link">Read the gate security guide <ArrowRight size={16} /></Link>
+      </aside>
+    </section>
+  );
 }
 
 export function LocalSeoSection() {
@@ -315,6 +350,11 @@ export function ProofHubSection() {
       href: '/get-secure-check',
       title: 'Get Secure Property Check',
       text: 'Use the interactive lock, door, window and access checklist to spot common security concerns and find the right Brodley Locksmiths service.'
+    },
+    {
+      href: '/services/gatemate-gate-security',
+      title: 'GateMate® gate security',
+      text: 'Practical side-gate, shed, workshop and rear-access security for homes, rentals, caravan properties and local businesses.'
     },
     {
       href: '/recent-work',

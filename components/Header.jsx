@@ -23,7 +23,8 @@ const featuredMobileServices = [
   'multipoint-lock-repairs',
   'key-safes',
   'broken-key-extraction',
-  'patio-door-lock-repairs'
+  'patio-door-lock-repairs',
+  'gatemate-gate-security'
 ];
 
 export default function Header() {

@@ -19,6 +19,7 @@ export default function Footer() {
         <div>
           <h2>Services</h2>
           {servicePages.slice(0, 8).map((s) => <Link key={s.slug} href={`/services/${s.slug}`}>{s.nav}</Link>)}
+          <Link href="/services/gatemate-gate-security">GateMate® Gate Security</Link>
           <Link href="/services">View all services</Link>
         </div>
         <div>

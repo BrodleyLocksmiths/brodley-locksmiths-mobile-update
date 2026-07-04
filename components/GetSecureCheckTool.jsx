@@ -26,45 +26,59 @@ import { contact } from '@/lib/siteData';
 const propertyTypes = [
   {
     id: 'home',
-    label: 'Home / homeowner',
-    intro: 'A practical check for locks, doors, windows, keys, outbuildings and everyday home security.',
-    starter: 'We will look at home access, lock condition, door reliability, window security and common weak points around a typical Tendring property.',
+    label: 'Homeowner',
+    intro: 'A practical check for your doors, locks, keys, windows, side access and everyday home security.',
+    starter: 'We will focus on the access points you use every day, plus the things that are easy to overlook.',
+    placeholder: 'e.g. Clacton, Frinton, Harwich or a nearby village'
+  },
+  {
+    id: 'tenant',
+    label: 'Tenant',
+    intro: 'A renter-friendly check for doors, locks and access issues you can spot and report clearly.',
+    starter: 'This route focuses on what you are experiencing day to day and what may need reporting to a landlord or managing agent.',
+    placeholder: 'e.g. Clacton flat, Frinton rental or nearby area'
   },
   {
     id: 'landlord',
-    label: 'Landlord / rental property',
-    intro: 'A rental-focused check for tenant changes, key control, door reliability, key safes and maintenance warning signs.',
-    starter: 'Rental properties need strong key control and doors that tenants can lock easily without forcing handles or damaging mechanisms.',
+    label: 'Landlord / rental property owner',
+    intro: 'A landlord check for tenant changeovers, key control, void properties and door maintenance warning signs.',
+    starter: 'We will focus on the checks that help prevent tenant lockouts, unclear key history and avoidable emergency repairs.',
+    placeholder: 'e.g. Clacton rental, flat block or portfolio area'
   },
   {
     id: 'holiday-let',
-    label: 'Holiday let',
-    intro: 'A guest-turnover check for key safes, access routines, door wear, lock changes and reliable arrival/departure access.',
-    starter: 'Holiday lets often have more key use, repeated door operation and guest access routines, so reliable locking and clear key control matter.',
+    label: 'Holiday let owner',
+    intro: 'A guest-turnover check for keys, key safes, reliable locks and smoother arrivals and departures.',
+    starter: 'We will focus on the access routines and door wear that matter most between bookings.',
+    placeholder: 'e.g. Walton holiday let, St Osyth park or nearby area'
   },
   {
     id: 'guest-house',
     label: 'Guest house / accommodation',
-    intro: 'A higher-use property check for guest doors, staff keys, access points, window locks and everyday lock reliability.',
-    starter: 'Guest accommodation can put more wear on locks, handles and doors, especially where several people use the same access points every day.',
+    intro: 'A higher-use property check for guest doors, staff keys, access points and lock reliability.',
+    starter: 'We will focus on the doors and access routines that need to work cleanly every day.',
+    placeholder: 'e.g. Harwich guest house, hotel or accommodation'
   },
   {
     id: 'caravan',
     label: 'Static caravan / holiday park',
-    intro: 'A caravan and holiday park check for seasonal access, lost keys, key safes, door locks, sheds, gates and guest handovers.',
-    starter: 'Static caravans and holiday park properties often need simple, reliable access plans, especially before busy holiday periods.',
+    intro: 'A caravan and holiday-park check for seasonal access, keys, door locks, storage and outdoor security.',
+    starter: 'We will focus on simple, reliable access before busy periods or changeovers.',
+    placeholder: 'e.g. St Osyth caravan park, Jaywick or nearby site'
   },
   {
     id: 'business',
     label: 'Small business',
-    intro: 'A business premises check for front/rear access, staff keys, storage areas, side doors, windows and lock reliability.',
-    starter: 'Small businesses should look at customer entrances, rear doors, staff key control, stock/storage areas and how quickly a failed lock would disrupt opening.',
+    intro: 'A business premises check for staff keys, front and rear doors, storage areas and reliable opening routines.',
+    starter: 'We will focus on the locks and access points that could disrupt the business if they fail.',
+    placeholder: 'e.g. Clacton shop, Harwich office or workshop'
   },
   {
     id: 'care',
     label: 'Elderly relative / care access',
-    intro: 'A safe-access check for carers, family, key safes, smooth-locking doors and reducing lockout or lock-in risk.',
-    starter: 'For elderly relatives or care access, the main priority is safe, reliable entry without leaving spare keys in risky places.',
+    intro: 'A safe-access check for carers, family, key safes and doors that must remain easy to use.',
+    starter: 'We will focus on reliable entry and reducing the chance of a stressful lockout or lock-in.',
+    placeholder: 'e.g. Holland-on-Sea, Frinton or nearby area'
   }
 ];
 
@@ -220,115 +234,125 @@ const allServices = Object.keys(serviceInfo);
 const questions = [
   {
     id: 'secure-now',
-    group: 'First, a quick safety check',
-    question: 'Can you lock and secure the property safely right now?',
+    group: 'Quick safety check',
+    question: 'Can the property be locked and secured safely right now?',
     options: [
-      { label: 'Yes — the property is secure and doors are working normally', positive: 4, good: 'The property is secure right now, which is a good starting point.' },
-      { label: 'Mostly — it locks, but a door is stiff or I am not fully confident', reliability: 8, services: ['/services/door-will-not-lock', '/services/door-alignment-adjustment'], concern: 'A door that is starting to feel stiff or unreliable is worth checking before it becomes a lockout, lock-in or security issue.' },
+      { label: 'Yes — doors are secure and working normally', positive: 4, good: 'The property is secure right now.' },
+      { label: 'Mostly — it locks, but a door is stiff or not fully reliable', reliability: 8, services: ['/services/door-will-not-lock', '/services/door-alignment-adjustment'], concern: 'A door that is becoming stiff or unreliable is worth checking before it becomes a lockout, lock-in or security issue.' },
       { label: 'No — a door will not lock, someone is locked out/in, or the property cannot be secured', reliability: 15, security: 5, urgent: true, services: ['/services/emergency-locksmith-tendring', '/services/locked-out-non-destructive-entry', '/services/door-will-not-lock'], concern: 'This may need urgent attention because the property may be insecure or someone may be unable to enter or leave safely.' }
-    ]
-  },
-  {
-    id: 'key-control',
-    group: 'Keys & access',
-    question: 'How confident are you about who has keys to the property?',
-    options: [
-      { label: 'Confident — keys are controlled and locks were changed when needed', positive: 5, good: 'Key control is strong. Knowing who has access is one of the best security habits.' },
-      { label: 'Not fully sure — previous owners, tenants, guests, staff or family may still have keys', security: 4, services: ['/services/lock-changes', '/services/move-in-lock-change-service'], concern: 'Unknown key history is worth tightening up, especially after moving home, tenant changes or staff changes.' },
-      { label: 'Concerned — keys have been lost, stolen, snapped or not returned', security: 7, reliability: 1, urgent: true, services: ['/services/lock-changes', '/services/euro-cylinder-replacement', '/services/broken-key-extraction'], concern: 'Lost, stolen, snapped or unreturned keys can quickly become an access and security problem.' }
     ]
   },
   {
     id: 'door-operation',
     group: 'Door reliability',
-    question: 'How do your main doors feel when you lock them?',
+    question: 'How do the main doors feel when locking?',
     options: [
-      { label: 'Smooth — no lifting, pulling, forcing or second attempt needed', positive: 5, good: 'Smooth locking is a strong sign that the door, keeps and locking points are working together.' },
-      { label: 'Slightly stiff — it catches, needs lifting or only locks smoothly sometimes', reliability: 8, services: ['/services/upvc-door-repairs-tendring', '/services/door-alignment-adjustment', '/services/multipoint-lock-repairs'], concern: 'Even slight stiffness can strain the locking mechanism and increase the risk of a future lockout, lock-in or failed multipoint lock.' },
+      { label: 'Smooth — no lifting, pulling, forcing or second attempt needed', positive: 5, good: 'The main door locks smoothly without obvious strain.' },
+      { label: 'Slightly stiff — it catches, needs lifting or only locks smoothly sometimes', reliability: 8, services: ['/services/upvc-door-repairs-tendring', '/services/door-alignment-adjustment', '/services/multipoint-lock-repairs'], concern: 'Even slight stiffness can strain the locking mechanism and increase the chance of a future lockout, lock-in or failed multipoint lock.' },
       { label: 'Difficult — it jams, needs forcing or feels close to failing', reliability: 12, security: 2, urgent: true, services: ['/services/multipoint-lock-repairs', '/services/upvc-door-mechanism-replacement', '/services/door-alignment-adjustment'], concern: 'A door that needs forcing should be treated as high priority. It may fail suddenly and leave someone locked out, locked in or unable to secure the property.' }
     ]
   },
   {
     id: 'handle-key',
     group: 'Early warning signs',
-    question: 'Do you notice any warning signs from the key, handle or mechanism?',
+    question: 'Do you notice any warning signs from the key, handle or lock?',
     options: [
-      { label: 'No — the key turns cleanly and the handle feels firm', positive: 4, good: 'A clean key turn and firm handle are good signs that the lock is not obviously under strain.' },
-      { label: 'A little — key sticks, handle feels loose or the lock needs a second try', reliability: 7, services: ['/services/euro-cylinder-replacement', '/services/door-handle-replacement', '/services/upvc-door-repairs-tendring'], concern: 'Small changes in the feel of a key or handle often appear before a bigger lock, cylinder or mechanism failure.' },
-      { label: 'Often — the key or handle regularly feels unreliable', reliability: 11, security: 1, urgent: true, services: ['/services/multipoint-lock-repairs', '/services/upvc-door-mechanism-replacement', '/services/door-handle-replacement'], concern: 'Repeated stiffness, loose handles or unreliable locking raise the risk of being locked out, locked in or unable to lock the door properly.' }
+      { label: 'No — the key turns cleanly and the handle feels firm', positive: 4, good: 'The key and handle are not showing obvious signs of strain.' },
+      { label: 'Sometimes — the key sticks, the handle feels loose or the lock needs a second try', reliability: 7, services: ['/services/euro-cylinder-replacement', '/services/door-handle-replacement', '/services/upvc-door-repairs-tendring'], concern: 'Small changes in the feel of a key or handle can appear before a bigger lock, cylinder or mechanism failure.' },
+      { label: 'Often — the key or handle regularly feels unreliable', reliability: 11, security: 1, urgent: true, services: ['/services/multipoint-lock-repairs', '/services/upvc-door-mechanism-replacement', '/services/door-handle-replacement'], concern: 'Repeated stiffness, loose handles or unreliable locking increase the risk of being locked out, locked in or unable to lock the door properly.' }
+    ]
+  },
+
+  // Homeowner route
+  {
+    id: 'home-key-history',
+    appliesTo: ['home'],
+    group: 'Keys & lock history',
+    question: 'How confident are you about who has keys to your home?',
+    options: [
+      { label: 'Confident — locks were changed when needed and keys are accounted for', positive: 5, good: 'You have a clear picture of who has access to your home.' },
+      { label: 'Not fully sure — previous owners, family or trades may still have keys', security: 4, services: ['/services/lock-changes', '/services/move-in-lock-change-service'], concern: 'Unknown key history is worth tightening up, especially after moving home.' },
+      { label: 'Concerned — keys have been lost, stolen or are unaccounted for', security: 7, reliability: 1, urgent: true, services: ['/services/lock-changes', '/services/euro-cylinder-replacement', '/services/broken-key-extraction'], concern: 'Lost, stolen or unaccounted-for keys can quickly become an access and security problem.' }
     ]
   },
   {
-    id: 'cylinder-security',
-    group: 'Lock security',
-    question: 'Do you know whether your main door cylinders are modern security-rated locks?',
-    options: [
-      { label: 'Yes — they have been upgraded or checked recently', positive: 5, good: 'Modern, suitable cylinders are a strong security step, especially on uPVC and composite doors.' },
-      { label: 'Not sure — they may be old or standard cylinders', security: 4, services: ['/services/anti-snap-lock-upgrades', '/services/euro-cylinder-replacement'], concern: 'Older or unknown cylinders are worth checking, particularly on front, rear and side doors.' },
-      { label: 'No — they look old, stick out, feel worn or have never been checked', security: 7, services: ['/services/anti-snap-lock-upgrades', '/services/euro-cylinder-replacement'], concern: 'Old, worn or unsuitable cylinders are one of the simplest security upgrades to review.' }
-    ]
-  },
-  {
-    id: 'windows-patio',
+    id: 'home-windows',
+    appliesTo: ['home'],
     group: 'Windows & patio doors',
     question: 'Are accessible windows and patio doors secure and working properly?',
     options: [
-      { label: 'Yes — accessible windows and patio doors have working locks', positive: 4, good: 'Working window and patio door locks help reduce easy access points.' },
+      { label: 'Yes — locks work and keys are available where needed', positive: 4, good: 'Accessible windows and patio doors are part of a sound security setup.' },
       { label: 'Mixed — some are old, missing keys or not recently checked', security: 3, reliability: 1, services: ['/services/window-lock-repairs', '/services/patio-door-lock-repairs', '/services/security-surveys'], concern: 'Accessible windows and patio doors are easy to overlook until a lock fails or a key is missing.' },
-      { label: 'Poor — windows or patio doors feel insecure, faulty or unreliable', security: 6, reliability: 2, services: ['/services/window-lock-repairs', '/services/patio-door-lock-repairs', '/services/security-surveys'], concern: 'Poor window or patio door security can leave a property with avoidable weak points.' }
+      { label: 'Poor — a window or patio door feels insecure, faulty or unreliable', security: 6, reliability: 2, services: ['/services/window-lock-repairs', '/services/patio-door-lock-repairs', '/services/security-surveys'], concern: 'A faulty window or patio door can leave an avoidable weak point.' }
     ]
   },
   {
-    id: 'outbuildings',
-    group: 'Garages, sheds & side access',
-    question: 'How secure are sheds, garages, gates and side access routes?',
-    options: [
-      { label: 'Well secured — useful items, tools and side routes are protected', positive: 4, good: 'Secured outbuildings and side access make the whole property harder to target.' },
-      { label: 'Basic — there are locks, but they are old or not confidence-inspiring', security: 3, services: ['/services/garage-shed-gate-locks', '/services/security-surveys'], concern: 'Older shed, garage and gate locks may not match the value of what they protect.' },
-      { label: 'Weak — tools, bikes, gates or outbuildings are easy to access', security: 6, services: ['/services/garage-shed-gate-locks', '/services/security-surveys'], concern: 'Weak side access and outbuildings can increase risk around the whole property.' }
-    ]
-  },
-  {
-    id: 'outdoor-gate-access',
+    id: 'home-outdoor-access',
+    appliesTo: ['home'],
     group: 'Side & rear access',
-    question: 'How secure is the gate or outdoor access route to the rear of the property?',
-    helper: 'Choose the closest answer. This includes side gates, garden gates, workshop gates and outdoor access around sheds or garages.',
+    question: 'How secure are your side gate, shed, garage or rear access routes?',
     options: [
-      { label: 'Not relevant — there is no gate or outdoor route that needs securing', positive: 1, good: 'There is no separate outdoor access route adding another obvious security point.' },
-      { label: 'Well controlled — the gate closes cleanly, locks properly and access is limited to the right people', positive: 4, good: 'A secure, usable gate helps control access to the rear of the property and any outbuildings behind it.' },
-      { label: 'Could be better — the gate has a basic, stiff, rusty or awkward lock, or key control is unclear', security: 5, reliability: 4, services: ['/services/gatemate-gate-security', '/services/garage-shed-gate-locks'], concern: 'A gate that is awkward to lock or has unclear key control can end up being left unsecured, especially in poor weather or during busy periods.' },
-      { label: 'Weak or unreliable — it does not secure properly, is easy to open, or gives easy access to sheds, storage or the rear of the property', security: 8, reliability: 5, services: ['/services/gatemate-gate-security', '/services/garage-shed-gate-locks', '/services/security-surveys'], concern: 'Rear access is worth prioritising when a gate does not secure properly or makes sheds, storage areas, patios or rear doors easier to reach.' }
+      { label: 'Well secured — side access and outdoor storage are protected', positive: 4, good: 'Side access and outdoor storage have sensible protection in place.' },
+      { label: 'Basic — there are locks, but they are old, awkward or not confidence-inspiring', security: 4, reliability: 2, services: ['/services/gatemate-gate-security', '/services/garage-shed-gate-locks'], concern: 'Older gate, shed and garage locks may not match the value of what they protect.' },
+      { label: 'Weak — a gate, shed or rear route is easy to access or does not lock reliably', security: 7, reliability: 4, services: ['/services/gatemate-gate-security', '/services/garage-shed-gate-locks', '/services/security-surveys'], concern: 'Weak side access can make the rear of the property and outdoor storage easier to reach.' }
     ]
   },
   {
-    id: 'safe-access',
-    group: 'Safe access',
-    question: 'Do carers, family, trusted trades, staff or guests need access?',
+    id: 'home-shared-access',
+    appliesTo: ['home'],
+    group: 'Shared access',
+    question: 'Do family, carers or trusted trades need a safe way to access the property?',
     options: [
-      { label: 'No shared access is needed and spare keys are not hidden outside', positive: 4, good: 'Not hiding spare keys outside is a strong security habit.' },
-      { label: 'Yes — access is handled with a fitted key safe or controlled process', positive: 3, security: 1, services: ['/services/key-safes'], good: 'A properly fitted key safe or controlled access routine is much better than loose spare keys.' },
-      { label: 'Yes — keys are sometimes left in risky places or access feels awkward', security: 6, services: ['/services/key-safes', '/services/locksmith-for-care-access-key-safes'], concern: 'If people need access, a properly fitted key safe or lock plan is safer than hiding keys or leaving access uncertain.' }
+      { label: 'No shared access is needed and spare keys are not hidden outside', positive: 4, good: 'There are no risky spare-key arrangements outside the property.' },
+      { label: 'Yes — access is handled by a fitted key safe or clear plan', positive: 3, security: 1, services: ['/services/key-safes'], good: 'Shared access is managed through a clear, controlled process.' },
+      { label: 'Yes — keys are sometimes hidden, left out or access feels awkward', security: 6, services: ['/services/key-safes', '/services/locksmith-for-care-access-key-safes'], concern: 'A fitted key safe or clearer access plan can be safer than hidden spare keys.' }
+    ]
+  },
+
+  // Tenant route
+  {
+    id: 'tenant-reporting',
+    appliesTo: ['tenant'],
+    group: 'Reporting a fault',
+    question: 'Have you reported any door, handle or lock issue to your landlord or managing agent?',
+    options: [
+      { label: 'No issue to report — doors and locks are working normally', positive: 4, good: 'There is no current door or lock issue needing attention.' },
+      { label: 'Yes — I have reported it and it is being dealt with', positive: 2, reliability: 1, good: 'The issue has been raised, which helps stop a small problem being missed.' },
+      { label: 'Not yet — there is a stiff door, loose handle or unreliable lock I need to report', reliability: 8, services: ['/services/landlord-locksmith-services', '/services/upvc-door-repairs-tendring'], concern: 'A stiff door, loose handle or unreliable lock is worth reporting early so it does not become a lockout or security problem.' },
+      { label: 'I have reported it, but the door still will not lock or feels unsafe', reliability: 12, security: 3, urgent: true, services: ['/services/emergency-locksmith-tendring', '/services/door-will-not-lock', '/services/landlord-locksmith-services'], concern: 'If a rental door will not lock or feels unsafe, it needs prompt attention so the property can be secured.' }
     ]
   },
   {
-    id: 'security-habits',
-    group: 'Everyday lock-up',
-    question: 'How does your usual lock-up routine feel?',
-    helper: 'There is no perfect answer — choose the option that feels closest to everyday life.',
+    id: 'tenant-keys',
+    appliesTo: ['tenant'],
+    group: 'Keys & access',
+    question: 'Do you have the keys and contact details you need if there is an access problem?',
     options: [
-      { label: 'Confident — I make a quick check that external doors are secure, keys are accounted for and obvious windows are locked', positive: 5, good: 'A simple, consistent lock-up check is one of the strongest day-to-day security habits.' },
-      { label: 'Generally organised — I lock up as normal, but I would like more confidence around spare keys, windows or less-used doors', positive: 2, security: 1, services: ['/services/security-surveys'], good: 'You already have a sensible routine in place; a quick review can make the less-obvious areas easier to manage.', concern: 'A few less-used access points or spare-key arrangements may be worth checking when convenient.' },
-      { label: 'A few things can get missed — for example a window, patio door, outbuilding or spare key arrangement', security: 4, reliability: 1, services: ['/services/security-surveys', '/services/garage-shed-gate-locks'], concern: 'Small gaps are common. Putting the main access points in a simple order can make the property easier to secure day to day.' },
-      { label: 'I am not very confident about who has keys or whether all access points are secure', security: 7, reliability: 1, services: ['/services/security-surveys', '/services/lock-changes', '/services/lock-upgrades'], concern: 'When key history and access points feel uncertain, a practical security review can help identify the most useful first steps.' }
+      { label: 'Yes — I have the keys I need and know who to contact', positive: 4, good: 'You have a clear access plan if a key or door issue occurs.' },
+      { label: 'Mostly — I have keys, but I am unsure about spares or who to call out of hours', security: 3, services: ['/services/landlord-locksmith-services'], concern: 'Knowing the correct contact route can reduce stress if there is a lock or key problem.' },
+      { label: 'No — keys are missing, damaged or I do not know who to contact', security: 6, reliability: 2, urgent: true, services: ['/services/locked-out-non-destructive-entry', '/services/broken-key-extraction', '/services/landlord-locksmith-services'], concern: 'Missing, damaged or uncertain keys can create an access problem quickly. Keep the landlord or managing agent informed.' }
     ]
   },
+  {
+    id: 'tenant-security',
+    appliesTo: ['tenant'],
+    group: 'Day-to-day security',
+    question: 'Do you feel able to lock the home securely each day?',
+    options: [
+      { label: 'Yes — doors, windows and patio doors can be locked without difficulty', positive: 4, good: 'The main access points can be secured without difficulty.' },
+      { label: 'Mostly — one access point is old, awkward or has not been checked recently', security: 3, reliability: 2, services: ['/services/window-lock-repairs', '/services/patio-door-lock-repairs', '/services/landlord-locksmith-services'], concern: 'An awkward window, patio door or lock is worth noting and reporting before it becomes a bigger problem.' },
+      { label: 'No — there is an access point that does not feel secure', security: 6, reliability: 3, services: ['/services/security-surveys', '/services/landlord-locksmith-services'], concern: 'A door or window that does not feel secure should be reported clearly so the right repair can be arranged.' }
+    ]
+  },
+
+  // Landlord route
   {
     id: 'landlord-turnover',
     appliesTo: ['landlord'],
-    group: 'Rental property',
+    group: 'Tenant changeovers',
     question: 'How are locks and keys handled between tenants?',
     options: [
-      { label: 'Locks/keys are reviewed at each tenant change', positive: 5, good: 'Reviewing locks between tenants is a strong landlord security habit.' },
+      { label: 'Locks and keys are reviewed at every tenant change', positive: 5, good: 'Locks and keys are reviewed as part of each tenant changeover.' },
       { label: 'Keys are collected, but locks are not always changed or checked', security: 5, services: ['/services/landlord-locksmith-services', '/services/lock-changes'], concern: 'Collected keys do not always tell the full story; copies may still exist.' },
       { label: 'There have been missing keys, tenant issues or unclear key history', security: 8, services: ['/services/landlord-locksmith-services', '/services/lock-changes', '/services/move-in-lock-change-service'], concern: 'Unclear rental key history is a strong reason to consider lock changes or upgrades.' }
     ]
@@ -336,61 +360,271 @@ const questions = [
   {
     id: 'landlord-maintenance',
     appliesTo: ['landlord'],
-    group: 'Rental maintenance',
+    group: 'Door maintenance',
     question: 'How reliable are the doors for tenants day to day?',
     options: [
-      { label: 'Reliable — tenants are not reporting stiff handles or difficult locking', positive: 4, good: 'Reliable doors reduce tenant frustration and emergency callouts.' },
+      { label: 'Reliable — tenants are not reporting stiff handles or difficult locking', positive: 4, good: 'Tenant doors are working reliably without reported locking strain.' },
       { label: 'Occasional reports of stiffness, loose handles or hard-to-lock doors', reliability: 7, services: ['/services/upvc-door-repairs-tendring', '/services/door-alignment-adjustment', '/services/landlord-locksmith-services'], concern: 'Tenant reports of stiffness should be checked early to reduce lockout and mechanism failure risk.' },
       { label: 'Repeated problems or a door that feels close to failing', reliability: 12, services: ['/services/multipoint-lock-repairs', '/services/upvc-door-mechanism-replacement', '/services/landlord-locksmith-services'], concern: 'Repeated rental door problems can become urgent if a tenant is locked out, locked in or unable to secure the property.' }
     ]
   },
   {
-    id: 'guest-turnover',
-    appliesTo: ['holiday-let', 'guest-house'],
-    group: 'Guest access',
-    question: 'How is guest access handled between bookings or stays?',
+    id: 'landlord-access',
+    appliesTo: ['landlord'],
+    group: 'Agent & trade access',
+    question: 'How are agent, contractor or cleaner keys controlled?',
     options: [
-      { label: 'Controlled — access is planned, codes/keys are reviewed and locks work smoothly', positive: 5, good: 'Controlled guest access helps protect the property and avoids arrival problems.' },
-      { label: 'It works, but keys/codes/locks are not reviewed as often as they should be', security: 4, reliability: 2, services: ['/services/holiday-let-guest-house-security', '/services/key-safes'], concern: 'Guest turnover can create key-control gaps if access is not reviewed regularly.' },
-      { label: 'Access is awkward, keys have gone missing or guests struggle with the door', security: 7, reliability: 7, services: ['/services/holiday-let-guest-house-security', '/services/key-safes', '/services/upvc-door-repairs-tendring'], concern: 'Guest access problems can quickly affect reviews, security and booking handovers.' }
+      { label: 'Controlled — keys are logged or access uses a fitted key safe', positive: 4, good: 'Agent and trade access is managed through a clear process.' },
+      { label: 'Mostly controlled, but spare keys or access arrangements could be clearer', security: 4, services: ['/services/key-safes', '/services/landlord-locksmith-services'], concern: 'A clearer key or key-safe process can make rental access easier to manage.' },
+      { label: 'Unclear — several people may hold keys or keys are passed around informally', security: 7, services: ['/services/key-safes', '/services/lock-changes', '/services/landlord-locksmith-services'], concern: 'Informal shared keys can make it hard to know who has access to a rental property.' }
     ]
   },
+  {
+    id: 'landlord-voids',
+    appliesTo: ['landlord'],
+    group: 'Empty periods',
+    question: 'How is the property checked and secured while empty?',
+    options: [
+      { label: 'Checked — doors, windows, locks and key control are reviewed between lets', positive: 4, good: 'Empty-period security is part of the rental handover routine.' },
+      { label: 'Basic — it is locked up, but a full door and lock check is not routine', security: 3, reliability: 2, services: ['/services/security-surveys', '/services/landlord-locksmith-services'], concern: 'An empty period is a useful time to catch worn locks, weak cylinders or door alignment issues.' },
+      { label: 'Concerned — the property is empty and there are known lock, key or door issues', security: 6, reliability: 7, services: ['/services/landlord-locksmith-services', '/services/lock-changes', '/services/upvc-door-repairs-tendring'], concern: 'Known access or door problems are best dealt with before the next tenant moves in.' }
+    ]
+  },
+
+  // Holiday let route
+  {
+    id: 'holiday-turnover',
+    appliesTo: ['holiday-let'],
+    group: 'Guest turnover',
+    question: 'How are keys, codes and locks handled between bookings?',
+    options: [
+      { label: 'Controlled — access is planned and locks work smoothly', positive: 5, good: 'Guest access is controlled and planned between bookings.' },
+      { label: 'It works, but keys, codes or locks are not reviewed as often as they should be', security: 4, reliability: 2, services: ['/services/holiday-let-guest-house-security', '/services/key-safes'], concern: 'Guest turnover can create access gaps if keys, codes and locks are not reviewed regularly.' },
+      { label: 'Access is awkward, keys have gone missing or guests struggle with the door', security: 7, reliability: 7, services: ['/services/holiday-let-guest-house-security', '/services/key-safes', '/services/upvc-door-repairs-tendring'], concern: 'Guest access problems can quickly affect security, reviews and booking handovers.' }
+    ]
+  },
+  {
+    id: 'holiday-key-safe',
+    appliesTo: ['holiday-let'],
+    group: 'Arrival access',
+    question: 'How is out-of-hours guest access handled?',
+    options: [
+      { label: 'Clearly — a fitted key safe or reliable handover process is in place', positive: 4, good: 'Out-of-hours access has a clear and controlled plan.' },
+      { label: 'Sometimes awkward — guests may need to wait for keys or instructions', security: 3, services: ['/services/key-safes', '/services/holiday-let-guest-house-security'], concern: 'A more reliable access plan can reduce guest arrival issues.' },
+      { label: 'Risky — keys are hidden, codes are shared loosely or access is uncertain', security: 7, services: ['/services/key-safes', '/services/lock-changes'], concern: 'Hidden keys or loosely shared codes can create avoidable security gaps.' }
+    ]
+  },
+  {
+    id: 'holiday-doors',
+    appliesTo: ['holiday-let'],
+    group: 'Door wear',
+    question: 'Do doors and handles stay reliable through regular guest use?',
+    options: [
+      { label: 'Yes — doors lock smoothly and guests do not report problems', positive: 4, good: 'Door and handle reliability is not causing guest issues.' },
+      { label: 'Mostly — there is occasional stiffness or an awkward handle', reliability: 6, services: ['/services/door-alignment-adjustment', '/services/upvc-door-repairs-tendring'], concern: 'Small door issues are easier to deal with before a guest is unable to lock or enter.' },
+      { label: 'No — the door is regularly difficult to lock or guests have struggled before', reliability: 11, services: ['/services/multipoint-lock-repairs', '/services/holiday-let-guest-house-security'], concern: 'A difficult guest door can become an urgent access problem during a booking.' }
+    ]
+  },
+  {
+    id: 'holiday-outdoor',
+    appliesTo: ['holiday-let'],
+    group: 'Outdoor access',
+    question: 'Are side gates, sheds or outdoor storage secure for guest use?',
+    options: [
+      { label: 'Yes — outdoor access is controlled and locks work properly', positive: 4, good: 'Outdoor access is controlled for guests and property owners.' },
+      { label: 'Basic — locks are old, awkward or have not been checked recently', security: 4, reliability: 2, services: ['/services/gatemate-gate-security', '/services/garage-shed-gate-locks'], concern: 'Outdoor locks are worth checking before busy guest periods.' },
+      { label: 'No — a gate, shed or storage area is easy to access or unreliable', security: 7, reliability: 4, services: ['/services/gatemate-gate-security', '/services/garage-shed-gate-locks'], concern: 'Weak outdoor access can make storage or the rear of the property easier to reach.' }
+    ]
+  },
+
+  // Guest house route
+  {
+    id: 'accommodation-keys',
+    appliesTo: ['guest-house'],
+    group: 'Guest & staff keys',
+    question: 'How well controlled are guest and staff keys?',
+    options: [
+      { label: 'Controlled — keys are clearly managed and returned', positive: 5, good: 'Guest and staff key control is clear.' },
+      { label: 'Mostly controlled, but older keys or spare access have not been reviewed', security: 4, services: ['/services/holiday-let-guest-house-security', '/services/lock-changes'], concern: 'Older key sets and spare access are worth reviewing in busy accommodation.' },
+      { label: 'Unclear — keys can go missing or it is hard to know who has access', security: 7, services: ['/services/holiday-let-guest-house-security', '/services/lock-changes'], concern: 'Unclear key control can affect both guest confidence and property security.' }
+    ]
+  },
+  {
+    id: 'accommodation-doors',
+    appliesTo: ['guest-house'],
+    group: 'Door reliability',
+    question: 'Do guest doors, handles and locks stay reliable during regular use?',
+    options: [
+      { label: 'Yes — doors lock smoothly and there are no regular reports', positive: 4, good: 'Guest doors are operating reliably.' },
+      { label: 'Mostly — one or two doors feel stiff, loose or awkward', reliability: 7, services: ['/services/door-alignment-adjustment', '/services/door-handle-replacement'], concern: 'High-use doors are worth checking early when handles or locking start to feel different.' },
+      { label: 'No — there are repeated problems or a door feels close to failing', reliability: 12, services: ['/services/multipoint-lock-repairs', '/services/upvc-door-mechanism-replacement'], concern: 'Repeated door issues can quickly become urgent when guests are unable to enter, leave or secure a room.' }
+    ]
+  },
+  {
+    id: 'accommodation-access',
+    appliesTo: ['guest-house'],
+    group: 'Everyday access',
+    question: 'Is there a clear plan for late arrivals, cleaners and maintenance visits?',
+    options: [
+      { label: 'Yes — access is planned and controlled', positive: 4, good: 'Late arrivals and trusted access have a clear plan.' },
+      { label: 'Mostly — it works, but instructions or spare keys could be clearer', security: 3, services: ['/services/key-safes', '/services/holiday-let-guest-house-security'], concern: 'A clearer process can make trusted access easier without relying on loose keys.' },
+      { label: 'No — access often depends on hidden keys or informal arrangements', security: 7, services: ['/services/key-safes', '/services/holiday-let-guest-house-security'], concern: 'Hidden keys and informal access can create unnecessary security and service issues.' }
+    ]
+  },
+  {
+    id: 'accommodation-perimeter',
+    appliesTo: ['guest-house'],
+    group: 'Windows & rear access',
+    question: 'Are accessible windows, patio doors and rear access checked regularly?',
+    options: [
+      { label: 'Yes — they are checked and work correctly', positive: 4, good: 'Windows, patio doors and rear access are part of the property routine.' },
+      { label: 'Some are old or not checked as often as they should be', security: 3, reliability: 1, services: ['/services/window-lock-repairs', '/services/patio-door-lock-repairs'], concern: 'Less-used access points can become weak spots when they are not checked regularly.' },
+      { label: 'There is an access point that feels insecure or unreliable', security: 6, reliability: 3, services: ['/services/security-surveys', '/services/window-lock-repairs'], concern: 'An insecure window, patio door or rear route is worth dealing with before it affects guests or the property.' }
+    ]
+  },
+
+  // Caravan route
   {
     id: 'caravan-season',
     appliesTo: ['caravan'],
-    group: 'Caravan access',
-    question: 'How ready is the caravan or holiday park property for regular seasonal use?',
+    group: 'Seasonal readiness',
+    question: 'How ready is the caravan or holiday-park property for regular use?',
     options: [
-      { label: 'Ready — locks, keys and access are checked before busy periods', positive: 5, good: 'Checking locks and keys before the season helps avoid guest or family access problems.' },
-      { label: 'Mostly ready, but spare keys, key safes or door locks could be better organised', security: 4, reliability: 2, services: ['/services/caravan-holiday-park-locksmith-services', '/services/key-safes'], concern: 'Caravan access is much easier when spare keys, key safes and door locks are planned before busy periods.' },
-      { label: 'Not ready — keys are missing, locks are old or access has caused problems before', security: 7, reliability: 7, services: ['/services/caravan-holiday-park-locksmith-services', '/services/key-safes', '/services/lock-changes'], concern: 'Old caravan locks, missing keys or poor access planning can create unnecessary stress during holiday periods.' }
+      { label: 'Ready — locks, keys and access are checked before busy periods', positive: 5, good: 'Locks and access are reviewed before busy periods.' },
+      { label: 'Mostly ready — spare keys, key safes or door locks could be better organised', security: 4, reliability: 2, services: ['/services/caravan-holiday-park-locksmith-services', '/services/key-safes'], concern: 'Caravan access is easier to manage when keys, key safes and door locks are planned before busy periods.' },
+      { label: 'Not ready — keys are missing, locks are old or access has caused problems before', security: 7, reliability: 7, services: ['/services/caravan-holiday-park-locksmith-services', '/services/key-safes', '/services/lock-changes'], concern: 'Old locks, missing keys or poor access planning can create unnecessary stress during holiday periods.' }
     ]
   },
   {
+    id: 'caravan-doors',
+    appliesTo: ['caravan'],
+    group: 'Door & lock condition',
+    question: 'How do the caravan doors and handles feel in day-to-day use?',
+    options: [
+      { label: 'Reliable — doors close, lock and unlock easily', positive: 4, good: 'Caravan doors and handles are working reliably.' },
+      { label: 'A little stiff or awkward at times', reliability: 6, services: ['/services/caravan-holiday-park-locksmith-services', '/services/door-alignment-adjustment'], concern: 'A stiff caravan door or lock is worth checking before a holiday period or changeover.' },
+      { label: 'Unreliable — a door, handle or lock is difficult to use', reliability: 11, services: ['/services/caravan-holiday-park-locksmith-services', '/services/lock-changes'], concern: 'An unreliable caravan door can leave occupants unable to secure or access the property when they need to.' }
+    ]
+  },
+  {
+    id: 'caravan-access',
+    appliesTo: ['caravan'],
+    group: 'Shared access',
+    question: 'How is shared family, guest or site access managed?',
+    options: [
+      { label: 'Clearly — keys and access are known and controlled', positive: 4, good: 'Shared access is controlled and understood.' },
+      { label: 'Mostly — there are spare keys, but the plan could be clearer', security: 3, services: ['/services/key-safes', '/services/caravan-holiday-park-locksmith-services'], concern: 'A clearer key or key-safe plan can reduce arrival and access problems.' },
+      { label: 'Unclear — keys are shared loosely, hidden or have gone missing', security: 7, services: ['/services/key-safes', '/services/lock-changes'], concern: 'Loose or missing keys can create both access problems and security concerns.' }
+    ]
+  },
+  {
+    id: 'caravan-outdoor',
+    appliesTo: ['caravan'],
+    group: 'Storage & outdoor access',
+    question: 'How secure are storage boxes, sheds, gates or outdoor equipment?',
+    options: [
+      { label: 'Secure — storage and outdoor access are protected', positive: 4, good: 'Outdoor storage and access are protected.' },
+      { label: 'Basic — locks are old, weathered or not recently checked', security: 4, reliability: 3, services: ['/services/gatemate-gate-security', '/services/garage-shed-gate-locks'], concern: 'Weathered outdoor locks can become awkward or unreliable over time.' },
+      { label: 'Weak — storage or side access is easy to reach or does not lock properly', security: 7, reliability: 4, services: ['/services/gatemate-gate-security', '/services/garage-shed-gate-locks'], concern: 'Weak outdoor access can leave storage and the property easier to reach.' }
+    ]
+  },
+
+  // Business route
+  {
     id: 'business-keys',
     appliesTo: ['business'],
-    group: 'Business access',
+    group: 'Staff & key control',
     question: 'How well controlled are staff keys and business access points?',
     options: [
-      { label: 'Controlled — staff keys and access points are clearly managed', positive: 5, good: 'Clear staff key control is a strong business security habit.' },
-      { label: 'Somewhat controlled, but old staff keys or rear access have not been reviewed', security: 5, services: ['/services/locksmith-for-small-businesses', '/services/lock-changes'], concern: 'Staff changes and rear doors are common reasons for business lock reviews.' },
+      { label: 'Controlled — keys and access points are clearly managed', positive: 5, good: 'Staff key control is clear and organised.' },
+      { label: 'Somewhat controlled, but old staff keys or rear access have not been reviewed', security: 5, services: ['/services/locksmith-for-small-businesses', '/services/lock-changes'], concern: 'Staff changes and rear doors are common reasons for a business lock review.' },
       { label: 'Unclear — keys, rear doors or storage areas are not well controlled', security: 8, reliability: 2, services: ['/services/locksmith-for-small-businesses', '/services/security-surveys', '/services/lock-changes'], concern: 'Unclear business access can affect stock, staff safety and day-to-day confidence.' }
     ]
   },
   {
+    id: 'business-doors',
+    appliesTo: ['business'],
+    group: 'Opening reliability',
+    question: 'Could a stiff or failed lock stop the business opening or closing properly?',
+    options: [
+      { label: 'Low concern — doors and locks are reliable', positive: 4, good: 'Door and lock reliability is not currently affecting opening or closing.' },
+      { label: 'Some concern — one door or shutter is starting to feel awkward', reliability: 7, services: ['/services/door-alignment-adjustment', '/services/locksmith-for-small-businesses'], concern: 'An awkward business door is worth checking before it disrupts opening, closing or staff access.' },
+      { label: 'High concern — a lock, handle or door already causes delays or difficulty', reliability: 12, services: ['/services/emergency-locksmith-tendring', '/services/multipoint-lock-repairs', '/services/locksmith-for-small-businesses'], concern: 'A failing business door or lock can disrupt trading and may leave the premises insecure.' }
+    ]
+  },
+  {
+    id: 'business-rear-access',
+    appliesTo: ['business'],
+    group: 'Rear access & storage',
+    question: 'How secure are rear doors, storage areas, gates and side access?',
+    options: [
+      { label: 'Secure — rear access and storage are controlled', positive: 4, good: 'Rear access and storage are included in the security plan.' },
+      { label: 'Basic — there are locks, but they are old or have not been reviewed', security: 4, services: ['/services/locksmith-for-small-businesses', '/services/gatemate-gate-security'], concern: 'Rear access is worth checking because it is often less visible during the day.' },
+      { label: 'Weak — a rear door, gate or storage area feels easy to access', security: 7, services: ['/services/security-surveys', '/services/locksmith-for-small-businesses'], concern: 'Weak rear access can affect stock, staff safety and the security of the premises.' }
+    ]
+  },
+  {
+    id: 'business-plan',
+    appliesTo: ['business'],
+    group: 'If a lock fails',
+    question: 'Is there a clear plan if a key, lock or door fails outside normal hours?',
+    options: [
+      { label: 'Yes — the right contacts and access arrangements are known', positive: 4, good: 'There is a clear plan for an unexpected access problem.' },
+      { label: 'Mostly — we know who to call, but spare access or instructions could be clearer', security: 2, services: ['/services/locksmith-for-small-businesses'], concern: 'A clearer plan can reduce disruption if a key or lock fails.' },
+      { label: 'No — an unexpected lock problem would cause real disruption', reliability: 5, security: 3, services: ['/services/emergency-locksmith-tendring', '/services/locksmith-for-small-businesses'], concern: 'A simple lock-failure plan can reduce stress if the premises cannot be opened or secured.' }
+    ]
+  },
+
+  // Care route
+  {
     id: 'care-reliability',
     appliesTo: ['care'],
-    group: 'Care access',
+    group: 'Reliable entry',
     question: 'Could a stiff door, lost key or awkward access put someone vulnerable at risk?',
     options: [
-      { label: 'Low concern — access is reliable and there is a sensible backup plan', positive: 5, good: 'Reliable access and a backup plan are especially important for elderly relatives and care visits.' },
+      { label: 'Low concern — access is reliable and there is a sensible backup plan', positive: 5, good: 'Reliable access and a backup plan are in place.' },
       { label: 'Some concern — access works, but the door or keys could be easier', reliability: 7, security: 2, services: ['/services/locksmith-for-care-access-key-safes', '/services/key-safes', '/services/door-alignment-adjustment'], concern: 'For care access, even slight door or key issues are worth checking before they become urgent.' },
       { label: 'High concern — access has already caused stress, delays or near lockouts', reliability: 12, security: 4, urgent: true, services: ['/services/locksmith-for-care-access-key-safes', '/services/key-safes', '/services/upvc-door-repairs-tendring'], concern: 'Care access problems should be treated as high priority because they can affect safety and peace of mind.' }
+    ]
+  },
+  {
+    id: 'care-key-safe',
+    appliesTo: ['care'],
+    group: 'Key safe & access plan',
+    question: 'How do carers or family get in if they are needed?',
+    options: [
+      { label: 'Clearly — a fitted key safe or agreed access plan is in place', positive: 4, good: 'Carers and family have a clear, controlled access plan.' },
+      { label: 'Mostly — a key is available, but the arrangement could be more secure', security: 4, services: ['/services/key-safes', '/services/locksmith-for-care-access-key-safes'], concern: 'A properly fitted key safe can make trusted access safer and easier to manage.' },
+      { label: 'Uncertain — keys are hidden, passed around or access depends on luck', security: 7, services: ['/services/key-safes', '/services/locksmith-for-care-access-key-safes'], concern: 'Uncertain emergency access can cause stress when help is needed quickly.' }
+    ]
+  },
+  {
+    id: 'care-door-use',
+    appliesTo: ['care'],
+    group: 'Door use',
+    question: 'Can the main door be locked and unlocked comfortably without force?',
+    options: [
+      { label: 'Yes — the door and handle are easy to use', positive: 4, good: 'The main door can be used without obvious strain.' },
+      { label: 'Sometimes difficult — the handle is stiff, loose or the door needs lifting', reliability: 8, services: ['/services/door-alignment-adjustment', '/services/door-handle-replacement'], concern: 'An awkward door can be harder to manage for someone with limited strength or mobility.' },
+      { label: 'Difficult — the door often needs force or feels unreliable', reliability: 12, urgent: true, services: ['/services/upvc-door-repairs-tendring', '/services/multipoint-lock-repairs'], concern: 'A door that needs force can become a serious access issue and is worth dealing with promptly.' }
+    ]
+  },
+  {
+    id: 'care-backup',
+    appliesTo: ['care'],
+    group: 'Back-up plan',
+    question: 'Is there a safe back-up plan if a key is lost or a lock fails?',
+    options: [
+      { label: 'Yes — trusted people know the plan and access is controlled', positive: 4, good: 'There is a clear back-up plan if access is needed.' },
+      { label: 'Partly — someone could help, but the plan is not fully clear', security: 3, services: ['/services/locksmith-for-care-access-key-safes'], concern: 'A clearer plan can reduce stress if a key, lock or door problem happens unexpectedly.' },
+      { label: 'No — there is no safe back-up plan at the moment', security: 6, reliability: 2, services: ['/services/key-safes', '/services/locksmith-for-care-access-key-safes'], concern: 'A safe access plan is worth putting in place before it is urgently needed.' }
     ]
   }
 ];
 
 function visibleQuestionsFor(type) {
+  // Every route gets the safety, door-operation and warning-sign questions first.
+  // The remaining questions are selected for the chosen property or role.
   return questions.filter((item) => !item.appliesTo || item.appliesTo.includes(type));
 }
 
@@ -420,36 +654,66 @@ function urgencyLabel(totals) {
 
 function buildAssistantSummary({ totals, property, area, location, answeredCount }) {
   const place = location?.trim() ? location.trim() : area.label;
-  const immediate = totals.emergency;
-  if (immediate) {
-    return `Your first answer suggests an urgent access or security issue at this ${property.label.toLowerCase()} in ${place}. The priority is to get the property secure and make sure nobody is left locked out, locked in or relying on a door that may fail further.`;
+  const type = property.id;
+
+  if (totals.emergency) {
+    return `Your answers suggest an urgent door, lock or access issue at this ${property.label.toLowerCase()} in ${place}. The priority is to get the property secure and make sure nobody is left locked out, locked in or relying on a door that may fail further.`;
   }
   if (answeredCount === 0) {
-    return `Start with the questions above and the check will build a more useful picture for your ${property.label.toLowerCase()} in ${place}. It will look separately at security, key control and the chance of door or lock failure.`;
+    return `Answer the questions that apply to this ${property.label.toLowerCase()} in ${place} and we will build a practical security and door-reliability result.`;
+  }
+  if (type === 'tenant') {
+    if (totals.reliability >= 9 || totals.security >= 9) {
+      return `For this rented home in ${place}, your answers highlight details worth reporting clearly to the landlord or managing agent. Mention any stiffness, loose handles, difficult keys, missing keys or access point that does not feel secure so the right repair can be arranged before it becomes more urgent.`;
+    }
+    return `For this rented home in ${place}, the answers do not point to a major immediate issue. Keep a note of any change in how the door, key or handle feels, and report it early if something starts to become awkward or unreliable.`;
+  }
+  if (type === 'landlord') {
+    if (totals.reliability >= 9 || totals.security >= 9) {
+      return `For this rental property in ${place}, the answers point to practical areas to tighten up around tenant changeovers, key control and door reliability. Dealing with stiffness or unclear access early can help prevent tenant lockouts, emergency callouts and avoidable gaps between lets.`;
+    }
+    return `For this rental property in ${place}, the current checks show a sound starting point. Keeping key control, tenant reports and empty-period checks consistent will help protect the property and reduce avoidable callouts.`;
+  }
+  if (type === 'holiday-let' || type === 'guest-house') {
+    if (totals.reliability >= 9 || totals.security >= 9) {
+      return `For this ${property.label.toLowerCase()} in ${place}, the main focus is reliable guest access. A stiff door, unclear key process or loose shared access can quickly affect arrivals, reviews and security, so deal with the clearest weak point first.`;
+    }
+    return `For this ${property.label.toLowerCase()} in ${place}, the answers show a sensible access setup. Keep locks, keys and guest handovers under review ahead of busy periods.`;
+  }
+  if (type === 'care') {
+    if (totals.reliability >= 9 || totals.security >= 9) {
+      return `For this care-access property in ${place}, the priority is reliable, low-stress entry. Any stiff door, unclear key arrangement or weak back-up plan is worth addressing before access is urgently needed.`;
+    }
+    return `For this care-access property in ${place}, the answers suggest a sensible starting point. Keep the access plan simple, known to the right people and easy to use.`;
   }
   if (totals.reliability >= 18 && totals.security >= 14) {
-    return `For this ${property.label.toLowerCase()} in ${place}, the main message is to act before a small door or lock problem becomes urgent. Your answers suggest both security concerns and door/lock reliability warning signs. A practical Brodley Locksmiths visit could check the locks, cylinders, door alignment and access points in one go.`;
+    return `For this ${property.label.toLowerCase()} in ${place}, the main message is to act before a small door or lock problem becomes urgent. Your answers suggest both security concerns and door/lock reliability warning signs.`;
   }
   if (totals.reliability >= 18) {
-    return `For this ${property.label.toLowerCase()} in ${place}, the biggest concern is door and lock reliability. Stiffness, loose handles, difficult keys or multipoint strain can lead to a lockout, lock-in or a door that will not secure properly. A door adjustment, multipoint repair or mechanism check would be a sensible next step.`;
+    return `For this ${property.label.toLowerCase()} in ${place}, the biggest concern is door and lock reliability. Stiffness, loose handles, difficult keys or multipoint strain can lead to a lockout, lock-in or a door that will not secure properly.`;
   }
   if (totals.security >= 18) {
-    return `For this ${property.label.toLowerCase()} in ${place}, the main concern is security and access control. The answers point towards key history, older cylinders, shared access or weak points that would benefit from a lock change, anti-snap upgrade, key safe or security survey.`;
+    return `For this ${property.label.toLowerCase()} in ${place}, the main concern is security and access control. The answers point towards key history, older cylinders, shared access or weak points that would benefit from a lock review.`;
   }
   if (totals.services.includes('/services/gatemate-gate-security')) {
-    return `For this ${property.label.toLowerCase()} in ${place}, outdoor access is worth bringing into the security plan. A side or rear gate does not need to be complicated, but it should close cleanly, lock reliably and only give access to the right people. A GateMate® gate-security check can look at the lock, hinges, closing line and key control together.`;
+    return `For this ${property.label.toLowerCase()} in ${place}, outdoor access is worth bringing into the security plan. A side or rear gate should close cleanly, lock reliably and only give access to the right people.`;
   }
   if (totals.good.length >= 4 && totals.concerns.length <= 2) {
-    return `Your answers show several practical safeguards already selected for this ${property.label.toLowerCase()}. There may still be a couple of areas worth checking, but the overall picture is reasonably well covered. A quick Get Secure visit can confirm whether anything needs attention.`;
+    return `The answers show several useful safeguards already in place for this ${property.label.toLowerCase()}. There may still be a couple of areas worth checking, but the overall picture is reasonably well covered.`;
   }
   if (totals.concerns.length >= 3) {
-    return `Your answers show a few practical areas worth reviewing. Nothing has to feel complicated: the best next step is usually to check the doors, locks, windows and key control, then deal with the highest-risk issues first.`;
+    return `Your answers show a few practical areas worth reviewing. Start with anything that affects secure entry, exit or reliable locking, then work through the less-urgent access points.`;
   }
-  return `Your answers do not suggest a major immediate issue, but they have highlighted useful areas to keep an eye on. If anything starts to feel stiff, uncertain or insecure, it is better to check it early than wait for a failed lock or door mechanism.`;
+  return `Your answers do not suggest a major immediate issue, but they have highlighted useful areas to keep an eye on. Check things early if a door, key or handle starts to feel stiff, worn or uncertain.`;
 }
 
-function buildNextStep(totals) {
-  if (totals.emergency) return 'Suggested next step: call Brodley Locksmiths now so the door, lock or access problem can be dealt with before it becomes more stressful or leaves the property insecure.';
+function buildNextStep(totals, property) {
+  if (totals.emergency) return 'Suggested next step: call Brodley Locksmiths now so the door, lock or access problem can be dealt with before it leaves the property insecure.';
+  if (property.id === 'tenant') {
+    if (totals.reliability >= 9 || totals.security >= 9) return 'Suggested next step: report the specific issue to the landlord or managing agent, including whether the door is stiff, the handle is loose, the key sticks or an access point does not feel secure.';
+    return 'Suggested next step: keep this result and report any change in the door, key or lock to the landlord or managing agent before it becomes harder to use.';
+  }
+  if (property.id === 'landlord' && (totals.reliability >= 9 || totals.security >= 9)) return 'Suggested next step: arrange a rental lock-and-door review, starting with any tenant reports, key-control gaps or empty-property concerns.';
   if (totals.reliability >= 18) return 'Suggested next step: arrange a door and lock reliability check, especially if any door needs lifting, pulling, forcing or repeated attempts to lock.';
   if (totals.security >= 18) return 'Suggested next step: arrange a security survey or lock review to look at key control, cylinders, window locks, outbuildings and access points.';
   if (totals.services.includes('/services/gatemate-gate-security')) return 'Suggested next step: check that the side or rear gate closes cleanly, locks reliably and gives controlled access to the garden, shed, garage or rear of the property.';
@@ -459,13 +723,25 @@ function buildNextStep(totals) {
 }
 
 
-function buildActionPlan(totals) {
+function buildActionPlan(totals, property) {
   if (totals.emergency) {
     return [
       { title: '1. Get the property secure', text: 'Call now if the door will not lock, someone is locked in or out, or the property cannot be secured safely.', href: '/services/emergency-locksmith-tendring', label: 'Urgent locksmith help', tone: 'urgent' },
       { title: '2. Avoid forcing the handle', text: 'Extra force can damage a cylinder or multipoint mechanism. Leave the door in the safest position you can until it is checked.', href: '/services/door-will-not-lock', label: 'Door will not lock', tone: 'urgent' },
       { title: '3. Keep the summary', text: 'Your answers can help explain the issue quickly when you call or send an enquiry.', href: '/quote', label: 'Request help', tone: 'neutral' }
     ];
+  }
+
+  if (property.id === 'tenant') {
+    const plan = [];
+    if (totals.reliability >= 9 || totals.security >= 9) {
+      plan.push({ title: 'Report the issue clearly', text: 'Tell the landlord or managing agent exactly what you have noticed: stiffness, lifting, a loose handle, a sticking key, missing keys or an access point that does not feel secure.', href: '/services/landlord-locksmith-services', label: 'Rental property support', tone: 'priority' });
+    }
+    plan.push({ title: 'Do not force the lock or handle', text: 'Forcing a stiff door can make a small problem worse. Use the door normally where safe and keep a note of what is happening.', href: '/services/door-will-not-lock', label: 'Door reliability', tone: 'neutral' });
+    if (totals.services.includes('/services/locked-out-non-destructive-entry')) {
+      plan.push({ title: 'Use the urgent route if access fails', text: 'If you are locked out, locked in or the property cannot be secured, contact the landlord or managing agent and get urgent locksmith help where appropriate.', href: '/services/locked-out-non-destructive-entry', label: 'Urgent access help', tone: 'urgent' });
+    }
+    return plan.slice(0, 3);
   }
 
   const plan = [];
@@ -475,6 +751,9 @@ function buildActionPlan(totals) {
   if (totals.security >= 9) {
     plan.push({ title: 'Regain control of access', text: 'Start with keys, cylinders and the entrances that matter most. Small upgrades can often make a noticeable difference.', href: '/services/lock-changes', label: 'Lock changes & upgrades', tone: 'priority' });
   }
+  if (property.id === 'landlord') {
+    plan.push({ title: 'Make the rental routine repeatable', text: 'Use the same lock, key-control and door-check routine at tenant changes, during empty periods and when contractors need access.', href: '/services/landlord-locksmith-services', label: 'Landlord locksmith support', tone: 'priority' });
+  }
   if (totals.services.includes('/services/gatemate-gate-security')) {
     plan.push({ title: 'Secure side and rear access', text: 'A gate that closes, throws and locks cleanly makes the rear of the property, sheds and storage less accessible. Check the lock, key control, hinges and alignment together.', href: '/services/gatemate-gate-security', label: 'GateMate® gate security', tone: 'priority' });
   }
@@ -482,7 +761,7 @@ function buildActionPlan(totals) {
     plan.push({ title: 'Make shared access simpler', text: 'A properly fitted key safe or clear access plan can reduce stress for family, carers, guests, tenants or trusted trades.', href: '/services/key-safes', label: 'Key safe options', tone: 'positive' });
   }
   if (!plan.length) {
-    plan.push({ title: 'Maintain the safeguards you already have', text: 'Your answers suggest a sound starting point. Check doors, keys and access points whenever something starts to feel different.', href: '/services/security-surveys', label: 'Optional security check', tone: 'positive' });
+    plan.push({ title: 'Maintain the safeguards already in place', text: 'Your answers suggest a sound starting point. Check doors, keys and access points whenever something starts to feel different.', href: '/services/security-surveys', label: 'Optional security check', tone: 'positive' });
   }
   if (plan.length < 3) {
     plan.push({ title: 'Use a clear order', text: 'Deal with anything that affects safe entry, exit or locking first. Then work through security upgrades and less-urgent access points.', href: '/get-secure-check', label: 'Keep this check handy', tone: 'neutral' });
@@ -493,7 +772,7 @@ function buildActionPlan(totals) {
 function buildReport({ property, area, location, totals, securityLevel, reliabilityLevel, assistantSummary, nextStepText, actionPlan, lead }) {
   const recommended = actionPlan[0] ? serviceInfo[actionPlan[0].href]?.label || actionPlan[0].label : 'Security Survey';
   const mainPriorities = totals.concerns.length ? totals.concerns.slice(0, 4) : ['No major concerns were selected in this check.'];
-  const foundationItems = totals.good.length ? totals.good.slice(0, 4) : ['No existing safeguards were selected in this check yet.'];
+  const foundationItems = totals.good.length ? totals.good.slice(0, 4) : ['No security foundations were selected in this check yet.'];
 
   return [
     'GET SECURE PROPERTY CHECK',
@@ -524,7 +803,7 @@ function buildReport({ property, area, location, totals, securityLevel, reliabil
     'MAIN PRIORITIES',
     ...mainPriorities.map((item) => `- ${item}`),
     '',
-    'EXISTING SAFEGUARDS SELECTED',
+    'SECURITY FOUNDATIONS SELECTED',
     ...foundationItems.map((item) => `- ${item}`),
     '',
     'CUSTOMER NOTE',
@@ -540,13 +819,13 @@ function GetSecureProgressCard({ answered, total }) {
   return (
     <aside className="get-secure-progress-card" aria-label="How the Get Secure check works">
       <ClipboardCheck size={30} />
-      <p className="eyebrow gold">Your private check</p>
-      <h2>Answer first. See your tailored results at the end.</h2>
-      <p>Keep the questions simple and answer at your own pace. Your scores and suggested next steps are only revealed when you choose to see them.</p>
+      <p className="eyebrow gold">Get Secure</p>
+      <h2>A quick check, tailored to the property.</h2>
+      <p>Answer the questions that apply. Your results appear at the end.</p>
       <div className="get-secure-progress-list">
-        <span><b>1</b> Choose your property details</span>
-        <span><b>2</b> Answer the questions that apply</span>
-        <span><b>3</b> Reveal your Get Secure results</span>
+        <span><b>1</b> Choose the right route</span>
+        <span><b>2</b> Answer the relevant questions</span>
+        <span><b>3</b> Reveal your results</span>
       </div>
       <div className="get-secure-answer-count"><strong>{answered}</strong> of {total} questions answered</div>
     </aside>
@@ -590,7 +869,7 @@ export default function GetSecureCheckTool() {
       base.positive += option.positive || 0;
       if (option.urgent) {
         base.urgentCount += 1;
-        if (option.label.startsWith('No — a door will not lock')) base.emergency = true;
+        if (/(will not lock|locked out|locked in|cannot be secured|feels unsafe)/i.test(option.label)) base.emergency = true;
       }
       if (option.good) base.good.push(option.good);
       if (option.concern) base.concerns.push(option.concern);
@@ -610,6 +889,7 @@ export default function GetSecureCheckTool() {
     if (base.reliability >= 16) base.services.push('/services/multipoint-lock-repairs');
     if (base.security >= 9) base.services.push('/services/lock-changes', '/services/anti-snap-lock-upgrades');
     if (propertyType === 'caravan') base.services.push('/services/caravan-holiday-park-locksmith-services');
+    if (propertyType === 'tenant') base.services.push('/services/landlord-locksmith-services');
     if (propertyType === 'landlord') base.services.push('/services/landlord-locksmith-services');
     if (propertyType === 'holiday-let' || propertyType === 'guest-house') base.services.push('/services/holiday-let-guest-house-security');
     if (propertyType === 'business') base.services.push('/services/locksmith-for-small-businesses');
@@ -621,8 +901,8 @@ export default function GetSecureCheckTool() {
   const securityLevel = levelFor(totals.security, 'security');
   const reliabilityLevel = levelFor(totals.reliability, 'reliability');
   const assistantSummary = buildAssistantSummary({ totals, property, area, location, answeredCount: answeredOptions.length });
-  const nextStepText = buildNextStep(totals);
-  const actionPlan = buildActionPlan(totals);
+  const nextStepText = buildNextStep(totals, property);
+  const actionPlan = buildActionPlan(totals, property);
   const reportText = buildReport({ property, area, location, totals, securityLevel, reliabilityLevel, assistantSummary, nextStepText, actionPlan, lead });
   const recommendedService = actionPlan[0] ? serviceInfo[actionPlan[0].href]?.label || actionPlan[0].label : 'Security Survey';
   const emailHref = `${contact.emailHref}?subject=${encodeURIComponent(`Get Secure Property Check — ${location || area.label}`)}&body=${encodeURIComponent(['Hello Brodley Locksmiths,', '', 'I completed the Get Secure Property Check and would appreciate some advice.', '', reportText, 'Thank you.'].join('\n'))}`;
@@ -768,7 +1048,7 @@ export default function GetSecureCheckTool() {
             </label>
             <label className="full-field">
               Town, village, park name or notes
-              <input value={location} onChange={(event) => { setLocation(event.target.value); if (resultsStage === 'results') setResultsStage('questions'); }} placeholder="e.g. Clacton, Harwich, Frinton, St Osyth caravan park, flat block" />
+              <input value={location} onChange={(event) => { setLocation(event.target.value); if (resultsStage === 'results') setResultsStage('questions'); }} placeholder={property.placeholder} />
             </label>
           </div>
           <div className="area-note-card enhanced-area-note">
@@ -828,8 +1108,8 @@ export default function GetSecureCheckTool() {
               <span className="get-secure-calculating-mark"><ShieldCheck size={34} /></span>
               <div>
                 <p className="eyebrow gold">Get Secure review</p>
-                <h2>Checking your security, access and door reliability answers…</h2>
-                <p>Putting together a practical summary and the most useful next steps.</p>
+                <h2>Checking your answers…</h2>
+                <p>Your tailored results are nearly ready.</p>
               </div>
             </div>
           ) : (
@@ -837,7 +1117,7 @@ export default function GetSecureCheckTool() {
               <div>
                 <p className="eyebrow gold">Ready when you are</p>
                 <h2>See your Get Secure results</h2>
-                <p>Your answers stay clear and uncluttered while you complete the check. When you are ready, we will reveal your tailored security, reliability and security-foundations results.</p>
+                <p>See what matters most for this property.</p>
                 <small>{answeredOptions.length} of {visibleQuestions.length} questions answered. You can go back and change an answer at any time.</small>
               </div>
               <div className="get-secure-submit-actions">
@@ -928,7 +1208,7 @@ export default function GetSecureCheckTool() {
               ))}
             </div>
             <div className="summary-grid deeper-summary-grid">
-              <SummaryBox title="Existing safeguards selected" items={totals.good.length ? totals.good : ['No existing safeguards were selected in this check yet.']} positive />
+              <SummaryBox title="Security foundations selected" items={totals.good.length ? totals.good : ['No security foundations were selected in this check yet.']} positive />
               <SummaryBox title="Things worth checking" items={totals.concerns.length ? totals.concerns : ['No major concerns were selected in this check. Keep an eye on anything that starts to feel stiff, worn or uncertain.']} />
             </div>
           </section>

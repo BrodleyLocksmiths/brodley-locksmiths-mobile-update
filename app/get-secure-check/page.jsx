@@ -14,7 +14,7 @@ const checkFaqs = [
   },
   {
     q: 'Which areas is the security check useful for?',
-    a: 'It is useful for homes, landlords, holiday lets, guest houses, static caravans, flats and small businesses across Tendring, including Clacton-on-Sea, Frinton, Walton, Harwich, Dovercourt, Manningtree, Brightlingsea, St Osyth and surrounding villages.'
+    a: 'It is useful for homeowners, tenants, landlords, holiday-let owners, guest houses, static caravans, care-access situations and small businesses across Tendring, including Clacton-on-Sea, Frinton, Walton, Harwich, Dovercourt, Manningtree, Brightlingsea, St Osyth and surrounding villages.'
   },
   {
     q: 'What should I do if the check shows security or door reliability concerns?',
@@ -40,7 +40,7 @@ export default function GetSecureCheckPage() {
       <PageShell
         eyebrow="Get Secure Property Check"
         title="Check your property security and door reliability."
-        intro="Use this friendly multi-choice check to review locks, doors, windows, keys, access points and early warning signs around your property. It gives separate security and door reliability results, shows the practical safeguards selected in your answers, and suggests sensible next steps for getting secure across Tendring."
+        intro="Choose the route that best matches your property or role, then answer a short set of relevant questions. Your results show security, door reliability and the safeguards already in place, with practical next steps for getting secure across Tendring."
       >
         <GetSecureCheckTool />
       </PageShell>

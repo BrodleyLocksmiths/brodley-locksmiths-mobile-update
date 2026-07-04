@@ -93,3 +93,7 @@ Without those variables, the customer will still be offered a clearly formatted 
 - “Positive habits” has been replaced with neutral **Security foundations** / **Existing safeguards selected** wording.
 - The lead/contact section now comes before recommendations and linked service pages.
 - Related service links are intentionally kept at the bottom of the results page.
+
+## Latest Get Secure update
+
+The property check now separates Tenant and Landlord / rental-property-owner routes. It uses shorter result-button wording, removes the redundant everyday lock-up question, and shows more relevant questions for each property or role.

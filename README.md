@@ -71,3 +71,18 @@ ENQUIRY_TO=info@brodley-locksmiths.com
 ## Real job photo update
 
 This package includes a new `/real-work-gallery` page plus genuine job photography on the homepage, Recent Work, Case Studies and relevant service pages. Images are web-optimised and sensitive key/key-safe detail has been obscured. Use `REAL-WORK-PHOTO-WORKFLOW.md` when supplying future job photos so they can be added accurately.
+
+
+## Get Secure results and email formatting
+
+The Get Secure Property Check now keeps results hidden until the customer selects **See My Get Secure Results**. The results page includes an optional note field so customers can explain a stiff door, key-control concern, access need or other issue in their own words.
+
+For the clean formatted email to arrive directly in the Brodley Locksmiths inbox, keep the existing Resend environment variables configured in Vercel:
+
+```text
+RESEND_API_KEY=...
+ENQUIRY_FROM=...
+ENQUIRY_TO=info@brodley-locksmiths.com
+```
+
+Without those variables, the customer will still be offered a clearly formatted email-app fallback.

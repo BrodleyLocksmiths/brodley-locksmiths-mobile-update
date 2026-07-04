@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
 import {
   ArrowRight,
@@ -17,7 +17,9 @@ import {
   RotateCcw,
   ShieldCheck,
   Send,
-  Wrench
+  Wrench,
+  ClipboardCheck,
+  Sparkles
 } from 'lucide-react';
 import { contact } from '@/lib/siteData';
 
@@ -488,38 +490,67 @@ function buildActionPlan(totals) {
   return plan.slice(0, 3);
 }
 
-function buildReport({ property, area, location, totals, securityLevel, reliabilityLevel, assistantSummary, nextStepText, answeredOptions, actionPlan }) {
+function buildReport({ property, area, location, totals, securityLevel, reliabilityLevel, assistantSummary, nextStepText, actionPlan, lead }) {
+  const recommended = actionPlan[0] ? serviceInfo[actionPlan[0].href]?.label || actionPlan[0].label : 'Security Survey';
+  const mainPriorities = totals.concerns.length ? totals.concerns.slice(0, 4) : ['No major concerns were selected in this check.'];
+  const positiveItems = totals.good.length ? totals.good.slice(0, 4) : ['No positive points were selected yet.'];
+
   return [
-    'Get Secure Property Check Results',
+    'GET SECURE PROPERTY CHECK',
     '',
+    'CUSTOMER DETAILS',
+    `Name: ${lead.name || 'Not provided'}`,
+    `Phone: ${lead.phone || 'Not provided'}`,
+    `Email: ${lead.email || 'Not provided'}`,
+    `Preferred contact: ${lead.preferredContact}`,
+    `Best time to contact: ${lead.bestTime}`,
+    '',
+    'PROPERTY & LOCATION',
     `Property type: ${property.label}`,
-    `Area: ${area.label}`,
-    `Town/village/notes: ${location || 'Not provided'}`,
-    `Security result: ${securityLevel.label} (${totals.security})`,
-    `Door and lock reliability result: ${reliabilityLevel.label} (${totals.reliability})`,
-    `Positive habits: ${positiveLevel(totals.positive)} (${totals.positive})`,
-    `Overall priority: ${urgencyLabel(totals)}`,
+    `Tendring area: ${area.label}`,
+    `Town / village / property note: ${location || 'Not provided'}`,
     '',
-    'Practical summary:',
+    'RESULTS',
+    `Security: ${securityLevel.label} (${totals.security})`,
+    `Door & lock reliability: ${reliabilityLevel.label} (${totals.reliability})`,
+    `Positive security habits: ${positiveLevel(totals.positive)} (${totals.positive})`,
+    `Overall priority: ${urgencyLabel(totals)}`,
+    `Recommended next service: ${recommended}`,
+    '',
+    'TAILORED SUMMARY',
     assistantSummary,
     nextStepText,
     '',
-    'Suggested order:',
-    ...actionPlan.map((item) => `- ${item.title}: ${item.text}`),
+    'MAIN PRIORITIES',
+    ...mainPriorities.map((item) => `- ${item}`),
     '',
-    'Things already looking positive:',
-    ...(totals.good.length ? totals.good.slice(0, 8).map((item) => `- ${item}`) : ['- Complete more questions to build this section.']),
+    'THINGS ALREADY LOOKING POSITIVE',
+    ...positiveItems.map((item) => `- ${item}`),
     '',
-    'Areas worth checking:',
-    ...(totals.concerns.length ? totals.concerns.slice(0, 8).map((item) => `- ${item}`) : ['- No major concerns selected yet.']),
+    'CUSTOMER NOTE',
+    lead.notes || 'No additional note added.',
     '',
-    'Answers:',
-    ...(answeredOptions.length ? answeredOptions.map(({ question, option }) => `- ${question.question}: ${option.label}`) : ['- No answers provided yet.']),
-    '',
-    'Suggested Brodley Locksmiths pages:',
-    ...totals.services.map((href) => `- ${serviceInfo[href]?.label || href}: ${href}`),
+    'REQUESTED HELP',
+    lead.helpType,
     ''
   ].join('\n');
+}
+
+function GetSecureProgressCard({ answered, total }) {
+  return (
+    <aside className="get-secure-progress-card" aria-label="How the Get Secure check works">
+      <ClipboardCheck size={30} />
+      <p className="eyebrow gold">Your private check</p>
+      <h2>Answer first. See your tailored results at the end.</h2>
+      <p>Keep the questions simple and answer at your own pace. Your scores and suggested next steps are only revealed when you choose to see them.</p>
+      <div className="get-secure-progress-list">
+        <span><b>1</b> Choose your property details</span>
+        <span><b>2</b> Answer the questions that apply</span>
+        <span><b>3</b> Reveal your Get Secure results</span>
+      </div>
+      <div className="get-secure-answer-count"><strong>{answered}</strong> of {total} questions answered</div>
+    </aside>
+  );
 }
 
 export default function GetSecureCheckTool() {
@@ -529,9 +560,12 @@ export default function GetSecureCheckTool() {
   const [propertyType, setPropertyType] = useState('home');
   const [copied, setCopied] = useState(false);
   const [saved, setSaved] = useState(false);
-  const [lead, setLead] = useState({ name: '', phone: '', email: '', preferredContact: 'Phone call', bestTime: 'Any time', helpType: 'A quick call to talk it through', website: '' });
+  const [resultsStage, setResultsStage] = useState('questions');
+  const [resultsMessage, setResultsMessage] = useState('');
+  const [lead, setLead] = useState({ name: '', phone: '', email: '', preferredContact: 'Phone call', bestTime: 'Any time', helpType: 'A quick call to talk it through', notes: '', website: '' });
   const [sendState, setSendState] = useState('idle');
   const [sendMessage, setSendMessage] = useState('');
+  const resultRef = useRef(null);
 
   const property = propertyTypes.find((item) => item.id === propertyType) || propertyTypes[0];
   const area = areaOptions.find((item) => item.id === areaId) || areaOptions[areaOptions.length - 1];
@@ -589,13 +623,29 @@ export default function GetSecureCheckTool() {
   const assistantSummary = buildAssistantSummary({ totals, property, area, location, answeredCount: answeredOptions.length });
   const nextStepText = buildNextStep(totals);
   const actionPlan = buildActionPlan(totals);
-  const reportText = buildReport({ property, area, location, totals, securityLevel, reliabilityLevel, assistantSummary, nextStepText, answeredOptions, actionPlan });
-  const emailHref = `${contact.emailHref}?subject=${encodeURIComponent('Get Secure Property Check Results')}&body=${encodeURIComponent(['Hello Brodley Locksmiths,', '', 'I completed the Get Secure Property Check and would like some advice.', '', reportText, '', 'My contact details:', `Name: ${lead.name || 'Not provided'}`, `Phone: ${lead.phone || 'Not provided'}`, `Email: ${lead.email || 'Not provided'}`, `Preferred contact: ${lead.preferredContact}`, '', 'Please contact me about the best next step.'].join('\n'))}`;
+  const reportText = buildReport({ property, area, location, totals, securityLevel, reliabilityLevel, assistantSummary, nextStepText, actionPlan, lead });
+  const recommendedService = actionPlan[0] ? serviceInfo[actionPlan[0].href]?.label || actionPlan[0].label : 'Security Survey';
+  const emailHref = `${contact.emailHref}?subject=${encodeURIComponent(`Get Secure Property Check — ${location || area.label}`)}&body=${encodeURIComponent(['Hello Brodley Locksmiths,', '', 'I completed the Get Secure Property Check and would appreciate some advice.', '', reportText, 'Thank you.'].join('\n'))}`;
 
   function setAnswer(questionId, option) {
     setAnswers((current) => ({ ...current, [questionId]: option }));
     setCopied(false);
     setSaved(false);
+    setResultsMessage('');
+    if (resultsStage === 'results') setResultsStage('questions');
+  }
+
+  function showResults() {
+    if (answeredOptions.length < Math.min(3, visibleQuestions.length)) {
+      setResultsMessage('Please answer at least three questions so we can give you a more useful result.');
+      return;
+    }
+    setResultsMessage('');
+    setResultsStage('calculating');
+    window.setTimeout(() => {
+      setResultsStage('results');
+      window.setTimeout(() => resultRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 120);
+    }, 900);
   }
 
   function reset() {
@@ -605,7 +655,9 @@ export default function GetSecureCheckTool() {
     setAreaId('unsure');
     setCopied(false);
     setSaved(false);
-    setLead({ name: '', phone: '', email: '', preferredContact: 'Phone call', bestTime: 'Any time', helpType: 'A quick call to talk it through', website: '' });
+    setResultsStage('questions');
+    setResultsMessage('');
+    setLead({ name: '', phone: '', email: '', preferredContact: 'Phone call', bestTime: 'Any time', helpType: 'A quick call to talk it through', notes: '', website: '' });
     setSendState('idle');
     setSendMessage('');
   }
@@ -654,10 +706,19 @@ export default function GetSecureCheckTool() {
           data: {
             ...lead,
             propertyType: property.label,
+            area: area.label,
             location: location || area.label,
             service: totals.emergency ? 'Urgent door / lock issue' : 'Property security and reliability check',
             urgency: urgencyLabel(totals),
-            bestTime: lead.bestTime,
+            securityScore: `${securityLevel.label} (${totals.security})`,
+            reliabilityScore: `${reliabilityLevel.label} (${totals.reliability})`,
+            positiveScore: `${positiveLevel(totals.positive)} (${totals.positive})`,
+            summary: assistantSummary,
+            nextStep: nextStepText,
+            recommendedService,
+            mainPriorities: totals.concerns.slice(0, 4).join(' | '),
+            positiveHabits: totals.good.slice(0, 4).join(' | '),
+            customerNotes: lead.notes,
             message: `Customer completed the Get Secure Property Check. Requested help: ${lead.helpType}.`,
             report: reportText
           }
@@ -671,7 +732,7 @@ export default function GetSecureCheckTool() {
       }
       if (result.fallback) {
         setSendState('fallback');
-        setSendMessage('Your results are ready in an email so you can send them now. For urgent issues, please call.');
+        setSendMessage('Your results are ready in a clean email summary so you can send them now. For urgent issues, please call.');
         window.location.href = emailHref;
         return;
       }
@@ -684,8 +745,8 @@ export default function GetSecureCheckTool() {
   }
 
   return (
-    <div className="security-check-wrap advanced-check-wrap get-secure-v3">
-      <section className="security-check-intro advanced-check-intro">
+    <div className="security-check-wrap advanced-check-wrap get-secure-v4">
+      <section className="security-check-intro advanced-check-intro results-first-intro">
         <div className="info-box advanced-start-box get-secure-welcome">
           <Home size={34} />
           <p className="eyebrow gold">Start here</p>
@@ -695,19 +756,19 @@ export default function GetSecureCheckTool() {
           <div className="form-grid compact-form-grid">
             <label>
               Property type
-              <select value={propertyType} onChange={(event) => { setPropertyType(event.target.value); setAnswers({}); }}>
+              <select value={propertyType} onChange={(event) => { setPropertyType(event.target.value); setAnswers({}); setResultsStage('questions'); }}>
                 {propertyTypes.map((item) => <option key={item.id} value={item.id}>{item.label}</option>)}
               </select>
             </label>
             <label>
               Tendring area
-              <select value={areaId} onChange={(event) => setAreaId(event.target.value)}>
+              <select value={areaId} onChange={(event) => { setAreaId(event.target.value); if (resultsStage === 'results') setResultsStage('questions'); }}>
                 {areaOptions.map((item) => <option key={item.id} value={item.id}>{item.label}</option>)}
               </select>
             </label>
             <label className="full-field">
               Town, village, park name or notes
-              <input value={location} onChange={(event) => setLocation(event.target.value)} placeholder="e.g. Clacton, Harwich, Frinton, St Osyth caravan park, flat block" />
+              <input value={location} onChange={(event) => { setLocation(event.target.value); if (resultsStage === 'results') setResultsStage('questions'); }} placeholder="e.g. Clacton, Harwich, Frinton, St Osyth caravan park, flat block" />
             </label>
           </div>
           <div className="area-note-card enhanced-area-note">
@@ -720,19 +781,16 @@ export default function GetSecureCheckTool() {
           </div>
         </div>
 
-        <div className="score-stack">
-          {totals.emergency && (
-            <div className="tool-urgent-alert" role="alert">
-              <strong>Urgent door or access issue</strong>
-              <p>A door may not be secure, or somebody may be locked out or in. Calling is usually the quickest route.</p>
-              <a href={contact.phoneHref} className="btn btn-red"><Phone size={18} /> Call {contact.phoneDisplay}</a>
-            </div>
-          )}
-          <ScoreCard icon={ShieldCheck} title="Security risk" level={securityLevel.label} tone={securityLevel.tone} score={totals.security} text={securityLevel.text} />
-          <ScoreCard icon={Wrench} title="Door & lock reliability" level={reliabilityLevel.label} tone={reliabilityLevel.tone} score={totals.reliability} text={reliabilityLevel.text} />
-          <ScoreCard icon={Award} title="Positive habits" level={positiveLevel(totals.positive)} tone="positive" score={totals.positive} text="This recognises the good things already in place, such as known key control, smooth-locking doors, working window locks and planned access." />
-        </div>
+        <GetSecureProgressCard answered={answeredOptions.length} total={visibleQuestions.length} />
       </section>
+
+      {totals.emergency && (
+        <div className="tool-urgent-alert get-secure-emergency-inline" role="alert">
+          <strong>Urgent door or access issue</strong>
+          <p>A door may not be secure, or somebody may be locked out or in. You do not need to complete the check before getting help.</p>
+          <a href={contact.phoneHref} className="btn btn-red"><Phone size={18} /> Call {contact.phoneDisplay}</a>
+        </div>
+      )}
 
       <section className="advanced-question-list" aria-label="Get Secure questions">
         {visibleQuestions.map((item, index) => (
@@ -763,72 +821,117 @@ export default function GetSecureCheckTool() {
         ))}
       </section>
 
-      <section className="security-result-panel advanced-result-panel">
-        <div>
-          <p className="eyebrow red">Your Get Secure summary</p>
-          <h2>What your answers suggest</h2>
-          <div className="assistant-summary-card">
-            <MessageSquare size={26} />
-            <div>
-              <strong>Practical Brodley Locksmiths recommendation</strong>
-              <p>{assistantSummary}</p>
-              <em>{nextStepText}</em>
+      {resultsStage !== 'results' && (
+        <section className={`get-secure-submit-stage ${resultsStage === 'calculating' ? 'is-calculating' : ''}`} aria-live="polite">
+          {resultsStage === 'calculating' ? (
+            <div className="get-secure-calculating">
+              <span className="get-secure-calculating-mark"><ShieldCheck size={34} /></span>
+              <div>
+                <p className="eyebrow gold">Get Secure review</p>
+                <h2>Checking your security, access and door reliability answers…</h2>
+                <p>Putting together a practical summary and the most useful next steps.</p>
+              </div>
+            </div>
+          ) : (
+            <div className="get-secure-submit-inner">
+              <div>
+                <p className="eyebrow gold">Ready when you are</p>
+                <h2>See your Get Secure results</h2>
+                <p>Your answers stay clear and uncluttered while you complete the check. When you are ready, we will reveal your tailored security, reliability and positive-habits results.</p>
+                <small>{answeredOptions.length} of {visibleQuestions.length} questions answered. You can go back and change an answer at any time.</small>
+              </div>
+              <div className="get-secure-submit-actions">
+                <button type="button" className="btn btn-red get-secure-results-button" onClick={showResults}><Sparkles size={19} /> See My Get Secure Results</button>
+                {resultsMessage && <p className="get-secure-submit-message" role="status">{resultsMessage}</p>}
+              </div>
+            </div>
+          )}
+        </section>
+      )}
+
+      {resultsStage === 'results' && (
+        <section className="security-result-panel advanced-result-panel get-secure-results-reveal" ref={resultRef} tabIndex="-1">
+          <div>
+            <div className="result-reveal-heading">
+              <div className="result-reveal-mark"><Sparkles size={24} /></div>
+              <div>
+                <p className="eyebrow red">Your Get Secure results</p>
+                <h2>What your answers suggest</h2>
+              </div>
+            </div>
+            <div className="assistant-summary-card">
+              <MessageSquare size={26} />
+              <div>
+                <strong>Practical Brodley Locksmiths recommendation</strong>
+                <p>{assistantSummary}</p>
+                <em>{nextStepText}</em>
+              </div>
+            </div>
+            <div className="priority-pill-row">
+              <span>Overall priority: <strong>{urgencyLabel(totals)}</strong></span>
+              <span>{answeredOptions.length} questions used in your result</span>
+            </div>
+            <div className="action-plan-grid" aria-label="Suggested next steps">
+              {actionPlan.map((item) => (
+                <Link href={item.href} className={`action-plan-card ${item.tone}`} key={item.title}>
+                  <strong>{item.title}</strong>
+                  <p>{item.text}</p>
+                  <span>{item.label} <ArrowRight size={15} /></span>
+                </Link>
+              ))}
+            </div>
+            <div className="summary-grid deeper-summary-grid">
+              <SummaryBox title="Things already looking positive" items={totals.good.length ? totals.good : ['No positive points were selected yet — there is still a useful starting point in knowing what to improve next.']} positive />
+              <SummaryBox title="Things worth checking" items={totals.concerns.length ? totals.concerns : ['No major concerns were selected in this check. Keep an eye on anything that starts to feel stiff, worn or uncertain.']} />
+            </div>
+            <div className="result-service-cards">
+              {totals.services.map((href) => (
+                <Link key={href} href={href} className="result-service-card">
+                  <strong>{serviceInfo[href]?.label || 'View service'}</strong>
+                  <small>{serviceInfo[href]?.text || 'View the relevant Brodley Locksmiths service page.'}</small>
+                  <span>View service <ArrowRight size={15} /></span>
+                </Link>
+              ))}
             </div>
           </div>
-          <div className="priority-pill-row">
-            <span>Overall priority: <strong>{urgencyLabel(totals)}</strong></span>
-            <span>{answeredOptions.length} of {visibleQuestions.length} questions answered</span>
-          </div>
-          <div className="action-plan-grid" aria-label="Suggested next steps">
-            {actionPlan.map((item) => (
-              <Link href={item.href} className={`action-plan-card ${item.tone}`} key={item.title}>
-                <strong>{item.title}</strong>
-                <p>{item.text}</p>
-                <span>{item.label} <ArrowRight size={15} /></span>
-              </Link>
-            ))}
-          </div>
-          <div className="summary-grid deeper-summary-grid">
-            <SummaryBox title="Things already looking positive" items={totals.good.length ? totals.good : ['Answer a few questions and this section will show what is already working well.']} positive />
-            <SummaryBox title="Things worth checking" items={totals.concerns.length ? totals.concerns : ['No major concerns selected yet. Keep answering to build a fuller picture.']} />
-          </div>
-          <div className="result-service-cards">
-            {totals.services.map((href) => (
-              <Link key={href} href={href} className="result-service-card">
-                <strong>{serviceInfo[href]?.label || 'View service'}</strong>
-                <small>{serviceInfo[href]?.text || 'View the relevant Brodley Locksmiths service page.'}</small>
-                <span>View service <ArrowRight size={15} /></span>
-              </Link>
-            ))}
-          </div>
-        </div>
-        <aside className="security-action-card advanced-action-card">
-          <KeyRound size={34} />
-          <h3>{totals.emergency ? 'Get urgent locksmith help' : 'Send your check to Brodley Locksmiths'}</h3>
-          <p>{totals.emergency ? 'A door that will not lock, a lockout or a lock-in can become more stressful quickly. Call now for the fastest response, or send the summary below if it is safe to do so.' : 'Send the results through for practical advice on the most sensible next step, whether that is a lock change, anti-snap upgrade, uPVC door repair, key safe, garage lock, window lock or security survey across Tendring.'}</p>
-          <div className="button-row stacked-actions">
-            <a href={contact.phoneHref} className="btn btn-red"><Phone size={18} /> Call {contact.phoneDisplay}</a>
-          </div>
-          <form className="tool-lead-form" onSubmit={sendResults}>
-            <label>Your name<input required value={lead.name} onChange={(event) => updateLead('name', event.target.value)} placeholder="Your name" autoComplete="name" /></label>
-            <label>Phone number<input value={lead.phone} onChange={(event) => updateLead('phone', event.target.value)} placeholder="Best number to call" inputMode="tel" autoComplete="tel" /></label>
-            <label>Email address<input type="email" value={lead.email} onChange={(event) => updateLead('email', event.target.value)} placeholder="Optional if you prefer email" autoComplete="email" /></label>
-            <label>Preferred contact<select value={lead.preferredContact} onChange={(event) => updateLead('preferredContact', event.target.value)}><option>Phone call</option><option>Text message</option><option>Email</option></select></label>
-            <label>Best time to contact<select value={lead.bestTime} onChange={(event) => updateLead('bestTime', event.target.value)}><option>Any time</option><option>Morning</option><option>Afternoon</option><option>Evening</option></select></label>
-            <label>What would be most useful?<select value={lead.helpType} onChange={(event) => updateLead('helpType', event.target.value)}><option>A quick call to talk it through</option><option>A quote or visit</option><option>Advice on a specific door or lock</option><option>I would just like to keep my results for now</option></select></label>
-            <label className="honeypot-field" aria-hidden="true">Leave this blank<input tabIndex="-1" autoComplete="off" value={lead.website} onChange={(event) => updateLead('website', event.target.value)} /></label>
-            <button type="submit" className="btn btn-outline" disabled={sendState === 'sending'}><Send size={18} /> {sendState === 'sending' ? 'Sending…' : 'Send my check'}</button>
-          </form>
-          {sendMessage && <p className={`form-status ${sendState}`} role="status">{sendMessage}</p>}
-          <div className="button-row stacked-actions secondary-tool-actions">
-            <a href={emailHref} className="btn btn-outline"><Mail size={18} /> Email results instead</a>
-            <button type="button" className="btn btn-outline" onClick={copyResults}><Copy size={18} /> {copied ? 'Copied' : 'Copy results'}</button>
-            <button type="button" className="btn btn-outline" onClick={saveResults}><FileText size={18} /> {saved ? 'Saved on this device' : 'Save results'}</button>
-          </div>
-          <p className="form-note tool-privacy-note">By sending your check, you are asking Brodley Locksmiths to use these details to respond. <Link href="/privacy-policy">Privacy Policy</Link></p>
-          <button type="button" className="text-link reset-button" onClick={reset}><RotateCcw size={16} /> Reset check</button>
-        </aside>
-      </section>
+          <aside className="get-secure-results-aside">
+            <div className="get-secure-score-reveal">
+              <p className="eyebrow gold">Your three results</p>
+              <ScoreCard icon={ShieldCheck} title="Security risk" level={securityLevel.label} tone={securityLevel.tone} score={totals.security} text={securityLevel.text} />
+              <ScoreCard icon={Wrench} title="Door & lock reliability" level={reliabilityLevel.label} tone={reliabilityLevel.tone} score={totals.reliability} text={reliabilityLevel.text} />
+              <ScoreCard icon={Award} title="Positive habits" level={positiveLevel(totals.positive)} tone="positive" score={totals.positive} text="This recognises the sensible things already in place, from key control to smooth day-to-day locking." />
+            </div>
+            <div className="security-action-card advanced-action-card clean-enquiry-card">
+              <KeyRound size={34} />
+              <h3>{totals.emergency ? 'Get urgent locksmith help' : 'Send your result for practical advice'}</h3>
+              <p>{totals.emergency ? 'A door that will not lock, a lockout or a lock-in can become more stressful quickly. Call now for the fastest response, or send the summary below if it is safe to do so.' : 'Send a clear summary to Brodley Locksmiths. It includes your property details, location, scores, priorities and any note you add below.'}</p>
+              <div className="button-row stacked-actions">
+                <a href={contact.phoneHref} className="btn btn-red"><Phone size={18} /> Call {contact.phoneDisplay}</a>
+              </div>
+              <form className="tool-lead-form" onSubmit={sendResults}>
+                <label>Your name<input required value={lead.name} onChange={(event) => updateLead('name', event.target.value)} placeholder="Your name" autoComplete="name" /></label>
+                <label>Phone number<input value={lead.phone} onChange={(event) => updateLead('phone', event.target.value)} placeholder="Best number to call" inputMode="tel" autoComplete="tel" /></label>
+                <label>Email address<input type="email" value={lead.email} onChange={(event) => updateLead('email', event.target.value)} placeholder="Optional if you prefer email" autoComplete="email" /></label>
+                <label>Preferred contact<select value={lead.preferredContact} onChange={(event) => updateLead('preferredContact', event.target.value)}><option>Phone call</option><option>Text message</option><option>Email</option></select></label>
+                <label>Best time to contact<select value={lead.bestTime} onChange={(event) => updateLead('bestTime', event.target.value)}><option>Any time</option><option>Morning</option><option>Afternoon</option><option>Evening</option></select></label>
+                <label>What would be most useful?<select value={lead.helpType} onChange={(event) => updateLead('helpType', event.target.value)}><option>A quick call to talk it through</option><option>A quote or visit</option><option>Advice on a specific door or lock</option><option>I would just like to keep my results for now</option></select></label>
+                <label>Anything else you would like us to know?<textarea value={lead.notes} onChange={(event) => updateLead('notes', event.target.value)} placeholder="For example: the handle has become stiff, the patio door needs lifting, or this is for an elderly relative." rows="4" /></label>
+                <p className="field-help">Please do not include key codes, alarm codes or other access codes.</p>
+                <label className="honeypot-field" aria-hidden="true">Leave this blank<input tabIndex="-1" autoComplete="off" value={lead.website} onChange={(event) => updateLead('website', event.target.value)} /></label>
+                <button type="submit" className="btn btn-outline" disabled={sendState === 'sending'}><Send size={18} /> {sendState === 'sending' ? 'Sending…' : 'Send my check'}</button>
+              </form>
+              {sendMessage && <p className={`form-status ${sendState}`} role="status">{sendMessage}</p>}
+              <div className="button-row stacked-actions secondary-tool-actions">
+                <a href={emailHref} className="btn btn-outline"><Mail size={18} /> Email results instead</a>
+                <button type="button" className="btn btn-outline" onClick={copyResults}><Copy size={18} /> {copied ? 'Copied' : 'Copy results'}</button>
+                <button type="button" className="btn btn-outline" onClick={saveResults}><FileText size={18} /> {saved ? 'Saved on this device' : 'Save results'}</button>
+              </div>
+              <p className="form-note tool-privacy-note">By sending your check, you are asking Brodley Locksmiths to use these details to respond. <Link href="/privacy-policy">Privacy Policy</Link></p>
+              <button type="button" className="text-link reset-button" onClick={reset}><RotateCcw size={16} /> Start a new check</button>
+            </div>
+          </aside>
+        </section>
+      )}
     </div>
   );
 }

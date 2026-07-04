@@ -40,7 +40,7 @@ export default function GetSecureCheckPage() {
       <PageShell
         eyebrow="Get Secure Property Check"
         title="Check your property security and door reliability."
-        intro="Use this friendly multi-choice check to review locks, doors, windows, keys, access points and early warning signs around your property. It gives separate security and door reliability results, highlights positive habits already in place, and suggests sensible next steps for getting secure across Tendring."
+        intro="Use this friendly multi-choice check to review locks, doors, windows, keys, access points and early warning signs around your property. It gives separate security and door reliability results, shows the practical safeguards selected in your answers, and suggests sensible next steps for getting secure across Tendring."
       >
         <GetSecureCheckTool />
       </PageShell>

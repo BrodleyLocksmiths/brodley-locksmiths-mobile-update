@@ -71,7 +71,7 @@ function safeValue(value, fallback = 'Not provided') {
 
 function getSecureText(data = {}) {
   const priorities = splitItems(data.mainPriorities);
-  const positives = splitItems(data.positiveHabits);
+  const foundations = splitItems(data.existingSafeguards);
   return [
     'GET SECURE PROPERTY CHECK',
     '',
@@ -89,7 +89,7 @@ function getSecureText(data = {}) {
     'RESULTS',
     `Security: ${safeValue(data.securityScore)}`,
     `Door & lock reliability: ${safeValue(data.reliabilityScore)}`,
-    `Positive security habits: ${safeValue(data.positiveScore)}`,
+    `Security foundations: ${safeValue(data.foundationsScore)}`,
     `Overall priority: ${safeValue(data.urgency)}`,
     `Recommended next service: ${safeValue(data.recommendedService)}`,
     '',
@@ -100,8 +100,8 @@ function getSecureText(data = {}) {
     'MAIN PRIORITIES',
     ...(priorities.length ? priorities.map((item) => `• ${item}`) : ['• No major concerns were selected in this check.']),
     '',
-    'THINGS ALREADY LOOKING POSITIVE',
-    ...(positives.length ? positives.map((item) => `• ${item}`) : ['• No positive points were selected yet.']),
+    'EXISTING SAFEGUARDS SELECTED',
+    ...(foundations.length ? foundations.map((item) => `• ${item}`) : ['• No existing safeguards were selected in this check yet.']),
     '',
     'CUSTOMER NOTE',
     safeValue(data.customerNotes, 'No additional note added.'),
@@ -115,7 +115,7 @@ function getSecureText(data = {}) {
 
 function getSecureHtml(data = {}) {
   const priorities = splitItems(data.mainPriorities);
-  const positives = splitItems(data.positiveHabits);
+  const foundations = splitItems(data.existingSafeguards);
   const row = (label, value) => `<tr><td style="padding:9px 12px;color:#6b7280;font-weight:700;width:42%;border-bottom:1px solid #e5e7eb;vertical-align:top;">${escapeHtml(label)}</td><td style="padding:9px 12px;color:#111827;border-bottom:1px solid #e5e7eb;vertical-align:top;">${escapeHtml(safeValue(value))}</td></tr>`;
   const list = (items, fallback) => `<ul style="margin:0;padding-left:20px;color:#1f2937;line-height:1.55;">${(items.length ? items : [fallback]).map((item) => `<li style="margin:0 0 7px;">${escapeHtml(item)}</li>`).join('')}</ul>`;
   const heading = (title) => `<h2 style="font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:#8a2924;margin:28px 0 10px;">${escapeHtml(title)}</h2>`;
@@ -134,13 +134,13 @@ function getSecureHtml(data = {}) {
         ${heading('Property & location')}
         <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border:1px solid #e5e7eb;border-radius:12px;border-collapse:separate;border-spacing:0;overflow:hidden;background:#ffffff;">${row('Property type', data.propertyType)}${row('Location', data.location)}</table>
         ${heading('Results')}
-        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border:1px solid #e5e7eb;border-radius:12px;border-collapse:separate;border-spacing:0;overflow:hidden;background:#ffffff;">${row('Security', data.securityScore)}${row('Door & lock reliability', data.reliabilityScore)}${row('Positive security habits', data.positiveScore)}${row('Overall priority', data.urgency)}${row('Recommended next service', data.recommendedService)}</table>
+        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border:1px solid #e5e7eb;border-radius:12px;border-collapse:separate;border-spacing:0;overflow:hidden;background:#ffffff;">${row('Security', data.securityScore)}${row('Door & lock reliability', data.reliabilityScore)}${row('Security foundations', data.foundationsScore)}${row('Overall priority', data.urgency)}${row('Recommended next service', data.recommendedService)}</table>
         ${heading('Tailored summary')}
         <div style="border-left:4px solid #b8322c;background:#fff7f6;border-radius:0 12px 12px 0;padding:14px 16px;line-height:1.6;color:#1f2937;">${escapeHtml(safeValue(data.summary))}<br><br><strong>${escapeHtml(safeValue(data.nextStep))}</strong></div>
         ${heading('Main priorities')}
         <div style="border:1px solid #f1d0cd;background:#fffafa;border-radius:12px;padding:14px 16px;">${list(priorities, 'No major concerns were selected in this check.')}</div>
-        ${heading('Things already looking positive')}
-        <div style="border:1px solid #c9ead5;background:#f7fff9;border-radius:12px;padding:14px 16px;">${list(positives, 'No positive points were selected yet.')}</div>
+        ${heading('Existing safeguards selected')}
+        <div style="border:1px solid #c9ead5;background:#f7fff9;border-radius:12px;padding:14px 16px;">${list(foundations, 'No existing safeguards were selected in this check yet.')}</div>
         ${heading('Customer note')}
         <div style="border:1px solid #e5e7eb;border-radius:12px;padding:14px 16px;background:#ffffff;line-height:1.6;color:#1f2937;">${escapeHtml(safeValue(data.customerNotes, 'No additional note added.'))}</div>
         ${heading('Requested help')}

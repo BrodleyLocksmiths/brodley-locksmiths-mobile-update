@@ -405,11 +405,11 @@ function levelFor(score, type) {
   return { label: 'Lower concern', tone: 'low', text: 'The answers so far do not point to a major security concern.' };
 }
 
-function positiveLevel(score) {
-  if (score >= 18) return 'Strong security habits';
-  if (score >= 9) return 'Good habits in place';
-  if (score > 0) return 'Some good signs';
-  return 'Still building picture';
+function foundationLevel(score) {
+  if (score >= 18) return 'Several safeguards selected';
+  if (score >= 9) return 'Some safeguards selected';
+  if (score > 0) return 'A few safeguards selected';
+  return 'More detail needed';
 }
 
 function urgencyLabel(totals) {
@@ -440,7 +440,7 @@ function buildAssistantSummary({ totals, property, area, location, answeredCount
     return `For this ${property.label.toLowerCase()} in ${place}, outdoor access is worth bringing into the security plan. A side or rear gate does not need to be complicated, but it should close cleanly, lock reliably and only give access to the right people. A GateMate® gate-security check can look at the lock, hinges, closing line and key control together.`;
   }
   if (totals.good.length >= 4 && totals.concerns.length <= 2) {
-    return `Your answers show several good habits already in place for this ${property.label.toLowerCase()}. There may still be a couple of areas worth checking, but the overall picture is positive. A quick Get Secure visit can confirm whether anything needs attention.`;
+    return `Your answers show several practical safeguards already selected for this ${property.label.toLowerCase()}. There may still be a couple of areas worth checking, but the overall picture is reasonably well covered. A quick Get Secure visit can confirm whether anything needs attention.`;
   }
   if (totals.concerns.length >= 3) {
     return `Your answers show a few practical areas worth reviewing. Nothing has to feel complicated: the best next step is usually to check the doors, locks, windows and key control, then deal with the highest-risk issues first.`;
@@ -482,7 +482,7 @@ function buildActionPlan(totals) {
     plan.push({ title: 'Make shared access simpler', text: 'A properly fitted key safe or clear access plan can reduce stress for family, carers, guests, tenants or trusted trades.', href: '/services/key-safes', label: 'Key safe options', tone: 'positive' });
   }
   if (!plan.length) {
-    plan.push({ title: 'Keep the good habits going', text: 'Your answers suggest a sound starting point. Check doors, keys and access points whenever something starts to feel different.', href: '/services/security-surveys', label: 'Optional security check', tone: 'positive' });
+    plan.push({ title: 'Maintain the safeguards you already have', text: 'Your answers suggest a sound starting point. Check doors, keys and access points whenever something starts to feel different.', href: '/services/security-surveys', label: 'Optional security check', tone: 'positive' });
   }
   if (plan.length < 3) {
     plan.push({ title: 'Use a clear order', text: 'Deal with anything that affects safe entry, exit or locking first. Then work through security upgrades and less-urgent access points.', href: '/get-secure-check', label: 'Keep this check handy', tone: 'neutral' });
@@ -493,7 +493,7 @@ function buildActionPlan(totals) {
 function buildReport({ property, area, location, totals, securityLevel, reliabilityLevel, assistantSummary, nextStepText, actionPlan, lead }) {
   const recommended = actionPlan[0] ? serviceInfo[actionPlan[0].href]?.label || actionPlan[0].label : 'Security Survey';
   const mainPriorities = totals.concerns.length ? totals.concerns.slice(0, 4) : ['No major concerns were selected in this check.'];
-  const positiveItems = totals.good.length ? totals.good.slice(0, 4) : ['No positive points were selected yet.'];
+  const foundationItems = totals.good.length ? totals.good.slice(0, 4) : ['No existing safeguards were selected in this check yet.'];
 
   return [
     'GET SECURE PROPERTY CHECK',
@@ -513,7 +513,7 @@ function buildReport({ property, area, location, totals, securityLevel, reliabil
     'RESULTS',
     `Security: ${securityLevel.label} (${totals.security})`,
     `Door & lock reliability: ${reliabilityLevel.label} (${totals.reliability})`,
-    `Positive security habits: ${positiveLevel(totals.positive)} (${totals.positive})`,
+    `Security foundations: ${foundationLevel(totals.positive)} (${totals.positive})`,
     `Overall priority: ${urgencyLabel(totals)}`,
     `Recommended next service: ${recommended}`,
     '',
@@ -524,8 +524,8 @@ function buildReport({ property, area, location, totals, securityLevel, reliabil
     'MAIN PRIORITIES',
     ...mainPriorities.map((item) => `- ${item}`),
     '',
-    'THINGS ALREADY LOOKING POSITIVE',
-    ...positiveItems.map((item) => `- ${item}`),
+    'EXISTING SAFEGUARDS SELECTED',
+    ...foundationItems.map((item) => `- ${item}`),
     '',
     'CUSTOMER NOTE',
     lead.notes || 'No additional note added.',
@@ -712,12 +712,12 @@ export default function GetSecureCheckTool() {
             urgency: urgencyLabel(totals),
             securityScore: `${securityLevel.label} (${totals.security})`,
             reliabilityScore: `${reliabilityLevel.label} (${totals.reliability})`,
-            positiveScore: `${positiveLevel(totals.positive)} (${totals.positive})`,
+            foundationsScore: `${foundationLevel(totals.positive)} (${totals.positive})`,
             summary: assistantSummary,
             nextStep: nextStepText,
             recommendedService,
             mainPriorities: totals.concerns.slice(0, 4).join(' | '),
-            positiveHabits: totals.good.slice(0, 4).join(' | '),
+            existingSafeguards: totals.good.slice(0, 4).join(' | '),
             customerNotes: lead.notes,
             message: `Customer completed the Get Secure Property Check. Requested help: ${lead.helpType}.`,
             report: reportText
@@ -837,7 +837,7 @@ export default function GetSecureCheckTool() {
               <div>
                 <p className="eyebrow gold">Ready when you are</p>
                 <h2>See your Get Secure results</h2>
-                <p>Your answers stay clear and uncluttered while you complete the check. When you are ready, we will reveal your tailored security, reliability and positive-habits results.</p>
+                <p>Your answers stay clear and uncluttered while you complete the check. When you are ready, we will reveal your tailored security, reliability and security-foundations results.</p>
                 <small>{answeredOptions.length} of {visibleQuestions.length} questions answered. You can go back and change an answer at any time.</small>
               </div>
               <div className="get-secure-submit-actions">
@@ -851,60 +851,42 @@ export default function GetSecureCheckTool() {
 
       {resultsStage === 'results' && (
         <section className="security-result-panel advanced-result-panel get-secure-results-reveal" ref={resultRef} tabIndex="-1">
-          <div>
-            <div className="result-reveal-heading">
-              <div className="result-reveal-mark"><Sparkles size={24} /></div>
-              <div>
-                <p className="eyebrow red">Your Get Secure results</p>
-                <h2>What your answers suggest</h2>
-              </div>
-            </div>
-            <div className="assistant-summary-card">
-              <MessageSquare size={26} />
-              <div>
-                <strong>Practical Brodley Locksmiths recommendation</strong>
-                <p>{assistantSummary}</p>
-                <em>{nextStepText}</em>
-              </div>
-            </div>
-            <div className="priority-pill-row">
-              <span>Overall priority: <strong>{urgencyLabel(totals)}</strong></span>
-              <span>{answeredOptions.length} questions used in your result</span>
-            </div>
-            <div className="action-plan-grid" aria-label="Suggested next steps">
-              {actionPlan.map((item) => (
-                <Link href={item.href} className={`action-plan-card ${item.tone}`} key={item.title}>
-                  <strong>{item.title}</strong>
-                  <p>{item.text}</p>
-                  <span>{item.label} <ArrowRight size={15} /></span>
-                </Link>
-              ))}
-            </div>
-            <div className="summary-grid deeper-summary-grid">
-              <SummaryBox title="Things already looking positive" items={totals.good.length ? totals.good : ['No positive points were selected yet — there is still a useful starting point in knowing what to improve next.']} positive />
-              <SummaryBox title="Things worth checking" items={totals.concerns.length ? totals.concerns : ['No major concerns were selected in this check. Keep an eye on anything that starts to feel stiff, worn or uncertain.']} />
-            </div>
-            <div className="result-service-cards">
-              {totals.services.map((href) => (
-                <Link key={href} href={href} className="result-service-card">
-                  <strong>{serviceInfo[href]?.label || 'View service'}</strong>
-                  <small>{serviceInfo[href]?.text || 'View the relevant Brodley Locksmiths service page.'}</small>
-                  <span>View service <ArrowRight size={15} /></span>
-                </Link>
-              ))}
+          <div className="result-reveal-heading">
+            <div className="result-reveal-mark"><Sparkles size={24} /></div>
+            <div>
+              <p className="eyebrow red">Your Get Secure results</p>
+              <h2>Your results at a glance</h2>
             </div>
           </div>
-          <aside className="get-secure-results-aside">
-            <div className="get-secure-score-reveal">
-              <p className="eyebrow gold">Your three results</p>
-              <ScoreCard icon={ShieldCheck} title="Security risk" level={securityLevel.label} tone={securityLevel.tone} score={totals.security} text={securityLevel.text} />
+
+          <div className="get-secure-score-hero" aria-label="Your results at a glance">
+            <p className="eyebrow gold">Scores first</p>
+            <div className="get-secure-score-grid">
+              <ScoreCard icon={ShieldCheck} title="Security priority" level={securityLevel.label} tone={securityLevel.tone} score={totals.security} text={securityLevel.text} />
               <ScoreCard icon={Wrench} title="Door & lock reliability" level={reliabilityLevel.label} tone={reliabilityLevel.tone} score={totals.reliability} text={reliabilityLevel.text} />
-              <ScoreCard icon={Award} title="Positive habits" level={positiveLevel(totals.positive)} tone="positive" score={totals.positive} text="This recognises the sensible things already in place, from key control to smooth day-to-day locking." />
+              <ScoreCard icon={Award} title="Security foundations" level={foundationLevel(totals.positive)} tone="positive" score={totals.positive} text="This reflects the safeguards selected in the check, such as controlled keys, reliable locking and planned access." />
             </div>
+          </div>
+
+          <div className="priority-pill-row">
+            <span>Overall priority: <strong>{urgencyLabel(totals)}</strong></span>
+            <span>{answeredOptions.length} questions used in your result</span>
+          </div>
+
+          <div className="assistant-summary-card">
+            <MessageSquare size={26} />
+            <div>
+              <strong>Practical Brodley Locksmiths recommendation</strong>
+              <p>{assistantSummary}</p>
+              <em>{nextStepText}</em>
+            </div>
+          </div>
+
+          <section className="get-secure-contact-stage" aria-label="Send your results to Brodley Locksmiths">
             <div className="security-action-card advanced-action-card clean-enquiry-card">
               <KeyRound size={34} />
-              <h3>{totals.emergency ? 'Get urgent locksmith help' : 'Send your result for practical advice'}</h3>
-              <p>{totals.emergency ? 'A door that will not lock, a lockout or a lock-in can become more stressful quickly. Call now for the fastest response, or send the summary below if it is safe to do so.' : 'Send a clear summary to Brodley Locksmiths. It includes your property details, location, scores, priorities and any note you add below.'}</p>
+              <h3>{totals.emergency ? 'Get urgent locksmith help' : 'Would you like practical advice on these results?'}</h3>
+              <p>{totals.emergency ? 'A door that will not lock, a lockout or a lock-in can become more stressful quickly. Call now for the fastest response, or send the summary below if it is safe to do so.' : 'Send your check to Brodley Locksmiths before moving on. It includes your location, scores, priorities and any note you add, so we can understand the situation before getting back to you.'}</p>
               <div className="button-row stacked-actions">
                 <a href={contact.phoneHref} className="btn btn-red"><Phone size={18} /> Call {contact.phoneDisplay}</a>
               </div>
@@ -918,7 +900,7 @@ export default function GetSecureCheckTool() {
                 <label>Anything else you would like us to know?<textarea value={lead.notes} onChange={(event) => updateLead('notes', event.target.value)} placeholder="For example: the handle has become stiff, the patio door needs lifting, or this is for an elderly relative." rows="4" /></label>
                 <p className="field-help">Please do not include key codes, alarm codes or other access codes.</p>
                 <label className="honeypot-field" aria-hidden="true">Leave this blank<input tabIndex="-1" autoComplete="off" value={lead.website} onChange={(event) => updateLead('website', event.target.value)} /></label>
-                <button type="submit" className="btn btn-outline" disabled={sendState === 'sending'}><Send size={18} /> {sendState === 'sending' ? 'Sending…' : 'Send my check'}</button>
+                <button type="submit" className="btn btn-outline" disabled={sendState === 'sending'}><Send size={18} /> {sendState === 'sending' ? 'Sending…' : 'Send my check for advice'}</button>
               </form>
               {sendMessage && <p className={`form-status ${sendState}`} role="status">{sendMessage}</p>}
               <div className="button-row stacked-actions secondary-tool-actions">
@@ -927,9 +909,47 @@ export default function GetSecureCheckTool() {
                 <button type="button" className="btn btn-outline" onClick={saveResults}><FileText size={18} /> {saved ? 'Saved on this device' : 'Save results'}</button>
               </div>
               <p className="form-note tool-privacy-note">By sending your check, you are asking Brodley Locksmiths to use these details to respond. <Link href="/privacy-policy">Privacy Policy</Link></p>
-              <button type="button" className="text-link reset-button" onClick={reset}><RotateCcw size={16} /> Start a new check</button>
             </div>
-          </aside>
+          </section>
+
+          <section className="get-secure-guidance-section" aria-label="Your recommendations and next steps">
+            <div className="get-secure-section-heading">
+              <p className="eyebrow gold">Your next steps</p>
+              <h3>Work through these in the right order</h3>
+              <p>Start with anything that affects secure entry, exit or reliable locking. The related service pages are kept below, once you have had the chance to send or save your results.</p>
+            </div>
+            <div className="action-plan-grid" aria-label="Suggested next steps">
+              {actionPlan.map((item) => (
+                <article className={`action-plan-card ${item.tone}`} key={item.title}>
+                  <strong>{item.title}</strong>
+                  <p>{item.text}</p>
+                  <span>Suggested focus</span>
+                </article>
+              ))}
+            </div>
+            <div className="summary-grid deeper-summary-grid">
+              <SummaryBox title="Existing safeguards selected" items={totals.good.length ? totals.good : ['No existing safeguards were selected in this check yet.']} positive />
+              <SummaryBox title="Things worth checking" items={totals.concerns.length ? totals.concerns : ['No major concerns were selected in this check. Keep an eye on anything that starts to feel stiff, worn or uncertain.']} />
+            </div>
+          </section>
+
+          <section className="get-secure-service-section" aria-label="Related locksmith services">
+            <div className="get-secure-section-heading service-links-heading">
+              <p className="eyebrow gold">Explore further</p>
+              <h3>Related locksmith services</h3>
+              <p>These pages explain the work that may be relevant to your results. You can read them after sending, saving or noting your check.</p>
+            </div>
+            <div className="result-service-cards">
+              {totals.services.map((href) => (
+                <Link key={href} href={href} className="result-service-card">
+                  <strong>{serviceInfo[href]?.label || 'View service'}</strong>
+                  <small>{serviceInfo[href]?.text || 'View the relevant Brodley Locksmiths service page.'}</small>
+                  <span>View service <ArrowRight size={15} /></span>
+                </Link>
+              ))}
+            </div>
+            <button type="button" className="text-link reset-button" onClick={reset}><RotateCcw size={16} /> Start a new check</button>
+          </section>
         </section>
       )}
     </div>

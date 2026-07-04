@@ -86,3 +86,10 @@ ENQUIRY_TO=info@brodley-locksmiths.com
 ```
 
 Without those variables, the customer will still be offered a clearly formatted email-app fallback.
+
+## Latest Get Secure refinement
+
+- Results now reveal the three score cards first.
+- “Positive habits” has been replaced with neutral **Security foundations** / **Existing safeguards selected** wording.
+- The lead/contact section now comes before recommendations and linked service pages.
+- Related service links are intentionally kept at the bottom of the results page.

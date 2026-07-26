@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { ArrowRight, MapPin } from 'lucide-react';
 import JsonLd from '@/components/JsonLd';
-import { PageShell } from '@/components/Shared';
+import { IndexingBoostLinks, PageShell } from '@/components/Shared';
 import { locations, townPages } from '@/lib/siteData';
 import { breadcrumbSchema, localBusinessSchema, pageMetadata } from '@/lib/schema';
 
@@ -17,6 +17,7 @@ export default function AreasPage() {
     <>
       <JsonLd data={[localBusinessSchema(), breadcrumbSchema([{ name: 'Home', path: '/' }, { name: 'Areas', path: '/areas' }])]} />
       <PageShell eyebrow="Areas Covered" title="Locksmith services across Tendring towns and villages." intro="Find locksmith, lock change, uPVC door repair and property security services across Tendring, including coastal towns, villages, landlords, holiday lets and local businesses.">
+        <IndexingBoostLinks variant="compact" />
         <div className="area-cards">
           {townPages.map((town) => (
             <Link key={town.slug} href={`/areas/${town.slug}`} className="area-card">

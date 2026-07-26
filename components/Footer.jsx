@@ -17,14 +17,34 @@ export default function Footer() {
           </div>
         </div>
         <div>
-          <h2>Services</h2>
-          {servicePages.slice(0, 8).map((s) => <Link key={s.slug} href={`/services/${s.slug}`}>{s.nav}</Link>)}
-          <Link href="/services/gatemate-gate-security">GateMate® Gate Security</Link>
+          <h2>Priority Services</h2>
+          {[
+            'emergency-locksmith-tendring',
+            'door-will-not-lock',
+            'lock-changes',
+            'upvc-door-repairs-tendring',
+            'multipoint-lock-repairs',
+            'security-surveys',
+            'key-safes',
+            'gatemate-gate-security'
+          ].map((slug) => servicePages.find((s) => s.slug === slug)).filter(Boolean).map((s) => <Link key={s.slug} href={`/services/${s.slug}`}>{s.nav}</Link>)}
           <Link href="/services">View all services</Link>
         </div>
         <div>
-          <h2>Areas</h2>
-          {townPages.slice(0, 8).map((t) => <Link key={t.slug} href={`/areas/${t.slug}`}>{t.town}</Link>)}
+          <h2>Key Areas</h2>
+          {[
+            'Clacton-on-Sea',
+            'Frinton-on-Sea',
+            'Walton-on-the-Naze',
+            'Harwich',
+            'Dovercourt',
+            'Manningtree',
+            'Brightlingsea',
+            'Holland-on-Sea',
+            'Jaywick',
+            'St Osyth'
+          ].map((name) => townPages.find((t) => t.town === name)).filter(Boolean).map((t) => <Link key={t.slug} href={`/areas/${t.slug}`}>{t.town}</Link>)}
+          <Link href="/areas">View all areas</Link>
         </div>
         <div>
           <h2>Main Pages</h2>

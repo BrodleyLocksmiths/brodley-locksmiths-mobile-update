@@ -1,6 +1,45 @@
 import Link from 'next/link';
 import { CheckCircle2, Phone, Mail, ArrowRight, MapPinned, Star, BadgeCheck, Wrench, Camera, MessageSquare, ClipboardCheck, HelpCircle, ShieldCheck, KeyRound } from 'lucide-react';
-import { blogPosts, contact, coreFaqs, customerReviews, locations, servicePages, site } from '@/lib/siteData';
+import { blogPosts, contact, coreFaqs, customerReviews, locations, servicePages, site, townPages } from '@/lib/siteData';
+
+const indexingPriorityServiceSlugs = [
+  'emergency-locksmith-tendring',
+  'door-will-not-lock',
+  'locked-out-non-destructive-entry',
+  'lock-changes',
+  'upvc-door-repairs-tendring',
+  'multipoint-lock-repairs',
+  'door-alignment-adjustment',
+  'patio-door-lock-repairs',
+  'broken-key-extraction',
+  'security-surveys',
+  'key-safes',
+  'gatemate-gate-security'
+];
+
+const indexingPriorityTownNames = [
+  'Clacton-on-Sea',
+  'Frinton-on-Sea',
+  'Walton-on-the-Naze',
+  'Harwich',
+  'Dovercourt',
+  'Manningtree',
+  'Brightlingsea',
+  'Holland-on-Sea',
+  'Jaywick',
+  'Great Clacton',
+  'St Osyth',
+  'Thorpe-le-Soken'
+];
+
+function serviceBySlug(slug) {
+  return servicePages.find((service) => service.slug === slug);
+}
+
+function townByName(name) {
+  return townPages.find((town) => town.town === name);
+}
+
 
 export function SectionHeader({ eyebrow, title, children }) {
   return (
@@ -265,14 +304,19 @@ export function ReviewsSection() {
 }
 
 export function AreasPreview() {
+  const linkedPriorityTowns = indexingPriorityTownNames.map(townByName).filter(Boolean);
+  const unlinkedNearbyNames = locations.filter((place) => !indexingPriorityTownNames.includes(place)).slice(0, 18);
   return (
     <section className="section deep map-section">
       <img src={site.map} alt="Tendring map background showing Brodley Locksmiths service area" />
       <div className="map-cover" />
       <div className="container relative">
         <SectionHeader eyebrow="Local Area Coverage" title="Serving towns and villages throughout Tendring.">Local locksmith and security services across the district, including coastal towns, villages, rural properties, landlords, guest houses and small businesses.</SectionHeader>
-        <div className="location-cloud">{locations.map((place) => <span key={place}>{place}</span>)}</div>
-        <div className="center"><Link href="/areas" className="btn btn-red big">View area pages <MapPinned size={20} /></Link></div>
+        <div className="priority-area-link-cloud" aria-label="Popular Tendring locksmith area pages">
+          {linkedPriorityTowns.map((town) => <Link key={town.slug} href={`/areas/${town.slug}`}>{town.town}</Link>)}
+        </div>
+        <div className="location-cloud supporting-location-cloud">{unlinkedNearbyNames.map((place) => <span key={place}>{place}</span>)}</div>
+        <div className="center"><Link href="/areas" className="btn btn-red big">View all area pages <MapPinned size={20} /></Link></div>
       </div>
     </section>
   );
@@ -288,6 +332,64 @@ export function FaqSection({ faqs = coreFaqs, title = 'Frequently asked locksmit
         </div>
       </div>
     </section>
+  );
+}
+
+
+export function IndexingBoostLinks({ variant = 'full' }) {
+  const priorityServices = indexingPriorityServiceSlugs.map(serviceBySlug).filter(Boolean);
+  const priorityTowns = indexingPriorityTownNames.map(townByName).filter(Boolean);
+  return (
+    <section className={`indexing-boost-links ${variant === 'compact' ? 'indexing-boost-links-compact' : ''}`} aria-label="Popular locksmith service and area links">
+      <div>
+        <p className="eyebrow gold">Popular locksmith help</p>
+        <h2>Fast routes to the services and areas customers search for most.</h2>
+        <p>These links help visitors move quickly to the right lock, door, security or local area page.</p>
+      </div>
+      <div className="indexing-link-columns">
+        <div className="indexing-link-card">
+          <h3>Priority services</h3>
+          <div className="indexing-link-grid">
+            {priorityServices.map((service) => <Link key={service.slug} href={`/services/${service.slug}`}>{service.nav}</Link>)}
+          </div>
+        </div>
+        <div className="indexing-link-card">
+          <h3>Key Tendring areas</h3>
+          <div className="indexing-link-grid">
+            {priorityTowns.map((town) => <Link key={town.slug} href={`/areas/${town.slug}`}>{town.town}</Link>)}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function ServiceAreaQuickLinks({ title = 'Popular Tendring areas for locksmith work', intro = 'Brodley Locksmiths covers the main coastal towns, villages and local areas across Tendring.' }) {
+  const priorityTowns = indexingPriorityTownNames.map(townByName).filter(Boolean);
+  return (
+    <div className="service-area-quick-links">
+      <h2>{title}</h2>
+      <p>{intro}</p>
+      <div className="service-area-quick-link-grid">
+        {priorityTowns.map((town) => <Link key={town.slug} href={`/areas/${town.slug}`}>{town.town}</Link>)}
+      </div>
+      <Link href="/areas" className="text-link">View every Tendring area <ArrowRight size={16} /></Link>
+    </div>
+  );
+}
+
+export function PriorityServiceLinks({ title = 'Priority locksmith services', current }) {
+  const priorityServices = indexingPriorityServiceSlugs
+    .filter((slug) => slug !== current)
+    .map(serviceBySlug)
+    .filter(Boolean);
+  return (
+    <div className="priority-service-links">
+      <h2>{title}</h2>
+      <div className="priority-service-link-grid">
+        {priorityServices.map((service) => <Link key={service.slug} href={`/services/${service.slug}`}>{service.nav}</Link>)}
+      </div>
+    </div>
   );
 }
 

@@ -1,16 +1,27 @@
-# Get Secure Property Check — tailored property routes update
+# Release Notes — Brodley Locksmiths Indexing Boost Update
 
-## Included
+This update focuses on crawl priority, customer navigation and internal linking after launch.
 
-- Replaced the explanatory copy below **See Your Get Secure Results** with the shorter line: **See what matters most for this property.**
-- Removed the redundant **How does your usual lock-up routine feel?** question completely.
-- Split **Tenant** from **Landlord / rental property owner** so each has its own route and relevant questions.
-- Added tailored question paths for homeowners, tenants, landlords, holiday-let owners, guest houses, caravans, small businesses and care access.
-- Added stronger landlord questions around tenant changeovers, void properties, contractor/agent keys and maintenance warning signs.
-- Added renter-friendly tenant questions that focus on what can be observed, reported and dealt with safely.
-- Updated result summaries and suggested next steps to better reflect tenant and landlord roles.
-- Kept scores first, contact before service links, and related service pages at the bottom.
+## Added
+
+- Homepage **Popular locksmith help** link hub pointing to priority services and key Tendring area pages.
+- Direct linked area buttons in the homepage area section instead of only unlinked town names.
+- Stronger priority service links on area pages.
+- Stronger key Tendring area links on service pages and blog articles.
+- Nearby area names on town pages are now linked where a matching area page exists.
+- Footer now highlights the most important commercial services and key local areas.
+- `INDEXING-BOOST-MANUAL-CHECKLIST.md` with the priority URLs to manually inspect and request indexing for in Google Search Console.
+
+## Sitemap refinements
+
+- Added `lastModified` dates to sitemap entries.
+- Increased sitemap priority for the homepage, services hub, area hub, Get Secure check, quote/contact pages, priority service pages and key area pages.
+- Kept legal/privacy pages lower priority.
+
+## Why this update exists
+
+Google Search Console showed many pages as **Discovered - currently not indexed** with **Last crawled: N/A**. That usually means Google knows the URLs exist but has not yet crawled them. This update makes the important pages easier to reach from the homepage, service pages, area pages, footer and blog content.
 
 ## Deployment
 
-Commit the project files to the `main` branch in GitHub. Vercel will create a new production deployment automatically. No DNS or Search Console changes are required.
+Commit the package contents to the GitHub `main` branch. Vercel should deploy automatically. No DNS changes are required.

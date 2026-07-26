@@ -97,3 +97,11 @@ Without those variables, the customer will still be offered a clearly formatted 
 ## Latest Get Secure update
 
 The property check now separates Tenant and Landlord / rental-property-owner routes. It uses shorter result-button wording, removes the redundant everyday lock-up question, and shows more relevant questions for each property or role.
+
+## Indexing Boost Update
+
+This package adds an internal-linking and crawl-priority update after launch.
+
+It adds customer-facing link hubs to strengthen the pathways from the homepage, service pages, area pages, blog articles and footer into the most important commercial pages. It also refines the sitemap priorities and adds `lastModified` values.
+
+After deployment, use `INDEXING-BOOST-MANUAL-CHECKLIST.md` to manually inspect and request indexing for the most important service and area pages in Google Search Console.

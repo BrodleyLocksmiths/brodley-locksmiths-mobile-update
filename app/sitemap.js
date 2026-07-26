@@ -1,6 +1,63 @@
 import { blogPosts, servicePages, site, townPages } from '@/lib/siteData';
 
+const priorityServiceSlugs = new Set([
+  'emergency-locksmith-tendring',
+  'door-will-not-lock',
+  'locked-out-non-destructive-entry',
+  'lock-changes',
+  'upvc-door-repairs-tendring',
+  'multipoint-lock-repairs',
+  'door-alignment-adjustment',
+  'patio-door-lock-repairs',
+  'broken-key-extraction',
+  'security-surveys',
+  'key-safes',
+  'gatemate-gate-security'
+]);
+
+const priorityTownNames = new Set([
+  'Clacton-on-Sea',
+  'Frinton-on-Sea',
+  'Walton-on-the-Naze',
+  'Harwich',
+  'Dovercourt',
+  'Manningtree',
+  'Brightlingsea',
+  'Holland-on-Sea',
+  'Jaywick',
+  'Great Clacton',
+  'St Osyth',
+  'Thorpe-le-Soken'
+]);
+
+function priorityFor(path) {
+  if (path === '/') return 1;
+  if (path === '/services' || path === '/areas' || path === '/get-secure-check' || path === '/quote' || path === '/contact') return 0.95;
+  if (path.startsWith('/services/')) {
+    const slug = path.replace('/services/', '');
+    return priorityServiceSlugs.has(slug) ? 0.95 : 0.85;
+  }
+  if (path.startsWith('/areas/')) {
+    const slug = path.replace('/areas/', '');
+    const town = townPages.find((item) => item.slug === slug);
+    return town && priorityTownNames.has(town.town) ? 0.9 : 0.78;
+  }
+  if (path === '/reviews' || path === '/recent-work' || path === '/real-work-gallery' || path === '/case-studies') return 0.85;
+  if (path.startsWith('/blog/')) return 0.72;
+  if (path === '/privacy-policy' || path === '/cookie-policy') return 0.35;
+  return 0.75;
+}
+
+function changeFrequencyFor(path) {
+  if (path === '/' || path === '/services' || path === '/areas' || path === '/get-secure-check') return 'weekly';
+  if (path.startsWith('/services/')) return 'monthly';
+  if (path.startsWith('/areas/')) return 'monthly';
+  if (path.startsWith('/blog/')) return 'monthly';
+  return 'monthly';
+}
+
 export default function sitemap() {
+  const now = new Date();
   const base = [
     '/',
     '/services',
@@ -28,7 +85,8 @@ export default function sitemap() {
   const blogUrls = blogPosts.map((p) => `/blog/${p.slug}`);
   return [...base, ...serviceUrls, ...areaUrls, ...blogUrls].map((path) => ({
     url: path === '/' ? site.url : `${site.url}${path}`,
-    changeFrequency: path === '/' ? 'weekly' : path.startsWith('/blog/') ? 'monthly' : 'monthly',
-    priority: path === '/' ? 1 : path.startsWith('/services') ? 0.9 : 0.75
+    lastModified: now,
+    changeFrequency: changeFrequencyFor(path),
+    priority: priorityFor(path)
   }));
 }

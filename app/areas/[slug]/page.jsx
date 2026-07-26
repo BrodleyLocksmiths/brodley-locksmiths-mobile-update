@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ArrowRight, CheckCircle2, Mail, MapPin, Phone, ShieldCheck } from 'lucide-react';
 import JsonLd from '@/components/JsonLd';
-import { ContactCTA, FaqSection, PageShell } from '@/components/Shared';
+import { ContactCTA, FaqSection, PageShell, PriorityServiceLinks } from '@/components/Shared';
 import { contact, servicePages, townPages } from '@/lib/siteData';
 import { breadcrumbSchema, faqSchema, localBusinessSchema, pageMetadata } from '@/lib/schema';
 
@@ -96,10 +96,14 @@ export default function TownDetailPage({ params }) {
           <div className="info-box area-services-box">
             <h2>Nearby areas covered</h2>
             <p>Also covering nearby locations around {town.town}:</p>
-            <div className="tag-cloud area-tag-cloud">{town.related.map((r) => <span key={r}>{r}</span>)}</div>
+            <div className="tag-cloud area-tag-cloud nearby-area-links">{town.related.map((r) => {
+              const relatedTown = townPages.find((item) => item.town === r);
+              return relatedTown ? <Link key={r} href={`/areas/${relatedTown.slug}`}>{r}</Link> : <span key={r}>{r}</span>;
+            })}</div>
             <Link href="/areas" className="text-link area-all-link">View all Tendring areas <ArrowRight size={16} /></Link>
           </div>
         </div>
+        <PriorityServiceLinks title={`Priority locksmith services for ${town.town}`} />
       </PageShell>
       <FaqSection faqs={townFaqs} title={`Locksmith ${town.town} FAQs`} intro={`Common questions about lock changes, uPVC door repairs, key safes and security services in ${town.town}.`} />
       <ContactCTA />

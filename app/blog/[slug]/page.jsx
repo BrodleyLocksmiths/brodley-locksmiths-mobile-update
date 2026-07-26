@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ArrowRight, CalendarDays, UserRound } from 'lucide-react';
 import JsonLd from '@/components/JsonLd';
-import { ContactCTA, FaqSection, ServicesInternalLinks } from '@/components/Shared';
+import { ContactCTA, FaqSection, ServiceAreaQuickLinks, ServicesInternalLinks } from '@/components/Shared';
 import { blogPosts } from '@/lib/siteData';
 import { articleSchema, breadcrumbSchema, faqSchema, localBusinessSchema, pageMetadata } from '@/lib/schema';
 
@@ -68,6 +68,7 @@ export default function BlogPostPage({ params }) {
               <Link href="/contact" className="text-link">Contact Brodley Locksmiths <ArrowRight size={16} /></Link>
             </div>
           </div>
+          <ServiceAreaQuickLinks title="Locksmith areas covered in Tendring" intro="Brodley Locksmiths covers these key towns and nearby villages for lock changes, door repairs, key safes and security checks." />
           <ServicesInternalLinks />
         </div>
       </article>

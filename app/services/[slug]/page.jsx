@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ArrowRight, CheckCircle2, Mail, Phone, MapPin, SearchCheck, ClipboardCheck, ShieldCheck } from 'lucide-react';
 import JsonLd from '@/components/JsonLd';
-import { ContactCTA, FaqSection, GateSecurityFeature, ServicesInternalLinks } from '@/components/Shared';
+import { ContactCTA, FaqSection, GateSecurityFeature, PriorityServiceLinks, ServiceAreaQuickLinks, ServicesInternalLinks } from '@/components/Shared';
 import { GateUpgradePhotos, ServiceWorkGallery } from '@/components/RealWork';
 import { contact, coreFaqs, servicePages } from '@/lib/siteData';
 import { breadcrumbSchema, faqSchema, localBusinessSchema, pageMetadata, serviceSchema } from '@/lib/schema';
@@ -101,6 +101,7 @@ export default function ServiceDetailPage({ params }) {
             </div>
           </div>
 
+          <ServiceAreaQuickLinks title={`Tendring areas for ${service.nav.toLowerCase()}`} intro={`This service is available across Clacton, Frinton, Walton, Harwich, Dovercourt, Manningtree, Brightlingsea and surrounding Tendring areas.`} />
           <ServiceWorkGallery serviceSlug={service.slug} />
           {service.slug === 'gatemate-gate-security' && <GateUpgradePhotos />}
 
@@ -120,6 +121,7 @@ export default function ServiceDetailPage({ params }) {
             <Link href="/get-secure-check" className="btn btn-red"><ClipboardCheck size={18} /> Try the Get Secure Property Check</Link>
           </div>
           {['garage-shed-gate-locks', 'caravan-holiday-park-locksmith-services', 'security-surveys'].includes(service.slug) && <GateSecurityFeature compact />}
+          <PriorityServiceLinks current={service.slug} />
           <ServicesInternalLinks current={service.slug} />
         </div>
       </section>

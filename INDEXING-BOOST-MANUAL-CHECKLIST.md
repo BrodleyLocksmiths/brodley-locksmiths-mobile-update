@@ -1,42 +1,49 @@
-# Brodley Locksmiths — Indexing Boost Manual Checklist
+# Brodley Locksmiths — Search Console Manual Indexing Checklist
 
-Use this after deploying the Indexing Boost Update.
+Use after the Local Ranking & Crawl Quality Update is live and Vercel shows **Ready / Production**.
 
-## Priority URLs to inspect first in Google Search Console
+## Step 1 — Resubmit sitemap
+Submit:
 
-Paste each URL into **URL inspection**, choose **Test live URL**, then request indexing only if Google says the page is available.
+`https://www.brodley-locksmiths.com/sitemap.xml`
 
-```text
-https://www.brodley-locksmiths.com/services/emergency-locksmith-tendring
-https://www.brodley-locksmiths.com/services/door-will-not-lock
-https://www.brodley-locksmiths.com/services/lock-changes
-https://www.brodley-locksmiths.com/services/upvc-door-repairs-tendring
-https://www.brodley-locksmiths.com/services/multipoint-lock-repairs
-https://www.brodley-locksmiths.com/services/security-surveys
-https://www.brodley-locksmiths.com/services/key-safes
-https://www.brodley-locksmiths.com/services/gatemate-gate-security
-https://www.brodley-locksmiths.com/areas/clacton-on-sea
-https://www.brodley-locksmiths.com/areas/frinton-on-sea
-https://www.brodley-locksmiths.com/areas/harwich
-https://www.brodley-locksmiths.com/areas/dovercourt
-https://www.brodley-locksmiths.com/get-secure-check
-https://www.brodley-locksmiths.com/reviews
-https://www.brodley-locksmiths.com/real-work-gallery
-```
+## Step 2 — Inspect and request indexing for priority pages
+Do not request all pages at once. Start with the strongest commercial and local pages.
 
-## What to watch over the next few weeks
+### Main pages
+- `https://www.brodley-locksmiths.com/`
+- `https://www.brodley-locksmiths.com/services`
+- `https://www.brodley-locksmiths.com/areas`
+- `https://www.brodley-locksmiths.com/locksmith-services-and-areas`
+- `https://www.brodley-locksmiths.com/real-work-gallery`
 
-- Indexed page count should gradually rise.
-- “Discovered - currently not indexed” should begin to reduce for the strongest pages.
-- Average position may move around while Google tests the new pages for more search terms.
-- Focus on core local searches, impressions and clicks rather than average position alone.
+### Priority planned services
+- `https://www.brodley-locksmiths.com/services/lock-changes`
+- `https://www.brodley-locksmiths.com/services/lock-upgrades`
+- `https://www.brodley-locksmiths.com/services/anti-snap-lock-upgrades`
+- `https://www.brodley-locksmiths.com/services/euro-cylinder-replacement`
+- `https://www.brodley-locksmiths.com/services/upvc-door-repairs-tendring`
+- `https://www.brodley-locksmiths.com/services/door-alignment-adjustment`
+- `https://www.brodley-locksmiths.com/services/key-safes`
+- `https://www.brodley-locksmiths.com/services/security-surveys`
+- `https://www.brodley-locksmiths.com/services/gatemate-gate-security`
+- `https://www.brodley-locksmiths.com/services/locksmith-for-landlords`
 
-## Do not panic about
+### Priority local areas
+- `https://www.brodley-locksmiths.com/areas/clacton-on-sea`
+- `https://www.brodley-locksmiths.com/areas/frinton-on-sea`
+- `https://www.brodley-locksmiths.com/areas/harwich`
+- `https://www.brodley-locksmiths.com/areas/dovercourt`
+- `https://www.brodley-locksmiths.com/areas/walton-on-the-naze`
+- `https://www.brodley-locksmiths.com/areas/brightlingsea`
+- `https://www.brodley-locksmiths.com/areas/manningtree`
 
-- Old Wix URLs appearing in reports temporarily.
-- Pages staying in “Discovered” for a while after a major site launch.
-- Average position falling if impressions are growing across many new searches.
+## Step 3 — Wait before judging
+Search Console indexing reports can lag. Check again after 7–14 days.
 
-## Next improvement if needed
+Watch for:
 
-If important pages remain uncrawled after two to three weeks, the next update should add more real job examples and stronger unique content to the priority pages that still have no crawl date.
+- “Discovered — currently not indexed” dropping
+- indexed page count rising
+- more impressions on Clacton, Frinton, Harwich and uPVC/lock-change pages
+- CTR changes after updated titles and snippets are picked up

@@ -3,6 +3,8 @@ import { notFound } from 'next/navigation';
 import { ArrowRight, CheckCircle2, Mail, MapPin, Phone, ShieldCheck } from 'lucide-react';
 import JsonLd from '@/components/JsonLd';
 import { ContactCTA, FaqSection, PageShell, PriorityServiceLinks } from '@/components/Shared';
+import { WorkPhotoCard } from '@/components/RealWork';
+import { realWorkById } from '@/lib/realWork';
 import { contact, servicePages, townPages } from '@/lib/siteData';
 import { breadcrumbSchema, faqSchema, localBusinessSchema, pageMetadata } from '@/lib/schema';
 
@@ -36,9 +38,11 @@ export default function TownDetailPage({ params }) {
   const town = townPages.find((t) => t.slug === params.slug);
   if (!town) notFound();
   const path = `/areas/${town.slug}`;
-  const visibleServices = priorityServiceSlugs
+  const serviceSlugsForTown = town.focusServices?.length ? town.focusServices : priorityServiceSlugs;
+  const visibleServices = serviceSlugsForTown
     .map((slug) => servicePages.find((service) => service.slug === slug))
     .filter(Boolean);
+  const areaPhotos = (town.featuredWorkPhotos || []).map((id) => realWorkById[id]).filter(Boolean);
 
   const townFaqs = [
     { q: `Do you provide locksmith services in ${town.town}?`, a: `Yes. Brodley Locksmiths provides lock changes, lock upgrades, lock installations, uPVC door repairs, key safes and security surveys in ${town.town} and nearby Tendring areas including ${town.related.join(', ')}.` },
@@ -86,9 +90,31 @@ export default function TownDetailPage({ params }) {
           </p>
         </div>
 
+        {town.localRankingCopy && (
+          <div className="area-ranking-panel">
+            <p className="eyebrow gold">Local search focus</p>
+            <h2>Planned property locksmith work in {town.town}</h2>
+            <p>{town.localRankingCopy}</p>
+            <p>Brodley Locksmiths focuses on property locks, doors, key control and physical security rather than vehicle locksmith work.</p>
+          </div>
+        )}
+
+        {areaPhotos.length > 0 && (
+          <section className="area-real-work" aria-label={`Relevant real work examples for ${town.town}`}>
+            <div className="section-header left-align">
+              <p className="eyebrow red">Relevant real work</p>
+              <h2>Examples connected to common {town.town} locksmith needs.</h2>
+              <p>Selected real-work photographs that support the planned lock, door and security services most relevant to this area.</p>
+            </div>
+            <div className="real-work-grid real-work-grid-preview">
+              {areaPhotos.map((photo) => <WorkPhotoCard key={photo.id} photo={photo} compact />)}
+            </div>
+          </section>
+        )}
+
         <div className="area-services-grid">
           <div className="info-box area-services-box">
-            <h2>Popular services in {town.town}</h2>
+            <h2>Priority planned services in {town.town}</h2>
             <div className="service-list-links">
               {visibleServices.map((service) => <Link key={service.slug} href={`/services/${service.slug}`}>{service.nav}<ArrowRight size={16} /></Link>)}
             </div>

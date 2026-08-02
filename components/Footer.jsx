@@ -7,7 +7,7 @@ export default function Footer() {
       <div className="footer-grid">
         <div>
           <img src={site.headerLogo} alt="Brodley Locksmiths logo" className="footer-logo" />
-          <p>Premium locksmith, door repair and security survey services across Tendring, including Clacton-on-Sea, Frinton-on-Sea, Walton-on-the-Naze, Harwich, Dovercourt, Manningtree and Brightlingsea.</p>
+          <p>Planned locksmith, door repair and security survey services across Tendring, including Clacton-on-Sea, Frinton-on-Sea, Walton-on-the-Naze, Harwich, Dovercourt, Manningtree and Brightlingsea.</p>
           <p className="footer-contact"><a href={contact.phoneHref}>{contact.phoneDisplay}</a><br /><a href={contact.emailHref}>{contact.email}</a></p>
           <div className="footer-profile-links" aria-label="Brodley Locksmiths profile links">
             <a href={site.profiles[0]} target="_blank" rel="noreferrer">Facebook</a>
@@ -19,14 +19,16 @@ export default function Footer() {
         <div>
           <h2>Priority Services</h2>
           {[
-            'emergency-locksmith-tendring',
-            'door-will-not-lock',
             'lock-changes',
+            'lock-upgrades',
+            'anti-snap-lock-upgrades',
+            'euro-cylinder-replacement',
             'upvc-door-repairs-tendring',
-            'multipoint-lock-repairs',
-            'security-surveys',
+            'door-alignment-adjustment',
             'key-safes',
-            'gatemate-gate-security'
+            'security-surveys',
+            'gatemate-gate-security',
+            'locksmith-for-landlords'
           ].map((slug) => servicePages.find((s) => s.slug === slug)).filter(Boolean).map((s) => <Link key={s.slug} href={`/services/${s.slug}`}>{s.nav}</Link>)}
           <Link href="/services">View all services</Link>
         </div>
@@ -52,6 +54,7 @@ export default function Footer() {
           <Link href="/services">Services</Link>
           <Link href="/get-secure-check">Get Secure Property Check</Link>
           <Link href="/areas">Areas</Link>
+          <Link href="/locksmith-services-and-areas">Services & Areas</Link>
           <Link href="/blog">Advice Blog</Link>
           <Link href="/reviews">Reviews</Link>
           <Link href="/recent-work">Recent Work</Link>

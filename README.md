@@ -1,3 +1,7 @@
+# Brodley Locksmiths — Local Ranking & Crawl Quality Update
+
+This package includes the current live Brodley Locksmiths website plus the local ranking, planned-work positioning, area-page, internal-linking and real-work-photo updates.
+
 # Brodley Locksmiths — GateMate® & Outdoor Security Update
 
 This is the current Brodley Locksmiths Next.js website package for Vercel. It includes the red/gold/charcoal brand design, Tendring service and area pages, reviews, blog content, emergency pages, quote form and advanced **Get Secure Property Check**.

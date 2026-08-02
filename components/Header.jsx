@@ -16,14 +16,14 @@ const nav = [
 ];
 
 const featuredMobileServices = [
-  'emergency-locksmith-tendring',
-  'door-will-not-lock',
   'lock-changes',
+  'lock-upgrades',
+  'anti-snap-lock-upgrades',
+  'euro-cylinder-replacement',
   'upvc-door-repairs-tendring',
-  'multipoint-lock-repairs',
+  'door-alignment-adjustment',
   'key-safes',
-  'broken-key-extraction',
-  'patio-door-lock-repairs',
+  'security-surveys',
   'gatemate-gate-security'
 ];
 
@@ -62,14 +62,12 @@ export default function Header() {
         <nav className="mobile-menu" id="mobile-navigation" aria-label="Mobile navigation">
           {nav.map((item) => <Link onClick={() => setOpen(false)} key={item.href} href={item.href} aria-current={pathname === item.href ? 'page' : undefined}>{item.label}</Link>)}
           <Link onClick={() => setOpen(false)} href="/blog">Advice Blog</Link>
+          <Link onClick={() => setOpen(false)} href="/locksmith-services-and-areas">Services & Areas</Link>
           <Link onClick={() => setOpen(false)} href="/quote">Request a Quote</Link>
           <div className="mobile-sep" />
-          <p className="mobile-menu-label">Urgent help</p>
-          <Link onClick={() => setOpen(false)} href="/services/door-will-not-lock">Door will not lock</Link>
-          <Link onClick={() => setOpen(false)} href="/services/locked-out-non-destructive-entry">Locked out / gain entry</Link>
-          <div className="mobile-sep" />
-          <p className="mobile-menu-label">Popular services</p>
+          <p className="mobile-menu-label">Planned work</p>
           {servicePages.filter((item) => featuredMobileServices.includes(item.slug)).map((item) => <Link onClick={() => setOpen(false)} key={item.slug} href={`/services/${item.slug}`}>{item.nav}</Link>)}
+          <Link onClick={() => setOpen(false)} href="/services/door-will-not-lock">Door will not lock</Link>
           <Link onClick={() => setOpen(false)} href="/services" className="mobile-all-services">View all services</Link>
           <a href={contact.phoneHref} className="btn btn-red">Call {contact.phoneDisplay}</a>
           <a href={contact.emailHref} className="btn btn-ghost">Email Us</a>

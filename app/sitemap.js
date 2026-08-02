@@ -1,18 +1,19 @@
 import { blogPosts, servicePages, site, townPages } from '@/lib/siteData';
 
 const priorityServiceSlugs = new Set([
-  'emergency-locksmith-tendring',
-  'door-will-not-lock',
-  'locked-out-non-destructive-entry',
   'lock-changes',
+  'lock-upgrades',
+  'anti-snap-lock-upgrades',
+  'euro-cylinder-replacement',
   'upvc-door-repairs-tendring',
-  'multipoint-lock-repairs',
   'door-alignment-adjustment',
-  'patio-door-lock-repairs',
-  'broken-key-extraction',
-  'security-surveys',
+  'multipoint-lock-repairs',
+  'door-handle-replacement',
   'key-safes',
-  'gatemate-gate-security'
+  'security-surveys',
+  'gatemate-gate-security',
+  'locksmith-for-landlords',
+  'move-in-lock-change-service'
 ]);
 
 const priorityTownNames = new Set([
@@ -32,7 +33,7 @@ const priorityTownNames = new Set([
 
 function priorityFor(path) {
   if (path === '/') return 1;
-  if (path === '/services' || path === '/areas' || path === '/get-secure-check' || path === '/quote' || path === '/contact') return 0.95;
+  if (path === '/services' || path === '/areas' || path === '/locksmith-services-and-areas' || path === '/get-secure-check' || path === '/quote' || path === '/contact') return 0.95;
   if (path.startsWith('/services/')) {
     const slug = path.replace('/services/', '');
     return priorityServiceSlugs.has(slug) ? 0.95 : 0.85;
@@ -49,7 +50,7 @@ function priorityFor(path) {
 }
 
 function changeFrequencyFor(path) {
-  if (path === '/' || path === '/services' || path === '/areas' || path === '/get-secure-check') return 'weekly';
+  if (path === '/' || path === '/services' || path === '/areas' || path === '/locksmith-services-and-areas' || path === '/get-secure-check') return 'weekly';
   if (path.startsWith('/services/')) return 'monthly';
   if (path.startsWith('/areas/')) return 'monthly';
   if (path.startsWith('/blog/')) return 'monthly';
@@ -62,6 +63,7 @@ export default function sitemap() {
     '/',
     '/services',
     '/areas',
+    '/locksmith-services-and-areas',
     '/faqs',
     '/about',
     '/contact',

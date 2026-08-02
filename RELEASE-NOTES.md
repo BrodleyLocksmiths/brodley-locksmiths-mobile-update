@@ -1,27 +1,41 @@
-# Release Notes — Brodley Locksmiths Indexing Boost Update
+# Release Notes — Local Ranking & Crawl Quality Update
 
-This update focuses on crawl priority, customer navigation and internal linking after launch.
+This update is designed around Search Console findings and Ron’s preference to focus mainly on planned property locksmith work rather than vehicle locksmith work.
 
-## Added
+## Search Console signals addressed
 
-- Homepage **Popular locksmith help** link hub pointing to priority services and key Tendring area pages.
-- Direct linked area buttons in the homepage area section instead of only unlinked town names.
-- Stronger priority service links on area pages.
-- Stronger key Tendring area links on service pages and blog articles.
-- Nearby area names on town pages are now linked where a matching area page exists.
-- Footer now highlights the most important commercial services and key local areas.
-- `INDEXING-BOOST-MANUAL-CHECKLIST.md` with the priority URLs to manually inspect and request indexing for in Google Search Console.
+- Strong impressions around Clacton locksmith searches.
+- Low click-through rate around local locksmith terms.
+- Many service and area pages discovered but not yet crawled.
+- Need to make priority commercial pages clearer to Google.
 
-## Sitemap refinements
+## Main website improvements
 
-- Added `lastModified` dates to sitemap entries.
-- Increased sitemap priority for the homepage, services hub, area hub, Get Secure check, quote/contact pages, priority service pages and key area pages.
-- Kept legal/privacy pages lower priority.
+- Homepage repositioned toward planned lock changes, uPVC door repairs, security upgrades, key safes and gate security.
+- Top site bar softened so planned work is more prominent while insecure doors can still call quickly.
+- Services page now leads with planned service categories before urgent pages.
+- Planned-work hub added to strengthen internal linking between key services and priority towns.
+- New visible `/locksmith-services-and-areas` hub page added for crawl and customer navigation.
+- Area hub rebuilt with stronger priority-town cards and grouped supporting villages.
+- Priority area pages strengthened for Clacton, Frinton, Harwich, Dovercourt, Walton, Brightlingsea and Manningtree.
+- Real work gallery updated with new job photos, including maximum-security cylinder upgrade and safe fitting photo.
+- Sitemap updated with the new hub page and stronger priority for planned commercial service pages.
 
-## Why this update exists
+## New real work photos added
 
-Google Search Console showed many pages as **Discovered - currently not indexed** with **Last crawled: N/A**. That usually means Google knows the URLs exist but has not yet crawled them. This update makes the important pages easier to reach from the homepage, service pages, area pages, footer and blog content.
+- Maximum security cylinder upgrade.
+- Modern door handle and lockset work.
+- Internal access cylinder / key-control work.
+- Internal door access lock.
+- Lock servicing / fault-finding image.
+- Wall-mounted security safe fitting, added to the Real Work Gallery only.
 
-## Deployment
+## Manual files included
 
-Commit the package contents to the GitHub `main` branch. Vercel should deploy automatically. No DNS changes are required.
+- `INDEXING-BOOST-MANUAL-CHECKLIST.md`
+- `LOCAL-RANKING-GOOGLE-BUSINESS-PROFILE-CHECKLIST.md`
+- `LOCAL-RANKING-UPDATE-NOTES.md`
+
+## Deployment notes
+
+Upload/commit the package contents to the GitHub `main` branch. Vercel should then deploy automatically. After deployment, resubmit the sitemap and inspect/request indexing for the priority URLs in the checklist.

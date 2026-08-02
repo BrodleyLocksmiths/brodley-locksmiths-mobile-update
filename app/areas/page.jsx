@@ -35,9 +35,9 @@ export default function AreasPage() {
 
         <section className="priority-area-section" aria-label="Priority Tendring locksmith areas">
           <div className="section-header left-align">
-            <p className="eyebrow red">Priority local pages</p>
-            <h2>Strongest local locksmith areas.</h2>
-            <p>These pages are given extra detail because they are the main local search opportunities for planned lock, door and security work.</p>
+            <p className="eyebrow red">Main local areas</p>
+            <h2>Locksmith services in key Tendring areas.</h2>
+            <p>Choose your local area to see lock changes, uPVC door repairs, key safes, security upgrades and practical property locksmith help nearby.</p>
           </div>
           <div className="area-cards priority-area-cards">
             {priorityTowns.map((town) => (
@@ -58,7 +58,7 @@ export default function AreasPage() {
           <div className="section-header left-align">
             <p className="eyebrow red">Supporting towns and villages</p>
             <h2>Also covering nearby Tendring locations.</h2>
-            <p>Smaller village pages remain available for customers and Google, but the main towns above now act as stronger local hubs.</p>
+            <p>Brodley Locksmiths also covers surrounding Tendring villages and nearby communities for planned lock, door and security work.</p>
           </div>
           <div className="supporting-area-grid">
             {supportingTowns.map((town) => (

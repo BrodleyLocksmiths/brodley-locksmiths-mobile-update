@@ -1196,7 +1196,7 @@ export default function GetSecureCheckTool() {
             <div className="get-secure-section-heading">
               <p className="eyebrow gold">Your next steps</p>
               <h3>Work through these in the right order</h3>
-              <p>Start with anything that affects secure entry, exit or reliable locking. The related service pages are kept below, once you have had the chance to send or save your results.</p>
+              <p>Start with anything that affects secure entry, exit or reliable locking. Related services are shown below after your contact options.</p>
             </div>
             <div className="action-plan-grid" aria-label="Suggested next steps">
               {actionPlan.map((item) => (
@@ -1217,13 +1217,13 @@ export default function GetSecureCheckTool() {
             <div className="get-secure-section-heading service-links-heading">
               <p className="eyebrow gold">Explore further</p>
               <h3>Related locksmith services</h3>
-              <p>These pages explain the work that may be relevant to your results. You can read them after sending, saving or noting your check.</p>
+              <p>These services may be relevant to your results. You can read more after sending, saving or noting your check.</p>
             </div>
             <div className="result-service-cards">
               {totals.services.map((href) => (
                 <Link key={href} href={href} className="result-service-card">
                   <strong>{serviceInfo[href]?.label || 'View service'}</strong>
-                  <small>{serviceInfo[href]?.text || 'View the relevant Brodley Locksmiths service page.'}</small>
+                  <small>{serviceInfo[href]?.text || 'View the relevant Brodley Locksmiths service.'}</small>
                   <span>View service <ArrowRight size={15} /></span>
                 </Link>
               ))}

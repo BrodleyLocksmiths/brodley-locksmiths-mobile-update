@@ -49,14 +49,14 @@ export default function LocksmithServicesAndAreasPage() {
   return (
     <>
       <JsonLd data={[localBusinessSchema(), breadcrumbSchema([{ name: 'Home', path: '/' }, { name: 'Services and Areas', path: '/locksmith-services-and-areas' }])]} />
-      <PageShell eyebrow="Find Help" title="Find the right planned locksmith service or local area page." intro="A clear customer and crawler-friendly route to the main Brodley Locksmiths pages for planned lock changes, door repairs, security upgrades, key safes, gate security and Tendring area coverage.">
+      <PageShell eyebrow="Find Help" title="Find the right planned locksmith service near you." intro="A simple place to find the right Brodley Locksmiths service or local area for lock changes, door repairs, security upgrades, key safes, gate security and Tendring coverage.">
         <PlannedWorkHub />
 
         <section className="site-map-hub-section" aria-label="Priority planned locksmith services">
           <div className="section-header left-align">
-            <p className="eyebrow red">Priority services</p>
+            <p className="eyebrow red">Popular planned services</p>
             <h2>Planned lock, door and security work.</h2>
-            <p>These are the main commercial pages Brodley Locksmiths wants Google and customers to understand first.</p>
+            <p>Choose the service that best matches the work you need at your home, rental property, holiday let or business.</p>
           </div>
           <div className="site-map-hub-grid">
             {plannedServices.map((service) => (
@@ -72,9 +72,9 @@ export default function LocksmithServicesAndAreasPage() {
 
         <section className="site-map-hub-section" aria-label="Priority Tendring areas">
           <div className="section-header left-align">
-            <p className="eyebrow red">Priority areas</p>
-            <h2>Main Tendring local pages.</h2>
-            <p>These town pages support searches such as locksmith Clacton, locksmith Frinton, locksmith Harwich and locksmith near me across Tendring.</p>
+            <p className="eyebrow red">Main local areas</p>
+            <h2>Areas covered around Tendring.</h2>
+            <p>Quick links for the Tendring towns and coastal areas where Brodley Locksmiths is often asked to help with locks, doors and property security.</p>
           </div>
           <div className="site-map-hub-grid area-hub-grid">
             {priorityTowns.map((town) => (
@@ -91,7 +91,7 @@ export default function LocksmithServicesAndAreasPage() {
         <section className="site-map-hub-section" aria-label="Other locksmith services and supporting areas">
           <div className="content-grid compact-content-grid">
             <div className="info-box">
-              <h2>Other useful service pages</h2>
+              <h2>Other useful services</h2>
               <div className="service-list-links">
                 {otherServices.map((service) => <Link key={service.slug} href={`/services/${service.slug}`}>{service.nav}<ArrowRight size={16} /></Link>)}
               </div>
@@ -109,7 +109,7 @@ export default function LocksmithServicesAndAreasPage() {
           <div className="info-box">
             <CheckCircle2 size={30} />
             <h2>Property locksmith focus</h2>
-            <p>Brodley Locksmiths focuses on property locks, door reliability, key control and physical security for homes, landlords, holiday accommodation and small businesses. Vehicle locksmith work is not offered.</p>
+            <p>Brodley Locksmiths focuses on property locks, door reliability, key control and physical security for homes, landlords, holiday accommodation and small businesses. Please note: vehicle locksmith work is not offered.</p>
           </div>
         </section>
       </PageShell>

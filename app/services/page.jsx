@@ -19,7 +19,7 @@ export default function ServicesPage() {
         <ServicesByCategory />
         <div className="related-box services-help-box" style={{ textAlign: 'center' }}>
           <h2>Not sure which service fits?</h2>
-          <p>Call or email with the issue, your location and the type of property. Brodley Locksmiths can advise whether you need a lock change, cylinder upgrade, uPVC door repair, door adjustment, key safe, gate lock, security survey or a more specific service page.</p>
+          <p>Call or email with the issue, your location and the type of property. Brodley Locksmiths can advise whether you need a lock change, cylinder upgrade, uPVC door repair, door adjustment, key safe, gate lock, security survey or a more specific Brodley Locksmiths service.</p>
           <div className="button-row center-row">
             <a href={contact.phoneHref} className="btn btn-red big">Call {contact.phoneDisplay}</a>
             <a href={contact.emailHref} className="btn btn-outline big">{contact.email}</a>

@@ -17,7 +17,7 @@ export default function Footer() {
           </div>
         </div>
         <div>
-          <h2>Priority Services</h2>
+          <h2>Popular Services</h2>
           {[
             'lock-changes',
             'lock-upgrades',

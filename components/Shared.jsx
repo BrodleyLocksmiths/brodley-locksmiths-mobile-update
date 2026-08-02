@@ -137,7 +137,7 @@ export function PlannedWorkHub() {
         <p className="eyebrow gold">Planned work focus</p>
         <h2>Lock changes, door repairs and security upgrades before problems become urgent.</h2>
         <p>Brodley Locksmiths is best suited to planned property locksmith work: improving key control, repairing doors that are becoming stiff, upgrading cylinders, fitting key safes and checking access routes for homes, landlords and small businesses.</p>
-        <p className="planned-work-note">Property locks, doors, key control and physical security are the focus. Vehicle locksmith work is not offered.</p>
+        <p className="planned-work-note">Focused on property locks, door reliability, key control and practical security upgrades for homes, rentals and small businesses.</p>
       </div>
       <div className="planned-work-grid">
         {plannedServices.map((service) => (
@@ -147,7 +147,7 @@ export function PlannedWorkHub() {
           </Link>
         ))}
       </div>
-      <div className="planned-area-strip" aria-label="Priority local areas">
+      <div className="planned-area-strip" aria-label="Popular local areas">
         {plannedAreas.map((town) => <Link key={town.slug} href={`/areas/${town.slug}`}>{town.town}</Link>)}
       </div>
     </section>
@@ -261,8 +261,8 @@ export function LocalSeoSection() {
         <div className="stack">
           {[
             [ClipboardCheck, 'Planned security advice', 'Clear recommendations based on the door, property type, key control and realistic risk.'],
-            [Camera, 'Real lock and door work', 'Genuine job photos support pages for lock changes, uPVC repairs, cylinder upgrades, key safes and gate security.'],
-            [MessageSquare, 'Property locksmith focus', 'Brodley Locksmiths focuses on homes, rentals, businesses, doors and property access rather than vehicle locksmith work.']
+            [Camera, 'Real lock and door work', 'Genuine job photos showing lock changes, uPVC repairs, cylinder upgrades, key safes and gate security.'],
+            [MessageSquare, 'Property locksmith focus', 'Brodley Locksmiths focuses on homes, rentals, businesses, doors, key control and property access.']
           ].map(([Icon, title, text]) => <div className="info-box" key={title}><Icon size={32} /><h3>{title}</h3><p>{text}</p></div>)}
         </div>
       </div>
@@ -354,7 +354,7 @@ export function AreasPreview() {
           {linkedPriorityTowns.map((town) => <Link key={town.slug} href={`/areas/${town.slug}`}>{town.town}</Link>)}
         </div>
         <div className="location-cloud supporting-location-cloud">{unlinkedNearbyNames.map((place) => <span key={place}>{place}</span>)}</div>
-        <div className="center"><Link href="/areas" className="btn btn-red big">View all area pages <MapPinned size={20} /></Link></div>
+        <div className="center"><Link href="/areas" className="btn btn-red big">View all areas <MapPinned size={20} /></Link></div>
       </div>
     </section>
   );
@@ -381,12 +381,12 @@ export function IndexingBoostLinks({ variant = 'full' }) {
     <section className={`indexing-boost-links ${variant === 'compact' ? 'indexing-boost-links-compact' : ''}`} aria-label="Popular locksmith service and area links">
       <div>
         <p className="eyebrow gold">Planned work shortcuts</p>
-        <h2>Fast routes to the lock, door and security pages customers search for most.</h2>
-        <p>These links help visitors and Google move quickly to the strongest planned-service and local area pages.</p>
+        <h2>Fast routes to popular lock, door and security help.</h2>
+        <p>Use these shortcuts to find the most requested planned lock, door and security services across Tendring.</p>
       </div>
       <div className="indexing-link-columns">
         <div className="indexing-link-card">
-          <h3>Priority planned services</h3>
+          <h3>Popular planned services</h3>
           <div className="indexing-link-grid">
             {priorityServices.map((service) => <Link key={service.slug} href={`/services/${service.slug}`}>{service.nav}</Link>)}
           </div>
@@ -416,7 +416,7 @@ export function ServiceAreaQuickLinks({ title = 'Popular Tendring areas for lock
   );
 }
 
-export function PriorityServiceLinks({ title = 'Priority locksmith services', current }) {
+export function PriorityServiceLinks({ title = 'Popular locksmith services', current }) {
   const priorityServices = indexingPriorityServiceSlugs
     .filter((slug) => slug !== current)
     .map(serviceBySlug)
@@ -494,7 +494,7 @@ export function ProofHubSection() {
     {
       href: '/locksmith-services-and-areas',
       title: 'Services and area finder',
-      text: 'A clear route to priority planned services and local Tendring area pages, built to help customers and Google find the strongest pages quickly.'
+      text: 'A simple way to find the right service or local Tendring area page for planned lock, door and security work.'
     },
     {
       href: '/services/gatemate-gate-security',

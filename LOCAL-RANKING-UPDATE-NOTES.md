@@ -5,21 +5,21 @@ Built for Brodley Locksmiths after Search Console showed:
 - Strong impressions for Clacton locksmith searches
 - Low click-through rate
 - Many pages discovered but not yet crawled
-- Main business preference toward planned property locksmith work
+- Main business preference toward lock, door and property security work
 - No vehicle locksmith work offered
 
 ## Included in this update
 
-- Homepage repositioned toward planned lock, door and security work.
-- Services page repositioned toward planned work instead of urgent/emergency work.
-- Priority planned services now come before urgent pages in service/category/link sections.
+- Homepage repositioned toward lock, door and security work.
+- Services page repositioned toward lock and door work instead of urgent/emergency work.
+- Priority services now come before urgent pages in service/category/link sections.
 - New visible `/locksmith-services-and-areas` hub page added for customers and crawlers.
 - Area hub page reworked to make priority towns stronger and group smaller locations more cleanly.
 - Priority area pages enhanced for Clacton, Frinton, Harwich, Dovercourt, Walton, Brightlingsea and Manningtree.
 - Real work photos added, including the maximum security cylinder upgrade and safe fitting photo.
 - Real work gallery updated with security storage support.
-- Footer and internal links updated to push priority planned services and key areas.
-- Sitemap updated to include the new hub and prioritise planned service pages.
+- Footer and internal links updated to push priority services and key areas.
+- Sitemap updated to include the new hub and prioritise service pages.
 - Google Business Profile checklist included.
 
 ## Important post-deployment steps

@@ -4,17 +4,17 @@ import { contact } from '@/lib/siteData';
 import { breadcrumbSchema, localBusinessSchema, pageMetadata } from '@/lib/schema';
 
 export const metadata = pageMetadata({
-  title: 'Planned Locksmith Services Tendring | Lock Changes, uPVC Door Repairs & Security',
-  description: 'Planned locksmith services across Tendring: lock changes, high-security cylinder upgrades, uPVC door repairs, door alignment, key safes, gate security and property security surveys.',
+  title: 'Core Locksmith Services Tendring | Lock Changes, uPVC Door Repairs & Security',
+  description: 'Locksmith services across Tendring: lock changes, high-security cylinder upgrades, uPVC door repairs, door alignment, key safes, gate security and property security surveys.',
   path: '/services',
-  keywords: 'planned locksmith services Tendring, lock changes Clacton, uPVC door repairs Tendring, anti snap lock upgrades, key safes Essex, landlord locksmith Tendring'
+  keywords: 'locksmith services Tendring, lock changes Clacton, uPVC door repairs Tendring, anti snap lock upgrades, key safes Essex, landlord locksmith Tendring'
 });
 
 export default function ServicesPage() {
   return (
     <>
       <JsonLd data={[localBusinessSchema(), breadcrumbSchema([{ name: 'Home', path: '/' }, { name: 'Services', path: '/services' }])]} />
-      <PageShell eyebrow="Services" title="Planned locksmith services across Tendring, grouped by what customers actually need." intro="Find the right planned locksmith help quickly on mobile, whether you need locks changed, a uPVC door repaired, a high-security cylinder upgrade, a key safe fitted, support for a rental property, or practical security advice for a home, holiday let or small business.">
+      <PageShell eyebrow="Services" title="Locksmith services across Tendring, grouped by what you need." intro="Find the right help quickly, whether you need locks changed, a uPVC door repaired, a high-security cylinder upgrade, a key safe fitted, support for a rental property, or practical security advice for a home, holiday let or small business.">
         <PlannedWorkHub />
         <ServicesByCategory />
         <div className="related-box services-help-box" style={{ textAlign: 'center' }}>

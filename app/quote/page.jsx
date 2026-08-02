@@ -15,11 +15,11 @@ export default function QuotePage() {
   return (
     <>
       <JsonLd data={[localBusinessSchema(), breadcrumbSchema([{ name: 'Home', path: '/' }, { name: 'Request a Quote', path: '/quote' }])]} />
-      <PageShell eyebrow="Quote Request" title="Request a locksmith quote." intro="Tell Brodley Locksmiths what you need help with. The form opens your email app with the details filled in so you can send the request directly.">
+      <PageShell eyebrow="Quote Request" title="Request a locksmith quote." intro="Tell Brodley Locksmiths what you need help with. Add your location, door type and a short description, then send the request directly.">
         <div className="two-col quote-layout">
           <div className="info-box">
             <h2>Useful details to include</h2>
-            <p>The more detail you can provide, the easier it is to give clear advice.</p>
+            <p>A few details make it easier to give useful advice and avoid unnecessary back-and-forth.</p>
             <ul className="tick-list">
               <li>Your town or village</li>
               <li>Whether the door is uPVC, composite or timber</li>

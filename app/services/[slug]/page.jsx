@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ArrowRight, CheckCircle2, Mail, Phone, MapPin, SearchCheck, ClipboardCheck, ShieldCheck } from 'lucide-react';
 import JsonLd from '@/components/JsonLd';
-import { ContactCTA, FaqSection, GateSecurityFeature, PriorityServiceLinks, ServiceAreaQuickLinks, ServicesInternalLinks } from '@/components/Shared';
+import { ContactCTA, FaqSection, GateSecurityFeature, ServiceAreaQuickLinks, ServicesInternalLinks } from '@/components/Shared';
 import { GateUpgradePhotos, ServiceWorkGallery } from '@/components/RealWork';
 import { contact, coreFaqs, servicePages } from '@/lib/siteData';
 import { breadcrumbSchema, faqSchema, localBusinessSchema, pageMetadata, serviceSchema } from '@/lib/schema';
@@ -95,8 +95,8 @@ export default function ServiceDetailPage({ params }) {
             </div>
             <div>
               <SearchCheck size={34} />
-              <h2>Common lock and security problems</h2>
-              <p>Whether it is a stiff uPVC door, lost keys, tenant changeover, key safe fitting or a security concern at a home, holiday let or business, Brodley Locksmiths provides practical help across Clacton, Harwich, Frinton, Walton and the wider Tendring area.</p>
+              <h2>Common situations this can help with</h2>
+              <p>Whether it is a stiff uPVC door, lost keys, a tenant changeover, key safe fitting or a security concern at a home, holiday let or business, Brodley Locksmiths provides practical help across Clacton, Harwich, Frinton, Walton and the wider Tendring area.</p>
               <div className="search-chip-row">{service.reasons.slice(0, 4).map((reason) => <span key={reason}>{reason}</span>)}</div>
             </div>
           </div>
@@ -121,7 +121,6 @@ export default function ServiceDetailPage({ params }) {
             <Link href="/get-secure-check" className="btn btn-red"><ClipboardCheck size={18} /> Try the Get Secure Property Check</Link>
           </div>
           {['garage-shed-gate-locks', 'caravan-holiday-park-locksmith-services', 'security-surveys'].includes(service.slug) && <GateSecurityFeature compact />}
-          <PriorityServiceLinks current={service.slug} />
           <ServicesInternalLinks current={service.slug} />
         </div>
       </section>

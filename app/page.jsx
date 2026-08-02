@@ -6,7 +6,7 @@ import { faqSchema, localBusinessSchema, pageMetadata, websiteSchema } from '@/l
 
 export const metadata = pageMetadata({
   title: 'Locksmith Tendring | Lock Changes, uPVC Door Repairs & Security Upgrades',
-  description: 'Brodley Locksmiths provides planned lock changes, uPVC door repairs, high-security cylinder upgrades, key safes, gate security and security surveys across Tendring and Clacton-on-Sea.',
+  description: 'Brodley Locksmiths helps with lock changes, uPVC door repairs, high-security cylinder upgrades, key safes, gate security and security surveys across Tendring and Clacton-on-Sea.',
   path: '/',
   keywords: 'locksmith Tendring, locksmith Clacton, lock changes Tendring, uPVC door repairs Clacton, anti snap lock upgrades, key safes Essex'
 });
@@ -18,8 +18,8 @@ export default function HomePage() {
       <Hero />
       <section className="section deep">
         <div className="container">
-          <SectionHeader eyebrow="Planned Locksmith Services" title="Lock, door and security work that protects the property properly.">
-            Start with the planned service that best matches the property: lock changes, upgraded cylinders, uPVC door repairs, key safes, gate security or a practical security survey.
+          <SectionHeader eyebrow="Core Locksmith Services" title="Lock changes, door repairs and security upgrades made simple.">
+            Choose the help you need most: a lock changed, a stiff door repaired, a stronger cylinder fitted, a key safe installed, a gate secured or a practical security check.
           </SectionHeader>
           <ServicesGrid slugs={['lock-changes', 'lock-upgrades', 'anti-snap-lock-upgrades', 'upvc-door-repairs-tendring', 'door-alignment-adjustment', 'key-safes']} />
           <div className="center homepage-services-link"><a className="btn btn-outline big" href="/services">View all locksmith services</a></div>

@@ -1,6 +1,6 @@
 # Brodley Locksmiths — Local Ranking & Crawl Quality Update
 
-This package includes the current live Brodley Locksmiths website plus the local ranking, planned-work positioning, area-page, internal-linking and real-work-photo updates.
+This package includes the current live Brodley Locksmiths website plus the local coverage, planned-work positioning, area-page, internal-linking and real-work-photo updates.
 
 # Brodley Locksmiths — GateMate® & Outdoor Security Update
 
@@ -109,3 +109,7 @@ This package adds an internal-linking and crawl-priority update after launch.
 It adds customer-facing link hubs to strengthen the pathways from the homepage, service pages, area pages, blog articles and footer into the most important commercial pages. It also refines the sitemap priorities and adds `lastModified` values.
 
 After deployment, use `INDEXING-BOOST-MANUAL-CHECKLIST.md` to manually inspect and request indexing for the most important service and area pages in Google Search Console.
+
+## Site Clarity & Conversion Update
+
+This version includes a customer-facing copy cleanup across the site, reducing overused wording, simplifying page journeys and keeping SEO structure in place while making the website feel more natural and easier to use.

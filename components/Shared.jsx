@@ -60,18 +60,18 @@ export function Hero() {
       <div className="hero-ring" />
       <div className="container hero-grid">
         <div className="hero-copy reveal">
-          <div className="pill"><Star size={16} /> Planned lock, door and security upgrades across Tendring</div>
+          <div className="pill"><Star size={16} /> Local lock, door and security services across Tendring</div>
           <h1><span>Lock changes, uPVC door repairs</span> and security upgrades in Tendring.</h1>
-          <p>Brodley Locksmiths focuses on property locks, door reliability and planned security improvements for homes, landlords and small businesses across Clacton-on-Sea, Frinton, Walton, Harwich, Dovercourt, Manningtree, Brightlingsea and surrounding Tendring villages.</p>
+          <p>Brodley Locksmiths focuses on property locks, door reliability and security improvements for homes, landlords and small businesses across Clacton-on-Sea, Frinton, Walton, Harwich, Dovercourt, Manningtree, Brightlingsea and surrounding Tendring villages.</p>
           <div className="button-row">
             <a href={contact.phoneHref} className="btn btn-red big">Call {contact.phoneDisplay} <Phone size={20} /></a>
             <Link href="/quote" className="btn btn-outline big">Request a Quote <ArrowRight size={20} /></Link>
             <Link href="/get-secure-check" className="btn btn-outline big get-secure-hero-link">Try the Get Secure Check <ClipboardCheck size={20} /></Link>
           </div>
-          <Link href="/services/lock-upgrades" className="hero-urgent-link">Planning better security? Start with practical lock and cylinder upgrades <ArrowRight size={16} /></Link>
+          <Link href="/services/lock-upgrades" className="hero-urgent-link">Improving your security? Start with practical lock and cylinder upgrades <ArrowRight size={16} /></Link>
           <div className="mini-card-grid">
             {[
-              ['Planned Local Work', 'Lock changes, upgrades and door repairs across Tendring.'],
+              ['Local Lock & Door Work', 'Lock changes, upgrades and door repairs across Tendring.'],
               ['Homes & Landlords', 'Move-ins, key control, rentals and repairs.'],
               ['Property Security', 'Surveys, key safes, gate locks and access advice.']
             ].map(([title, text]) => <div className="mini-card" key={title}><strong>{title}</strong><span>{text}</span></div>)}
@@ -80,12 +80,12 @@ export function Hero() {
         <div className="survey-panel reveal delay">
           <img src={site.logo} alt="Brodley Locksmiths key emblem" className="watermark" />
           <p className="eyebrow gold">Get Secure</p>
-          <h2>Plan upgrades before locks and doors become a problem.</h2>
+          <h2>Check locks and doors before small faults become bigger problems.</h2>
           <p>A practical review of locks, cylinders, door alignment, key control, access points, outbuildings and everyday security.</p>
           <div className="check-list">
             {['Front and rear door lock strength', 'uPVC mechanism condition and alignment', 'Cylinder snapping and forced-entry risk', 'Window locks and accessible openings', 'Garages, sheds, gates and side access', 'Key control for tenants, guests and staff'].map((item) => <div key={item}><CheckCircle2 size={20} /> {item}</div>)}
           </div>
-          <Link href="/services/security-surveys" className="text-link">View planned security surveys <ArrowRight size={16} /></Link>
+          <Link href="/services/security-surveys" className="text-link">View security surveys <ArrowRight size={16} /></Link>
           <br />
           <Link href="/get-secure-check" className="text-link">Try the Get Secure Property Check <ArrowRight size={16} /></Link>
         </div>
@@ -123,7 +123,7 @@ export function PlannedWorkHub() {
     ['lock-upgrades', 'Upgrade tired or vulnerable locks before they become a weak point.'],
     ['anti-snap-lock-upgrades', 'Improve cylinder security on suitable uPVC, composite and timber doors.'],
     ['upvc-door-repairs-tendring', 'Fix stiff handles, dropped doors and mechanisms before failure.'],
-    ['key-safes', 'Plan safe access for carers, family, cleaners, guests or trusted trades.'],
+    ['key-safes', 'Create safer access for carers, family, cleaners, guests or trusted trades.'],
     ['gatemate-gate-security', 'Secure side gates, sheds, rear access and garden routes.']
   ].map(([slug, note]) => ({ ...serviceBySlug(slug), note })).filter((item) => item.slug);
 
@@ -132,11 +132,11 @@ export function PlannedWorkHub() {
     .filter(Boolean);
 
   return (
-    <section className="planned-work-hub" aria-label="Planned lock door and security work">
+    <section className="planned-work-hub" aria-label="Lock door and security services">
       <div className="planned-work-copy">
-        <p className="eyebrow gold">Planned work focus</p>
-        <h2>Lock changes, door repairs and security upgrades before problems become urgent.</h2>
-        <p>Brodley Locksmiths is best suited to planned property locksmith work: improving key control, repairing doors that are becoming stiff, upgrading cylinders, fitting key safes and checking access routes for homes, landlords and small businesses.</p>
+        <p className="eyebrow gold">Lock & door help</p>
+        <h2>Common reasons customers call Brodley Locksmiths.</h2>
+        <p>From changing locks after a move to repairing a stiff uPVC door, fitting a key safe or upgrading weak cylinders, the aim is simple: clear advice, tidy workmanship and better security for the property.</p>
         <p className="planned-work-note">Focused on property locks, door reliability, key control and practical security upgrades for homes, rentals and small businesses.</p>
       </div>
       <div className="planned-work-grid">
@@ -201,7 +201,7 @@ export function ServicesByCategory() {
 function categoryIntro(category) {
   const intros = {
     'Urgent locksmith help': 'Support for doors that will not lock, snapped keys and access problems where the property is insecure or the lock is close to failure.',
-    'Core locksmith services': 'Planned lock changes, lock upgrades and property-security improvements across Tendring.',
+    'Core locksmith services': 'Lock changes, lock upgrades and property-security improvements across Tendring.',
     'Door repairs & mechanisms': 'Help for uPVC, composite and timber doors that are stiff, dropped, jammed or no longer locking smoothly.',
     'Access, care & key safes': 'Practical access solutions for carers, family members, elderly relatives, trusted trades and emergency access.',
     'Landlords & property professionals': 'Locksmith support for rentals, managed properties, tenant changes, viewings and property handovers.',
@@ -252,15 +252,15 @@ export function LocalSeoSection() {
     <section className="section charcoal">
       <div className="container two-col">
         <div>
-          <p className="eyebrow gold">Local planned locksmith work</p>
+          <p className="eyebrow gold">Local locksmith work</p>
           <h2>Property locksmith in Tendring for locks, doors and access security.</h2>
-          <p>Brodley Locksmiths helps customers across Tendring plan sensible lock changes, stronger cylinders, uPVC door repairs, key safes, gate security and practical security surveys. The service is built for homeowners, landlords, holiday lets, guest houses and small businesses that want reliable work before small faults become expensive problems.</p>
-          <p>Whether you are moving into a home in Clacton-on-Sea, dealing with a dropped uPVC door in Frinton-on-Sea, improving key control for a rental property in Harwich or planning a security review near Manningtree, the aim is to identify the right solution before replacing parts unnecessarily.</p>
+          <p>Brodley Locksmiths helps customers across Tendring choose sensible lock changes, stronger cylinders, uPVC door repairs, key safes, gate security and practical security surveys. The service is built for homeowners, landlords, holiday lets, guest houses and small businesses that want reliable work before small faults become expensive problems.</p>
+          <p>Whether you are moving into a home in Clacton-on-Sea, dealing with a dropped uPVC door in Frinton-on-Sea, improving key control for a rental property in Harwich or arranging a security review near Manningtree, the aim is to identify the right solution before replacing parts unnecessarily.</p>
           <p>Brodley Locksmiths covers coastal towns, villages and rural properties throughout Tendring, including Clacton-on-Sea, Great Clacton, Holland-on-Sea, Jaywick, Little Clacton, Thorpe-le-Soken, Weeley, Frinton-on-Sea, Walton-on-the-Naze, Harwich, Dovercourt, Manningtree, Brightlingsea and surrounding areas.</p>
         </div>
         <div className="stack">
           {[
-            [ClipboardCheck, 'Planned security advice', 'Clear recommendations based on the door, property type, key control and realistic risk.'],
+            [ClipboardCheck, 'Clear security advice', 'Straightforward recommendations based on the door, property type, key control and realistic risk.'],
             [Camera, 'Real lock and door work', 'Genuine job photos showing lock changes, uPVC repairs, cylinder upgrades, key safes and gate security.'],
             [MessageSquare, 'Property locksmith focus', 'Brodley Locksmiths focuses on homes, rentals, businesses, doors, key control and property access.']
           ].map(([Icon, title, text]) => <div className="info-box" key={title}><Icon size={32} /><h3>{title}</h3><p>{text}</p></div>)}
@@ -276,7 +276,7 @@ export function TrustSection() {
       <div className="container two-col">
         <div>
           <p className="eyebrow gold">Why Brodley Locksmiths</p>
-          <h2>A more considered approach to planned lock and door security.</h2>
+          <h2>A careful, practical approach to lock and door security.</h2>
           <p>The aim is to improve the property properly: identify the cause, explain the options and complete the work to a clean, professional standard.</p>
           <div className="trust-grid">
             {['Professional, tidy workmanship', 'Security-first recommendations', 'Clear advice before work begins', 'Local Tendring-area service', 'Homes, landlords and businesses', 'Premium finish without pushy sales'].map((item) => <div key={item}><BadgeCheck size={20} /> {item}</div>)}
@@ -349,7 +349,7 @@ export function AreasPreview() {
       <img src={site.map} alt="Tendring map background showing Brodley Locksmiths service area" />
       <div className="map-cover" />
       <div className="container relative">
-        <SectionHeader eyebrow="Local Area Coverage" title="Planned locksmith work across Tendring towns and villages.">Lock changes, uPVC door repairs, key safes, cylinder upgrades, gate security and property-security surveys across the district, including coastal towns, villages, rural properties, landlords, guest houses and small businesses.</SectionHeader>
+        <SectionHeader eyebrow="Local Area Coverage" title="Locksmith work across Tendring towns and villages.">Lock changes, uPVC door repairs, key safes, cylinder upgrades, gate security and property-security surveys across the district, including coastal towns, villages, rural properties, landlords, guest houses and small businesses.</SectionHeader>
         <div className="priority-area-link-cloud" aria-label="Popular Tendring locksmith area pages">
           {linkedPriorityTowns.map((town) => <Link key={town.slug} href={`/areas/${town.slug}`}>{town.town}</Link>)}
         </div>
@@ -380,13 +380,13 @@ export function IndexingBoostLinks({ variant = 'full' }) {
   return (
     <section className={`indexing-boost-links ${variant === 'compact' ? 'indexing-boost-links-compact' : ''}`} aria-label="Popular locksmith service and area links">
       <div>
-        <p className="eyebrow gold">Planned work shortcuts</p>
-        <h2>Fast routes to popular lock, door and security help.</h2>
-        <p>Use these shortcuts to find the most requested planned lock, door and security services across Tendring.</p>
+        <p className="eyebrow gold">Helpful shortcuts</p>
+        <h2>Find the right lock, door or security help quickly.</h2>
+        <p>Choose from the most requested services and local areas across Tendring.</p>
       </div>
       <div className="indexing-link-columns">
         <div className="indexing-link-card">
-          <h3>Popular planned services</h3>
+          <h3>Popular services</h3>
           <div className="indexing-link-grid">
             {priorityServices.map((service) => <Link key={service.slug} href={`/services/${service.slug}`}>{service.nav}</Link>)}
           </div>
@@ -416,11 +416,12 @@ export function ServiceAreaQuickLinks({ title = 'Popular Tendring areas for lock
   );
 }
 
-export function PriorityServiceLinks({ title = 'Popular locksmith services', current }) {
+export function PriorityServiceLinks({ title = 'Useful locksmith services', current }) {
   const priorityServices = indexingPriorityServiceSlugs
     .filter((slug) => slug !== current)
     .map(serviceBySlug)
-    .filter(Boolean);
+    .filter(Boolean)
+    .slice(0, 6);
   return (
     <div className="priority-service-links">
       <h2>{title}</h2>
@@ -437,8 +438,8 @@ export function ContactCTA() {
       <img src={site.logo} alt="" />
       <div className="container">
         <p className="eyebrow dark">Get Secure</p>
-        <h2>Need locks changed, upgraded or a door repaired?</h2>
-        <p>Contact Brodley Locksmiths for lock installations, lock upgrades, lock changes, door repairs and property security surveys across Tendring. For a door that will not lock, a lockout or a lock-in, call first.</p>
+        <h2>Need a lock changed, upgraded or a door repaired?</h2>
+        <p>Contact Brodley Locksmiths for lock changes, door repairs, key safes, security upgrades and property security checks across Tendring. If a door will not lock or someone cannot get in or out safely, call first.</p>
         <div className="button-row center-row">
           <a href={contact.phoneHref} className="btn btn-black big"><Phone size={20} /> {contact.phoneDisplay}</a>
           <Link href="/quote" className="btn btn-gold big">Request a Quote <ArrowRight size={20} /></Link>
@@ -471,11 +472,11 @@ export function ServicesInternalLinks({ current }) {
   const related = servicePages
     .filter((service) => service.slug !== current)
     .filter((service) => currentService?.category ? service.category === currentService.category || service.priority : service.priority)
-    .slice(0, 8);
+    .slice(0, 4);
   return (
     <div className="related-box">
-      <h2>Related locksmith services</h2>
-      <p>Explore similar services that may also be relevant to your property, rental, business or accommodation setup.</p>
+      <h2>Related help</h2>
+      <p>A few useful next steps that may fit the same lock, door or property concern.</p>
       <div>
         {related.map((s) => <Link key={s.slug} href={`/services/${s.slug}`}>{s.nav}</Link>)}
       </div>
@@ -494,7 +495,7 @@ export function ProofHubSection() {
     {
       href: '/locksmith-services-and-areas',
       title: 'Services and area finder',
-      text: 'A simple way to find the right service or local Tendring area page for planned lock, door and security work.'
+      text: 'A simple way to find the right service or local Tendring area page for locks, doors, key safes and security upgrades.'
     },
     {
       href: '/services/gatemate-gate-security',

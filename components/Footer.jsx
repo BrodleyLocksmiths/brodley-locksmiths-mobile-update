@@ -7,7 +7,7 @@ export default function Footer() {
       <div className="footer-grid">
         <div>
           <img src={site.headerLogo} alt="Brodley Locksmiths logo" className="footer-logo" />
-          <p>Planned locksmith, door repair and security survey services across Tendring, including Clacton-on-Sea, Frinton-on-Sea, Walton-on-the-Naze, Harwich, Dovercourt, Manningtree and Brightlingsea.</p>
+          <p>Local locksmith, door repair and security survey services across Tendring, including Clacton-on-Sea, Frinton-on-Sea, Walton-on-the-Naze, Harwich, Dovercourt, Manningtree and Brightlingsea.</p>
           <p className="footer-contact"><a href={contact.phoneHref}>{contact.phoneDisplay}</a><br /><a href={contact.emailHref}>{contact.email}</a></p>
           <div className="footer-profile-links" aria-label="Brodley Locksmiths profile links">
             <a href={site.profiles[0]} target="_blank" rel="noreferrer">Facebook</a>

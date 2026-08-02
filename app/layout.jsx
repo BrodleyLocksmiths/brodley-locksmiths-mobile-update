@@ -10,7 +10,7 @@ export const metadata = {
     default: 'Locksmith Tendring | Brodley Locksmiths',
     template: '%s'
   },
-  description: 'Brodley Locksmiths provides planned lock changes, lock upgrades, uPVC door repairs, key safes, gate security and property security surveys across Tendring, Essex.',
+  description: 'Brodley Locksmiths provides lock changes, lock upgrades, uPVC door repairs, key safes, gate security and property security surveys across Tendring, Essex.',
   applicationName: site.name,
   authors: [{ name: site.name }],
   creator: site.name,

@@ -7,7 +7,7 @@ import { breadcrumbSchema, localBusinessSchema, pageMetadata } from '@/lib/schem
 
 export const metadata = pageMetadata({
   title: 'Locksmith Areas Covered in Tendring | Clacton, Frinton, Harwich & More',
-  description: 'Brodley Locksmiths covers Clacton-on-Sea, Frinton, Harwich, Dovercourt, Walton, Brightlingsea and Tendring villages for planned lock changes, uPVC door repairs, key safes and security upgrades.',
+  description: 'Brodley Locksmiths covers Clacton-on-Sea, Frinton, Harwich, Dovercourt, Walton, Brightlingsea and Tendring villages for lock changes, uPVC door repairs, key safes and security upgrades.',
   path: '/areas',
   keywords: 'locksmith Clacton, locksmith Frinton, locksmith Harwich, locksmith Walton, locksmith Tendring areas'
 });
@@ -29,11 +29,11 @@ export default function AreasPage() {
   return (
     <>
       <JsonLd data={[localBusinessSchema(), breadcrumbSchema([{ name: 'Home', path: '/' }, { name: 'Areas', path: '/areas' }])]} />
-      <PageShell eyebrow="Areas Covered" title="Planned locksmith services across Tendring towns and villages." intro="Find lock changes, uPVC door repairs, key safes, high-security cylinder upgrades, gate security and property-security services across the main Tendring towns and surrounding villages.">
+      <PageShell eyebrow="Areas Covered" title="Locksmith services across Tendring towns and villages." intro="Find local help for lock changes, uPVC door repairs, key safes, high-security cylinder upgrades, gate security and property security across the main Tendring towns and surrounding villages.">
         <PlannedWorkHub />
         <IndexingBoostLinks variant="compact" />
 
-        <section className="priority-area-section" aria-label="Priority Tendring locksmith areas">
+        <section className="priority-area-section" aria-label="Main Tendring locksmith areas">
           <div className="section-header left-align">
             <p className="eyebrow red">Main local areas</p>
             <h2>Locksmith services in key Tendring areas.</h2>
@@ -58,7 +58,7 @@ export default function AreasPage() {
           <div className="section-header left-align">
             <p className="eyebrow red">Supporting towns and villages</p>
             <h2>Also covering nearby Tendring locations.</h2>
-            <p>Brodley Locksmiths also covers surrounding Tendring villages and nearby communities for planned lock, door and security work.</p>
+            <p>Brodley Locksmiths also covers surrounding Tendring villages and nearby communities for lock, door and security work.</p>
           </div>
           <div className="supporting-area-grid">
             {supportingTowns.map((town) => (

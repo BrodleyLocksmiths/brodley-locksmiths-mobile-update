@@ -8,7 +8,7 @@ Use this after the Local Ranking & Crawl Quality Update is live.
 - Use the website URL: `https://www.brodley-locksmiths.com`.
 
 ## Services to prioritise in the profile
-Add or review services around planned property locksmith work:
+Add or review services around lock, door and property security work:
 
 - Lock changes
 - Lock upgrades
@@ -53,6 +53,6 @@ When asking for reviews, never script fake wording. But it helps when genuine re
 - the service carried out
 - the town or area
 - whether the job was tidy, helpful and professional
-- planned work such as lock changes, uPVC repairs, key safes or security upgrades
+- lock and door work such as lock changes, uPVC repairs, key safes or security upgrades
 
 Examples of useful genuine review context: “lock change in Clacton”, “uPVC door repair in Frinton”, “key safe fitted for my mum”, “security cylinder upgrade”, “landlord lock change”.

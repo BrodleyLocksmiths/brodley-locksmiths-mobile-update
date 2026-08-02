@@ -65,7 +65,7 @@ export default function Header() {
           <Link onClick={() => setOpen(false)} href="/locksmith-services-and-areas">Services & Areas</Link>
           <Link onClick={() => setOpen(false)} href="/quote">Request a Quote</Link>
           <div className="mobile-sep" />
-          <p className="mobile-menu-label">Planned work</p>
+          <p className="mobile-menu-label">Lock and door work</p>
           {servicePages.filter((item) => featuredMobileServices.includes(item.slug)).map((item) => <Link onClick={() => setOpen(false)} key={item.slug} href={`/services/${item.slug}`}>{item.nav}</Link>)}
           <Link onClick={() => setOpen(false)} href="/services/door-will-not-lock">Door will not lock</Link>
           <Link onClick={() => setOpen(false)} href="/services" className="mobile-all-services">View all services</Link>

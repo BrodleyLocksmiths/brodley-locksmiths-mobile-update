@@ -2,7 +2,7 @@ export default function manifest() {
   return {
     name: 'Brodley Locksmiths',
     short_name: 'Brodley Locksmiths',
-    description: 'Planned locksmith, door repair and security upgrade services across Tendring.',
+    description: 'Locksmith, door repair and security upgrade services across Tendring.',
     start_url: '/',
     display: 'standalone',
     background_color: '#303237',

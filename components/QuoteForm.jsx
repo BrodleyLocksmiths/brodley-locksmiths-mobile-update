@@ -182,7 +182,7 @@ export default function QuoteForm() {
           <select value={form.urgency} onChange={(e) => update('urgency', e.target.value)}>
             <option>Flexible / advice needed</option>
             <option>This week</option>
-            <option>Planned work / future date</option>
+            <option>Lock and door work / future date</option>
             <option>Urgent — locked out / locked in / property will not secure</option>
           </select>
         </label>

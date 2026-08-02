@@ -7,7 +7,7 @@ import { breadcrumbSchema, localBusinessSchema, pageMetadata } from '@/lib/schem
 
 export const metadata = pageMetadata({
   title: 'Locksmith Services and Areas | Brodley Locksmiths Tendring',
-  description: 'Find planned locksmith services and local area pages for Brodley Locksmiths, including lock changes, uPVC door repairs, security upgrades, key safes and Tendring town pages.',
+  description: 'Find locksmith services and local area pages for Brodley Locksmiths, including lock changes, uPVC door repairs, security upgrades, key safes and Tendring town pages.',
   path: '/locksmith-services-and-areas',
   keywords: 'locksmith services and areas Tendring, locksmith Clacton services, lock changes areas, uPVC door repairs Tendring areas'
 });
@@ -49,13 +49,13 @@ export default function LocksmithServicesAndAreasPage() {
   return (
     <>
       <JsonLd data={[localBusinessSchema(), breadcrumbSchema([{ name: 'Home', path: '/' }, { name: 'Services and Areas', path: '/locksmith-services-and-areas' }])]} />
-      <PageShell eyebrow="Find Help" title="Find the right planned locksmith service near you." intro="A simple place to find the right Brodley Locksmiths service or local area for lock changes, door repairs, security upgrades, key safes, gate security and Tendring coverage.">
+      <PageShell eyebrow="Find Help" title="Find the right locksmith help near you." intro="Choose the service or local area that matches what you need, from lock changes and uPVC door repairs to key safes, gate security and practical security advice.">
         <PlannedWorkHub />
 
-        <section className="site-map-hub-section" aria-label="Priority planned locksmith services">
+        <section className="site-map-hub-section" aria-label="Popular locksmith services">
           <div className="section-header left-align">
-            <p className="eyebrow red">Popular planned services</p>
-            <h2>Planned lock, door and security work.</h2>
+            <p className="eyebrow red">Popular services</p>
+            <h2>Lock, door and security help.</h2>
             <p>Choose the service that best matches the work you need at your home, rental property, holiday let or business.</p>
           </div>
           <div className="site-map-hub-grid">
@@ -70,11 +70,11 @@ export default function LocksmithServicesAndAreasPage() {
           </div>
         </section>
 
-        <section className="site-map-hub-section" aria-label="Priority Tendring areas">
+        <section className="site-map-hub-section" aria-label="Popular Tendring areas">
           <div className="section-header left-align">
             <p className="eyebrow red">Main local areas</p>
             <h2>Areas covered around Tendring.</h2>
-            <p>Quick links for the Tendring towns and coastal areas where Brodley Locksmiths is often asked to help with locks, doors and property security.</p>
+            <p>Quick links for Tendring towns and coastal areas where customers often need help with locks, doors, key safes and property security.</p>
           </div>
           <div className="site-map-hub-grid area-hub-grid">
             {priorityTowns.map((town) => (

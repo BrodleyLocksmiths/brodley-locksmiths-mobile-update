@@ -1,6 +1,6 @@
 # Release Notes — Local Ranking & Crawl Quality Update
 
-This update is designed around Search Console findings and Ron’s preference to focus mainly on planned property locksmith work rather than vehicle locksmith work.
+This update is designed around Search Console findings and Ron’s preference to focus mainly on lock, door and property security work rather than vehicle locksmith work.
 
 ## Search Console signals addressed
 
@@ -11,9 +11,9 @@ This update is designed around Search Console findings and Ron’s preference to
 
 ## Main website improvements
 
-- Homepage repositioned toward planned lock changes, uPVC door repairs, security upgrades, key safes and gate security.
-- Top site bar softened so planned work is more prominent while insecure doors can still call quickly.
-- Services page now leads with planned service categories before urgent pages.
+- Homepage repositioned toward lock changes, uPVC door repairs, security upgrades, key safes and gate security.
+- Top site bar softened so lock and door work is more prominent while insecure doors can still call quickly.
+- Services page now leads with service categories before urgent pages.
 - Planned-work hub added to strengthen internal linking between key services and priority towns.
 - New visible `/locksmith-services-and-areas` hub page added for crawl and customer navigation.
 - Area hub rebuilt with stronger priority-town cards and grouped supporting villages.

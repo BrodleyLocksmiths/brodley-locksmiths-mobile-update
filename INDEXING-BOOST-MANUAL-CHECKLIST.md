@@ -17,7 +17,7 @@ Do not request all pages at once. Start with the strongest commercial and local 
 - `https://www.brodley-locksmiths.com/locksmith-services-and-areas`
 - `https://www.brodley-locksmiths.com/real-work-gallery`
 
-### Priority planned services
+### Priority services
 - `https://www.brodley-locksmiths.com/services/lock-changes`
 - `https://www.brodley-locksmiths.com/services/lock-upgrades`
 - `https://www.brodley-locksmiths.com/services/anti-snap-lock-upgrades`

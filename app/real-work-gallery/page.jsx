@@ -5,7 +5,7 @@ import { breadcrumbSchema, localBusinessSchema, pageMetadata } from '@/lib/schem
 
 export const metadata = pageMetadata({
   title: 'Real Locksmith Work Gallery Tendring | Brodley Locksmiths',
-  description: 'Genuine Brodley Locksmiths photographs showing planned lock changes, uPVC door repairs, high-security cylinder upgrades, key safes, gate security, internal access locks and security storage support across Tendring.',
+  description: 'Genuine Brodley Locksmiths photographs showing lock changes, uPVC door repairs, high-security cylinder upgrades, key safes, gate security, internal access locks and security storage support across Tendring.',
   path: '/real-work-gallery',
   keywords: 'locksmith work photos Tendring, uPVC door repair photos Clacton, high security cylinder upgrade, key safe fitting Essex, lock upgrade gallery, security safe fitting'
 });
@@ -21,7 +21,7 @@ export default function RealWorkGalleryPage() {
       >
         <section className="real-work-gallery-intro">
           <SectionHeader eyebrow="Get Secure" title="Real work is stronger proof than stock photography.">
-            These images show the kind of practical work Brodley Locksmiths carries out: planned lock changes, uPVC door work, maximum-security cylinder upgrades, gate security, key safes, internal-door locks, security storage support and commercial access repairs. Exact materials and recommendations always depend on the property and the condition of the door or gate.
+            These images show genuine Brodley Locksmiths work, including lock changes, uPVC door work, maximum-security cylinder upgrades, gate security, key safes, internal-door locks, security storage support and commercial access repairs. Exact materials and recommendations always depend on the property and the condition of the door or gate.
           </SectionHeader>
         </section>
         <FullRealWorkGallery />

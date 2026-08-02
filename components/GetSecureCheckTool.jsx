@@ -398,7 +398,7 @@ const questions = [
     group: 'Guest turnover',
     question: 'How are keys, codes and locks handled between bookings?',
     options: [
-      { label: 'Controlled — access is planned and locks work smoothly', positive: 5, good: 'Guest access is controlled and planned between bookings.' },
+      { label: 'Controlled — access is organised and locks work smoothly', positive: 5, good: 'Guest access is organised and controlled between bookings.' },
       { label: 'It works, but keys, codes or locks are not reviewed as often as they should be', security: 4, reliability: 2, services: ['/services/holiday-let-guest-house-security', '/services/key-safes'], concern: 'Guest turnover can create access gaps if keys, codes and locks are not reviewed regularly.' },
       { label: 'Access is awkward, keys have gone missing or guests struggle with the door', security: 7, reliability: 7, services: ['/services/holiday-let-guest-house-security', '/services/key-safes', '/services/upvc-door-repairs-tendring'], concern: 'Guest access problems can quickly affect security, reviews and booking handovers.' }
     ]
@@ -466,7 +466,7 @@ const questions = [
     group: 'Everyday access',
     question: 'Is there a clear plan for late arrivals, cleaners and maintenance visits?',
     options: [
-      { label: 'Yes — access is planned and controlled', positive: 4, good: 'Late arrivals and trusted access have a clear plan.' },
+      { label: 'Yes — access is organised and controlled', positive: 4, good: 'Late arrivals and trusted access have a clear plan.' },
       { label: 'Mostly — it works, but instructions or spare keys could be clearer', security: 3, services: ['/services/key-safes', '/services/holiday-let-guest-house-security'], concern: 'A clearer process can make trusted access easier without relying on loose keys.' },
       { label: 'No — access often depends on hidden keys or informal arrangements', security: 7, services: ['/services/key-safes', '/services/holiday-let-guest-house-security'], concern: 'Hidden keys and informal access can create unnecessary security and service issues.' }
     ]
@@ -491,7 +491,7 @@ const questions = [
     question: 'How ready is the caravan or holiday-park property for regular use?',
     options: [
       { label: 'Ready — locks, keys and access are checked before busy periods', positive: 5, good: 'Locks and access are reviewed before busy periods.' },
-      { label: 'Mostly ready — spare keys, key safes or door locks could be better organised', security: 4, reliability: 2, services: ['/services/caravan-holiday-park-locksmith-services', '/services/key-safes'], concern: 'Caravan access is easier to manage when keys, key safes and door locks are planned before busy periods.' },
+      { label: 'Mostly ready — spare keys, key safes or door locks could be better organised', security: 4, reliability: 2, services: ['/services/caravan-holiday-park-locksmith-services', '/services/key-safes'], concern: 'Caravan access is easier to manage when keys, key safes and door locks are ready before busy periods.' },
       { label: 'Not ready — keys are missing, locks are old or access has caused problems before', security: 7, reliability: 7, services: ['/services/caravan-holiday-park-locksmith-services', '/services/key-safes', '/services/lock-changes'], concern: 'Old locks, missing keys or poor access planning can create unnecessary stress during holiday periods.' }
     ]
   },
@@ -1144,7 +1144,7 @@ export default function GetSecureCheckTool() {
             <div className="get-secure-score-grid">
               <ScoreCard icon={ShieldCheck} title="Security priority" level={securityLevel.label} tone={securityLevel.tone} score={totals.security} text={securityLevel.text} />
               <ScoreCard icon={Wrench} title="Door & lock reliability" level={reliabilityLevel.label} tone={reliabilityLevel.tone} score={totals.reliability} text={reliabilityLevel.text} />
-              <ScoreCard icon={Award} title="Security foundations" level={foundationLevel(totals.positive)} tone="positive" score={totals.positive} text="This reflects the safeguards selected in the check, such as controlled keys, reliable locking and planned access." />
+              <ScoreCard icon={Award} title="Security foundations" level={foundationLevel(totals.positive)} tone="positive" score={totals.positive} text="This reflects the safeguards selected in the check, such as controlled keys, reliable locking and organised access." />
             </div>
           </div>
 

@@ -92,8 +92,8 @@ export default function TownDetailPage({ params }) {
 
         {town.localRankingCopy && (
           <div className="area-ranking-panel">
-            <p className="eyebrow gold">Local locksmith focus</p>
-            <h2>Planned property locksmith work in {town.town}</h2>
+            <p className="eyebrow gold">Local service</p>
+            <h2>Lock, door and security help in {town.town}</h2>
             <p>{town.localRankingCopy}</p>
             <p>Brodley Locksmiths focuses on property locks, door reliability, key control and practical physical security.</p>
           </div>
@@ -114,7 +114,7 @@ export default function TownDetailPage({ params }) {
 
         <div className="area-services-grid">
           <div className="info-box area-services-box">
-            <h2>Popular planned services in {town.town}</h2>
+            <h2>Popular services in {town.town}</h2>
             <div className="service-list-links">
               {visibleServices.map((service) => <Link key={service.slug} href={`/services/${service.slug}`}>{service.nav}<ArrowRight size={16} /></Link>)}
             </div>
@@ -129,7 +129,7 @@ export default function TownDetailPage({ params }) {
             <Link href="/areas" className="text-link area-all-link">View all Tendring areas <ArrowRight size={16} /></Link>
           </div>
         </div>
-        <PriorityServiceLinks title={`Popular locksmith services for ${town.town}`} />
+        <PriorityServiceLinks title={`Useful locksmith services for ${town.town}`} />
       </PageShell>
       <FaqSection faqs={townFaqs} title={`Locksmith ${town.town} FAQs`} intro={`Common questions about lock changes, uPVC door repairs, key safes and security services in ${town.town}.`} />
       <ContactCTA />

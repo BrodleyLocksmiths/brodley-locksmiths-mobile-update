@@ -1,6 +1,6 @@
 # Customer-Facing Copy Cleanup
 
-This update removes customer-visible explanation text that referred to Google, crawl/indexing work, search opportunity, page priority or why pages were created.
+This update removes customer-visible explanation text that referred to Google, crawl/indexing work, local opportunity, page priority or why pages were created.
 
 ## Cleaned areas
 

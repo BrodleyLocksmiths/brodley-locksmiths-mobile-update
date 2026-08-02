@@ -3,6 +3,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import EmergencyBar from '@/components/EmergencyBar';
 import { site } from '@/lib/siteData';
+import { Analytics } from '@vercel/analytics/next';
 
 export const metadata = {
   metadataBase: new URL(site.url),
@@ -42,7 +43,8 @@ export default function RootLayout({ children }) {
         <EmergencyBar />
         <main id="main-content">{children}</main>
         <Footer />
-        </body>
+        <Analytics />
+      </body>
     </html>
   );
 }

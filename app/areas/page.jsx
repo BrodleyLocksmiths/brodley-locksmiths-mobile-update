@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { ArrowRight, CheckCircle2, MapPin } from 'lucide-react';
 import JsonLd from '@/components/JsonLd';
-import { IndexingBoostLinks, PageShell, PlannedWorkHub } from '@/components/Shared';
+import { CoreServiceHub, IndexingBoostLinks, PageShell } from '@/components/Shared';
 import { locations, townPages } from '@/lib/siteData';
 import { breadcrumbSchema, localBusinessSchema, pageMetadata } from '@/lib/schema';
 
@@ -30,7 +30,7 @@ export default function AreasPage() {
     <>
       <JsonLd data={[localBusinessSchema(), breadcrumbSchema([{ name: 'Home', path: '/' }, { name: 'Areas', path: '/areas' }])]} />
       <PageShell eyebrow="Areas Covered" title="Locksmith services across Tendring towns and villages." intro="Find local help for lock changes, uPVC door repairs, key safes, high-security cylinder upgrades, gate security and property security across the main Tendring towns and surrounding villages.">
-        <PlannedWorkHub />
+        <CoreServiceHub />
         <IndexingBoostLinks variant="compact" />
 
         <section className="priority-area-section" aria-label="Main Tendring locksmith areas">

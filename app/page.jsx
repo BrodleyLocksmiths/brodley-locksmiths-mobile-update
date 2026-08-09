@@ -1,5 +1,5 @@
 import JsonLd from '@/components/JsonLd';
-import { AreasPreview, BlogPreview, ContactCTA, FaqSection, GateSecurityFeature, Hero, IndexingBoostLinks, LocalSeoSection, PlannedWorkHub, ReviewsSection, ProofHubSection, SectionHeader, ServicesGrid, TrustSection } from '@/components/Shared';
+import { AreasPreview, BlogPreview, ContactCTA, CoreServiceHub, FaqSection, GateSecurityFeature, Hero, IndexingBoostLinks, LocalSeoSection, ReviewsSection, ProofHubSection, SectionHeader, ServicesGrid, TrustSection } from '@/components/Shared';
 import { RealWorkPreview } from '@/components/RealWork';
 import { coreFaqs } from '@/lib/siteData';
 import { faqSchema, localBusinessSchema, pageMetadata, websiteSchema } from '@/lib/schema';
@@ -18,8 +18,8 @@ export default function HomePage() {
       <Hero />
       <section className="section deep">
         <div className="container">
-          <SectionHeader eyebrow="Core Locksmith Services" title="Lock changes, door repairs and security upgrades made simple.">
-            Choose the help you need most: a lock changed, a stiff door repaired, a stronger cylinder fitted, a key safe installed, a gate secured or a practical security check.
+          <SectionHeader eyebrow="Core Locksmith Services" title="Popular locksmith services in Clacton-on-Sea and across Tendring.">
+            Get straightforward help with a lock change, stiff uPVC door, anti-snap upgrade or fitted key safe, with clear advice on the right repair or security improvement for your property.
           </SectionHeader>
           <ServicesGrid slugs={['lock-changes', 'lock-upgrades', 'anti-snap-lock-upgrades', 'upvc-door-repairs-tendring', 'door-alignment-adjustment', 'key-safes']} />
           <div className="center homepage-services-link"><a className="btn btn-outline big" href="/services">View all locksmith services</a></div>
@@ -27,7 +27,7 @@ export default function HomePage() {
         </div>
       </section>
       <IndexingBoostLinks />
-      <section className="section deep-soft"><div className="container"><PlannedWorkHub /></div></section>
+      <section className="section deep-soft"><div className="container"><CoreServiceHub /></div></section>
       <RealWorkPreview />
       <LocalSeoSection />
       <TrustSection />

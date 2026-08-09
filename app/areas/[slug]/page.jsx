@@ -27,7 +27,7 @@ export function generateMetadata({ params }) {
   const town = townPages.find((t) => t.slug === params.slug);
   if (!town) return {};
   return pageMetadata({
-    title: `Locksmith ${town.town} | Lock Changes, Door Repairs & Security`,
+    title: town.seoTitle || `Locksmith ${town.town} | Lock Changes, Door Repairs & Security`,
     description: town.meta,
     path: `/areas/${town.slug}`,
     keywords: `locksmith ${town.town}, lock changes ${town.town}, uPVC door repairs ${town.town}, key safes ${town.town}, lock upgrades ${town.town}, Tendring locksmith`
@@ -97,6 +97,29 @@ export default function TownDetailPage({ params }) {
             <p>{town.localRankingCopy}</p>
             <p>Brodley Locksmiths focuses on property locks, door reliability, key control and practical physical security.</p>
           </div>
+        )}
+
+        {town.customerGuidance?.length > 0 && (
+          <section className="area-real-work" aria-label={`Popular locksmith services in ${town.town}`}>
+            <div className="section-header left-align">
+              <p className="eyebrow red">Choose the right help</p>
+              <h2>What do you need a locksmith to help with?</h2>
+              <p>Start with the problem you recognise. Each service page explains the likely causes, what is checked and the sensible next step.</p>
+            </div>
+            <div className="content-grid compact-content-grid">
+              {town.customerGuidance.map((item) => (
+                <div className="info-box" key={item.title}>
+                  <h3>{item.title}</h3>
+                  <p>{item.text}</p>
+                  <Link href={item.href} className="text-link">{item.label} <ArrowRight size={16} /></Link>
+                </div>
+              ))}
+            </div>
+            <div className="button-row area-button-row">
+              <a href={contact.phoneHref} className="btn btn-red big"><Phone size={20} /> Call {contact.phoneDisplay}</a>
+              <Link href="/quote" className="btn btn-outline big">Request a quote <ArrowRight size={18} /></Link>
+            </div>
+          </section>
         )}
 
         {areaPhotos.length > 0 && (

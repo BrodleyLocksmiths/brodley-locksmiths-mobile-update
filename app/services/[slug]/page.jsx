@@ -96,10 +96,22 @@ export default function ServiceDetailPage({ params }) {
             <div>
               <SearchCheck size={34} />
               <h2>Common situations this can help with</h2>
-              <p>Whether it is a stiff uPVC door, lost keys, a tenant changeover, key safe fitting or a security concern at a home, holiday let or business, Brodley Locksmiths provides practical help across Clacton, Harwich, Frinton, Walton and the wider Tendring area.</p>
+              <p>{service.situationsCopy || 'Whether it is a stiff uPVC door, lost keys, a tenant changeover, key safe fitting or a security concern at a home, holiday let or business, Brodley Locksmiths provides practical help across Clacton, Harwich, Frinton, Walton and the wider Tendring area.'}</p>
               <div className="search-chip-row">{service.reasons.slice(0, 4).map((reason) => <span key={reason}>{reason}</span>)}</div>
             </div>
           </div>
+
+          {service.clactonCopy && (
+            <div className="area-local-panel">
+              <p className="eyebrow gold">Clacton-on-Sea</p>
+              <h2>{service.nav} for Clacton properties</h2>
+              <p>{service.clactonCopy}</p>
+              <div className="button-row">
+                <Link href="/areas/clacton-on-sea" className="btn btn-outline">View Clacton locksmith services <ArrowRight size={18} /></Link>
+                <Link href="/quote" className="btn btn-red">Request a quote <ArrowRight size={18} /></Link>
+              </div>
+            </div>
+          )}
 
           <ServiceAreaQuickLinks title={`Tendring areas for ${service.nav.toLowerCase()}`} intro={`This service is available across Clacton, Frinton, Walton, Harwich, Dovercourt, Manningtree, Brightlingsea and surrounding Tendring areas.`} />
           <ServiceWorkGallery serviceSlug={service.slug} />

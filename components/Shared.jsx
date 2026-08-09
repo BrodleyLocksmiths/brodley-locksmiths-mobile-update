@@ -60,15 +60,15 @@ export function Hero() {
       <div className="hero-ring" />
       <div className="container hero-grid">
         <div className="hero-copy reveal">
-          <div className="pill"><Star size={16} /> Local lock, door and security services across Tendring</div>
-          <h1><span>Lock changes, uPVC door repairs</span> and security upgrades in Tendring.</h1>
-          <p>Brodley Locksmiths focuses on property locks, door reliability and security improvements for homes, landlords and small businesses across Clacton-on-Sea, Frinton, Walton, Harwich, Dovercourt, Manningtree, Brightlingsea and surrounding Tendring villages.</p>
+          <div className="pill"><Star size={16} /> Local property locksmith for Clacton-on-Sea and Tendring</div>
+          <h1><span>Locksmith in Clacton-on-Sea</span> for lock changes, uPVC door repairs and security upgrades.</h1>
+          <p>Brodley Locksmiths helps homeowners, landlords and small businesses across Clacton-on-Sea and Tendring with lock changes, stiff or dropped uPVC doors, anti-snap cylinder upgrades, key safes and practical property security.</p>
           <div className="button-row">
             <a href={contact.phoneHref} className="btn btn-red big">Call {contact.phoneDisplay} <Phone size={20} /></a>
-            <Link href="/quote" className="btn btn-outline big">Request a Quote <ArrowRight size={20} /></Link>
+            <Link href="/quote" className="btn btn-outline big">Request a Locksmith Quote <ArrowRight size={20} /></Link>
             <Link href="/get-secure-check" className="btn btn-outline big get-secure-hero-link">Try the Get Secure Check <ClipboardCheck size={20} /></Link>
           </div>
-          <Link href="/services/lock-upgrades" className="hero-urgent-link">Improving your security? Start with practical lock and cylinder upgrades <ArrowRight size={16} /></Link>
+          <Link href="/areas/clacton-on-sea" className="hero-urgent-link">In Clacton-on-Sea? View local locksmith services and common jobs <ArrowRight size={16} /></Link>
           <div className="mini-card-grid">
             {[
               ['Local Lock & Door Work', 'Lock changes, upgrades and door repairs across Tendring.'],
@@ -117,8 +117,8 @@ export function ServicesGrid({ compact = false, slugs, limit }) {
 }
 
 
-export function PlannedWorkHub() {
-  const plannedServices = [
+export function CoreServiceHub() {
+  const coreServices = [
     ['lock-changes', 'Regain control of keys after a move, tenant change or security concern.'],
     ['lock-upgrades', 'Upgrade tired or vulnerable locks before they become a weak point.'],
     ['anti-snap-lock-upgrades', 'Improve cylinder security on suitable uPVC, composite and timber doors.'],
@@ -127,20 +127,20 @@ export function PlannedWorkHub() {
     ['gatemate-gate-security', 'Secure side gates, sheds, rear access and garden routes.']
   ].map(([slug, note]) => ({ ...serviceBySlug(slug), note })).filter((item) => item.slug);
 
-  const plannedAreas = ['Clacton-on-Sea', 'Frinton-on-Sea', 'Harwich', 'Dovercourt', 'Walton-on-the-Naze', 'Brightlingsea']
+  const coreAreas = ['Clacton-on-Sea', 'Great Clacton', 'Holland-on-Sea', 'Frinton-on-Sea', 'Harwich', 'Dovercourt']
     .map(townByName)
     .filter(Boolean);
 
   return (
     <section className="planned-work-hub" aria-label="Lock door and security services">
       <div className="planned-work-copy">
-        <p className="eyebrow gold">Lock & door help</p>
-        <h2>Common reasons customers call Brodley Locksmiths.</h2>
-        <p>From changing locks after a move to repairing a stiff uPVC door, fitting a key safe or upgrading weak cylinders, the aim is simple: clear advice, tidy workmanship and better security for the property.</p>
-        <p className="planned-work-note">Focused on property locks, door reliability, key control and practical security upgrades for homes, rentals and small businesses.</p>
+        <p className="eyebrow gold">Popular local services</p>
+        <h2>Lock, door and security help for Clacton-on-Sea and Tendring.</h2>
+        <p>Choose the issue that best matches your property, from changing locks after a move to repairing a stiff uPVC door, fitting a key safe or upgrading a vulnerable cylinder.</p>
+        <p className="planned-work-note">Property locksmith work for homes, rentals, holiday accommodation and small businesses, with clear advice before work begins.</p>
       </div>
       <div className="planned-work-grid">
-        {plannedServices.map((service) => (
+        {coreServices.map((service) => (
           <Link key={service.slug} href={`/services/${service.slug}`} className="planned-work-card">
             <strong>{service.nav}</strong>
             <span>{service.note}</span>
@@ -148,7 +148,7 @@ export function PlannedWorkHub() {
         ))}
       </div>
       <div className="planned-area-strip" aria-label="Popular local areas">
-        {plannedAreas.map((town) => <Link key={town.slug} href={`/areas/${town.slug}`}>{town.town}</Link>)}
+        {coreAreas.map((town) => <Link key={town.slug} href={`/areas/${town.slug}`}>{town.town}</Link>)}
       </div>
     </section>
   );
@@ -469,7 +469,10 @@ export function PageShell({ eyebrow, title, intro, children }) {
 
 export function ServicesInternalLinks({ current }) {
   const currentService = servicePages.find((service) => service.slug === current);
-  const related = servicePages
+  const preferredRelated = (currentService?.relatedServiceSlugs || [])
+    .map(serviceBySlug)
+    .filter(Boolean);
+  const related = preferredRelated.length ? preferredRelated.slice(0, 4) : servicePages
     .filter((service) => service.slug !== current)
     .filter((service) => currentService?.category ? service.category === currentService.category || service.priority : service.priority)
     .slice(0, 4);
@@ -479,6 +482,7 @@ export function ServicesInternalLinks({ current }) {
       <p>A few useful next steps that may fit the same lock, door or property concern.</p>
       <div>
         {related.map((s) => <Link key={s.slug} href={`/services/${s.slug}`}>{s.nav}</Link>)}
+        {currentService?.priority && <Link href="/areas/clacton-on-sea">Locksmith services in Clacton-on-Sea</Link>}
       </div>
     </div>
   );
@@ -571,4 +575,3 @@ export function BlogPreview() {
     </section>
   );
 }
-

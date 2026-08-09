@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { ArrowRight, CheckCircle2, MapPin, ShieldCheck } from 'lucide-react';
 import JsonLd from '@/components/JsonLd';
-import { ContactCTA, PageShell, PlannedWorkHub } from '@/components/Shared';
+import { ContactCTA, CoreServiceHub, PageShell } from '@/components/Shared';
 import { servicePages, townPages } from '@/lib/siteData';
 import { breadcrumbSchema, localBusinessSchema, pageMetadata } from '@/lib/schema';
 
@@ -50,7 +50,7 @@ export default function LocksmithServicesAndAreasPage() {
     <>
       <JsonLd data={[localBusinessSchema(), breadcrumbSchema([{ name: 'Home', path: '/' }, { name: 'Services and Areas', path: '/locksmith-services-and-areas' }])]} />
       <PageShell eyebrow="Find Help" title="Find the right locksmith help near you." intro="Choose the service or local area that matches what you need, from lock changes and uPVC door repairs to key safes, gate security and practical security advice.">
-        <PlannedWorkHub />
+        <CoreServiceHub />
 
         <section className="site-map-hub-section" aria-label="Popular locksmith services">
           <div className="section-header left-align">

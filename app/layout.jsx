@@ -1,7 +1,9 @@
 import './globals.css';
+import { Suspense } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import EmergencyBar from '@/components/EmergencyBar';
+import AnalyticsConsent from '@/components/AnalyticsConsent';
 import { site } from '@/lib/siteData';
 
 export const metadata = {
@@ -42,7 +44,8 @@ export default function RootLayout({ children }) {
         <EmergencyBar />
         <main id="main-content">{children}</main>
         <Footer />
-        </body>
+        <Suspense fallback={null}><AnalyticsConsent /></Suspense>
+      </body>
     </html>
   );
 }

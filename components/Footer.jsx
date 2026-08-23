@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { contact, servicePages, site, townPages } from '@/lib/siteData';
+import { CookieSettingsButton } from '@/components/AnalyticsConsent';
 
 export default function Footer() {
   return (
@@ -71,6 +72,7 @@ export default function Footer() {
           <Link href="/quote">Request a Quote</Link>
           <Link href="/privacy-policy">Privacy Policy</Link>
           <Link href="/cookie-policy">Cookie Policy</Link>
+          <CookieSettingsButton className="footer-settings-button" />
         </div>
       </div>
       <div className="copyright">© {new Date().getFullYear()} Brodley Locksmiths. Locksmith and security services across Tendring.</div>

@@ -22,6 +22,7 @@ import {
   Sparkles
 } from 'lucide-react';
 import { contact } from '@/lib/siteData';
+import { trackEvent } from '@/lib/analytics';
 
 const propertyTypes = [
   {
@@ -920,6 +921,11 @@ export default function GetSecureCheckTool() {
       setResultsMessage('Please answer at least three questions so we can give you a more useful result.');
       return;
     }
+    trackEvent('get_secure_results', {
+      property_type: propertyType,
+      answered_questions: answeredOptions.length,
+      urgent_result: totals.emergency ? 'yes' : 'no'
+    });
     setResultsMessage('');
     setResultsStage('calculating');
     window.setTimeout(() => {
@@ -1006,6 +1012,11 @@ export default function GetSecureCheckTool() {
       });
       const result = await response.json();
       if (response.ok && result.ok) {
+        trackEvent('generate_lead', {
+          form_name: 'get_secure_check',
+          property_type: propertyType,
+          urgent_result: totals.emergency ? 'yes' : 'no'
+        });
         setSendState('success');
         setSendMessage('Thanks — your Get Secure check has been sent. Brodley Locksmiths will use the contact details you supplied to get back to you.');
         return;

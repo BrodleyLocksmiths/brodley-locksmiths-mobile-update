@@ -4,6 +4,7 @@ import { useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
 import { CheckCircle2, Mail, Phone, Send } from 'lucide-react';
 import { contact } from '@/lib/siteData';
+import { trackEvent } from '@/lib/analytics';
 
 const services = [
   'Emergency locksmith / locked out',
@@ -125,6 +126,7 @@ export default function QuoteForm() {
       const result = await response.json();
 
       if (response.ok && result.ok) {
+        trackEvent('generate_lead', { form_name: 'quote_request', service_category: form.service });
         setStatus('success');
         setMessage('Thanks — your request has been sent. Brodley Locksmiths will use the contact details you supplied to get back to you.');
         setForm((current) => ({ ...current, message: '', website: '' }));

@@ -32,6 +32,10 @@ const sections = [
     body: <>We do not share enquiry details for other companies’ marketing. We may use carefully chosen service providers that help us run the website or send enquiry emails, but only where they need the information to provide that service. We may also disclose information where required by law or to protect people, property or our legal rights.</>
   },
   {
+    title: 'Website analytics',
+    body: <>If you accept optional analytics cookies, Google Analytics 4 records page visits and selected website actions so we can understand how the site performs. The Analytics events do not include the names, phone numbers, email addresses, messages or photographs entered into enquiry forms. You can reject analytics or change your choice through Cookie settings. Read the <Link href="/cookie-policy">Cookie Policy</Link> for more information.</>
+  },
+  {
     title: 'Your choices and rights',
     body: <>You can ask us about the information we hold about you, request correction of inaccurate information, or ask us to delete information where there is no good reason for us to keep it. Contact us using the details above and we will respond as soon as reasonably possible.</>
   },
@@ -51,10 +55,10 @@ export default function PrivacyPolicyPage() {
       <JsonLd data={[localBusinessSchema(), breadcrumbSchema([{ name: 'Home', path: '/' }, { name: 'Privacy Policy', path: '/privacy-policy' }])]} />
       <PageShell eyebrow="Your Privacy" title="Privacy Policy" intro="How Brodley Locksmiths handles information you choose to send through this website.">
         <div className="policy-wrap">
-          <p className="policy-date">Last updated: 20 June 2026</p>
+          <p className="policy-date">Last updated: 23 August 2026</p>
           <p>This notice is written in plain English. It explains what happens when you contact Brodley Locksmiths through the website, request a quote or send a Get Secure Property Check.</p>
           {sections.map((section) => <section key={section.title} className="policy-section"><h2>{section.title}</h2><p>{section.body}</p></section>)}
-          <div className="related-box"><h2>Related information</h2><p>Read the <Link href="/cookie-policy">Cookie Policy</Link> to understand the limited browser storage used by the website.</p></div>
+          <div className="related-box"><h2>Related information</h2><p>Read the <Link href="/cookie-policy">Cookie Policy</Link> to understand essential browser storage, optional Google Analytics and how to change your choice.</p></div>
         </div>
       </PageShell>
     </>

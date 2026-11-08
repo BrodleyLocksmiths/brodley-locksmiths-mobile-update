@@ -1,115 +1,46 @@
-# Brodley Locksmiths — Local Ranking & Crawl Quality Update
+# Brodley Locksmiths — Stage 1 Implementation Kit
+**Prepared:** 8 November 2026
 
-This package includes the current live Brodley Locksmiths website plus the local coverage, planned-work positioning, area-page, internal-linking and real-work-photo updates.
+## What has been done in this session
 
-# Brodley Locksmiths — GateMate® & Outdoor Security Update
+- Reviewed the public homepage, About page and Clacton page text, plus source code from the last site ZIP available in this conversation (`brodley-locksmiths-next-seo-site-clarity-conversion-update.zip`).
+- Located a definite issue **in that historical ZIP**: `app/sitemap.js` calculates `const now = new Date()` and writes it to `lastModified` for every URL on every sitemap request. Google only trusts accurate last-modification dates; artificial updates can undermine the usefulness of this signal.
+- Prepared a small, isolated replacement `sitemap.js` that emits canonical URL entries and does **not** claim every page has just changed. Both the file and a unified patch are included.
+- Identified a potential urgent dependency-maintenance issue: historical package pins `next` to **14.2.22**. The Next.js maintainers have published many security fixes since then. Production may already have a different version; check current GitHub `package.json` and Yarn lockfile before updating. Prefer a tested migration to patched 15.x or 16.x; do not blindly edit the old full ZIP.
+- Confirmed the historical Next.js code has page-specific metadata, canonical generation, LocalBusiness/Service JSON-LD, and client-side quote submission with a server `/api/enquiry` that requires `RESEND_API_KEY` and `ENQUIRY_FROM`. Configuration and actual successful delivery are not verified.
 
-This is the current Brodley Locksmiths Next.js website package for Vercel. It includes the red/gold/charcoal brand design, Tendring service and area pages, reviews, blog content, emergency pages, quote form and advanced **Get Secure Property Check**.
+## VERY IMPORTANT: not a deployable whole-website ZIP
 
-## This update adds
+This kit contains **only** an incremental technical sitemap fix and work tracker. **Do not upload it as a replacement website**. A separate Clacton update was created in a different Work chat; the historical ZIP audited here may be older than the currently deployed site. Check the current `app/sitemap.js` in GitHub main and merge this change only if the incorrect `lastModified` behavior still exists.
 
-- A dedicated **GateMate® Gate Security** service page for side gates, garden gates, sheds, workshops, garages and rear access.
-- A customer-friendly GateMate® feature block on the homepage and key related pages: Security Surveys, Garage/Shed/Gate Locks and Caravan & Holiday Park Locksmith Services.
-- A new in-depth local guide: **How to Secure a Side Gate, Garden Gate, Shed and Rear Access**.
-- A richer outdoor-access question inside the **Get Secure Property Check**, with security and reliability weighting for stiff, rusty, misaligned or insecure gates.
-- GateMate® recommendations in Get Secure result cards and assistant-style next steps where outdoor access needs attention.
-- A private `GATEMATE-REAL-JOBS-READY.md` template for turning future real jobs and photos into credible Recent Work and Case Study entries without publishing invented examples.
+## How to use the sitemap fix safely
 
-## GateMate® wording
+1. Open the current GitHub main branch and view `app/sitemap.js`.
+2. If it still sets all `lastModified` fields to `new Date()` on each request, use `sitemap-fix.patch` as a guide or copy the included `sitemap.js` **after comparing the page list to the current production list**.
+3. Do not drop newly added routes from the current sitemap; merge route additions into the revised file.
+4. Build and deploy through the existing GitHub/Vercel workflow. Check `/sitemap.xml` contains all intended canonical URLs and does not signal false modification dates.
+5. Confirm with Search Console; there is no need to repeatedly submit unchanged URLs.
 
-This website uses GateMate® as a product brand reference only. It does not claim that Brodley Locksmiths is an official GateMate® installer, stockist or manufacturer. Product suitability and availability should always be confirmed after the gate, access requirements and site conditions have been assessed.
+## Current checks needed for Stage 1
 
-## Vercel settings
+- Fresh November Search Console export: Page Indexing > Pages + sample URLs for `Discovered - currently not indexed` and `Crawled - currently not indexed`.
+- Performance > Search results > Last 3 months > export Queries and Pages (not just 7 days).
+- A current GitHub `package.json` (and ideally `yarn.lock`) or an export of the current production branch, to verify dependency status and merge safely.
+- Confirm whether real test emails arrive from both Quote and Get Secure forms. **Never send credentials or API keys.**
 
-Use these settings, which match the workflow that already works for this project:
+## Release gate
 
-```text
-Framework Preset: Next.js
-Node.js Version: 20.x
-Install Command: corepack enable && yarn install --network-timeout 600000
-Build Command: yarn build
-Output Directory: leave blank
-```
+Do not alter live DNS, Google Workspace MX records, or submit untested frameworks changes. Apply fixes in a preview deployment; test homepage, service pages, Get Secure, quote and email before promoting to production.
 
-Keep `.yarnrc` in the project root:
+## Why Stage 1 matters
 
-```text
-network-timeout 600000
-enableTelemetry 0
-```
+Search indexing does not improve simply by creating more content. The useful first actions are accurate indexing signals, strong internal linking, usable pages, reliable forms, and verifying that the business is running maintained software.
 
-## Testing before launch
+## Authoritative references consulted
 
-The website stays hidden from search engines while this environment variable is set:
-
-```text
-NEXT_PUBLIC_LAUNCH_READY=false
-```
-
-When the main domain is moved to Vercel and you are ready for Google to index the new site, change it to:
-
-```text
-NEXT_PUBLIC_LAUNCH_READY=true
-```
-
-## Direct form submissions
-
-The quote form and Get Secure Property Check can send directly to `info@brodley-locksmiths.com` once Resend is configured in Vercel. Add these environment variables in **Vercel → Project → Settings → Environment Variables**:
-
-```text
-RESEND_API_KEY=re_your_resend_api_key
-ENQUIRY_FROM=Brodley Locksmiths <website@your-verified-domain.co.uk>
-ENQUIRY_TO=info@brodley-locksmiths.com
-```
-
-`ENQUIRY_FROM` must use an address/domain verified in Resend. Until this is configured, the forms fall back to opening the customer’s email app.
-
-## Before switching the live domain
-
-- Test the Call, Quote, Email and Get Secure buttons on a phone and desktop.
-- Test a real quote-form submission and a Get Secure result submission.
-- Add genuine job photos and any new reviews you want included.
-- Keep `NEXT_PUBLIC_LAUNCH_READY=false` during testing.
-- When ready, connect the main domain in Vercel, enable indexing, and submit the sitemap in Google Search Console.
-
-## Real job photo update
-
-This package includes a new `/real-work-gallery` page plus genuine job photography on the homepage, Recent Work, Case Studies and relevant service pages. Images are web-optimised and sensitive key/key-safe detail has been obscured. Use `REAL-WORK-PHOTO-WORKFLOW.md` when supplying future job photos so they can be added accurately.
-
-
-## Get Secure results and email formatting
-
-The Get Secure Property Check now keeps results hidden until the customer selects **See My Get Secure Results**. The results page includes an optional note field so customers can explain a stiff door, key-control concern, access need or other issue in their own words.
-
-For the clean formatted email to arrive directly in the Brodley Locksmiths inbox, keep the existing Resend environment variables configured in Vercel:
-
-```text
-RESEND_API_KEY=...
-ENQUIRY_FROM=...
-ENQUIRY_TO=info@brodley-locksmiths.com
-```
-
-Without those variables, the customer will still be offered a clearly formatted email-app fallback.
-
-## Latest Get Secure refinement
-
-- Results now reveal the three score cards first.
-- “Positive habits” has been replaced with neutral **Security foundations** / **Existing safeguards selected** wording.
-- The lead/contact section now comes before recommendations and linked service pages.
-- Related service links are intentionally kept at the bottom of the results page.
-
-## Latest Get Secure update
-
-The property check now separates Tenant and Landlord / rental-property-owner routes. It uses shorter result-button wording, removes the redundant everyday lock-up question, and shows more relevant questions for each property or role.
-
-## Indexing Boost Update
-
-This package adds an internal-linking and crawl-priority update after launch.
-
-It adds customer-facing link hubs to strengthen the pathways from the homepage, service pages, area pages, blog articles and footer into the most important commercial pages. It also refines the sitemap priorities and adds `lastModified` values.
-
-After deployment, use `INDEXING-BOOST-MANUAL-CHECKLIST.md` to manually inspect and request indexing for the most important service and area pages in Google Search Console.
-
-## Site Clarity & Conversion Update
-
-This version includes a customer-facing copy cleanup across the site, reducing overused wording, simplifying page journeys and keeping SEO structure in place while making the website feel more natural and easier to use.
+- Google: https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap
+- Google: https://developers.google.com/search/docs/appearance/ai-features
+- Google: https://developers.google.com/search/help/crawling-index-faq
+- Next.js releases: https://github.com/vercel/next.js/releases
+- Vercel May 2026 security guidance: https://vercel.com/changelog/next-js-may-2026-security-release
+- OpenAI crawler docs: https://developers.openai.com/api/docs/bots

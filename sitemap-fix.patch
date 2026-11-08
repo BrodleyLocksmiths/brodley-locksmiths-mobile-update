@@ -1,0 +1,96 @@
+--- a/app/sitemap.js
++++ b/app/sitemap.js
+@@ -1,64 +1,13 @@
+ import { blogPosts, servicePages, site, townPages } from '@/lib/siteData';
+ 
+-const priorityServiceSlugs = new Set([
+-  'lock-changes',
+-  'lock-upgrades',
+-  'anti-snap-lock-upgrades',
+-  'euro-cylinder-replacement',
+-  'upvc-door-repairs-tendring',
+-  'door-alignment-adjustment',
+-  'multipoint-lock-repairs',
+-  'door-handle-replacement',
+-  'key-safes',
+-  'security-surveys',
+-  'gatemate-gate-security',
+-  'locksmith-for-landlords',
+-  'move-in-lock-change-service'
+-]);
+-
+-const priorityTownNames = new Set([
+-  'Clacton-on-Sea',
+-  'Frinton-on-Sea',
+-  'Walton-on-the-Naze',
+-  'Harwich',
+-  'Dovercourt',
+-  'Manningtree',
+-  'Brightlingsea',
+-  'Holland-on-Sea',
+-  'Jaywick',
+-  'Great Clacton',
+-  'St Osyth',
+-  'Thorpe-le-Soken'
+-]);
+-
+-function priorityFor(path) {
+-  if (path === '/') return 1;
+-  if (path === '/services' || path === '/areas' || path === '/locksmith-services-and-areas' || path === '/get-secure-check' || path === '/quote' || path === '/contact') return 0.95;
+-  if (path.startsWith('/services/')) {
+-    const slug = path.replace('/services/', '');
+-    return priorityServiceSlugs.has(slug) ? 0.95 : 0.85;
+-  }
+-  if (path.startsWith('/areas/')) {
+-    const slug = path.replace('/areas/', '');
+-    const town = townPages.find((item) => item.slug === slug);
+-    return town && priorityTownNames.has(town.town) ? 0.9 : 0.78;
+-  }
+-  if (path === '/reviews' || path === '/recent-work' || path === '/real-work-gallery' || path === '/case-studies') return 0.85;
+-  if (path.startsWith('/blog/')) return 0.72;
+-  if (path === '/privacy-policy' || path === '/cookie-policy') return 0.35;
+-  return 0.75;
+-}
+-
+-function changeFrequencyFor(path) {
+-  if (path === '/' || path === '/services' || path === '/areas' || path === '/locksmith-services-and-areas' || path === '/get-secure-check') return 'weekly';
+-  if (path.startsWith('/services/')) return 'monthly';
+-  if (path.startsWith('/areas/')) return 'monthly';
+-  if (path.startsWith('/blog/')) return 'monthly';
+-  return 'monthly';
+-}
+-
++/**
++ * The sitemap should list canonical, indexable pages.
++ * Do not publish a changing `lastModified` value on every request/build.
++ * Add `lastModified` per page only when an actual content-update date is
++ * reliably available (for example, maintained in a content record).
++ * Google ignores sitemap priority and changeFrequency.
++ */
+ export default function sitemap() {
+-  const now = new Date();
+   const base = [
+     '/',
+     '/services',
+@@ -82,13 +31,13 @@
+     '/privacy-policy',
+     '/cookie-policy'
+   ];
+-  const serviceUrls = servicePages.map((s) => `/services/${s.slug}`);
+-  const areaUrls = townPages.map((t) => `/areas/${t.slug}`);
+-  const blogUrls = blogPosts.map((p) => `/blog/${p.slug}`);
+-  return [...base, ...serviceUrls, ...areaUrls, ...blogUrls].map((path) => ({
+-    url: path === '/' ? site.url : `${site.url}${path}`,
+-    lastModified: now,
+-    changeFrequency: changeFrequencyFor(path),
+-    priority: priorityFor(path)
++
++  const serviceUrls = servicePages.map(({ slug }) => `/services/${slug}`);
++  const areaUrls = townPages.map(({ slug }) => `/areas/${slug}`);
++  const blogUrls = blogPosts.map(({ slug }) => `/blog/${slug}`);
++  const paths = [...new Set([...base, ...serviceUrls, ...areaUrls, ...blogUrls])];
++
++  return paths.map((path) => ({
++    url: path === '/' ? site.url : `${site.url}${path}`
+   }));
+ }

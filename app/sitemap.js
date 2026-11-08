@@ -57,8 +57,19 @@ function changeFrequencyFor(path) {
   return 'monthly';
 }
 
+// Only send lastModified for URLs whose public content changed in this release.
+// A deployment is not the same as a content change. Review this list for future updates.
+const verifiedContentUpdates = new Set([
+  '/',
+  '/services',
+  '/services/lock-changes',
+  '/services/upvc-door-repairs-tendring',
+  '/services/anti-snap-lock-upgrades',
+  '/services/key-safes'
+]);
+const contentUpdateDate = new Date('2026-11-08T00:00:00.000Z');
+
 export default function sitemap() {
-  const now = new Date();
   const base = [
     '/',
     '/services',
@@ -85,9 +96,9 @@ export default function sitemap() {
   const serviceUrls = servicePages.map((s) => `/services/${s.slug}`);
   const areaUrls = townPages.map((t) => `/areas/${t.slug}`);
   const blogUrls = blogPosts.map((p) => `/blog/${p.slug}`);
-  return [...base, ...serviceUrls, ...areaUrls, ...blogUrls].map((path) => ({
+  return [...new Set([...base, ...serviceUrls, ...areaUrls, ...blogUrls])].map((path) => ({
     url: path === '/' ? site.url : `${site.url}${path}`,
-    lastModified: now,
+    ...(verifiedContentUpdates.has(path) ? { lastModified: contentUpdateDate } : {}),
     changeFrequency: changeFrequencyFor(path),
     priority: priorityFor(path)
   }));

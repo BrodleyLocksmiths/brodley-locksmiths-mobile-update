@@ -402,8 +402,8 @@ export function IndexingBoostLinks({ variant = 'full' }) {
   );
 }
 
-export function ServiceAreaQuickLinks({ title = 'Popular Tendring areas for locksmith work', intro = 'Brodley Locksmiths covers the main coastal towns, villages and local areas across Tendring.' }) {
-  const priorityTowns = indexingPriorityTownNames.map(townByName).filter(Boolean);
+export function ServiceAreaQuickLinks({ title = 'Popular Tendring areas for locksmith work', intro = 'Brodley Locksmiths covers the main coastal towns, villages and local areas across Tendring.', limit = 12 }) {
+  const priorityTowns = indexingPriorityTownNames.map(townByName).filter(Boolean).slice(0, limit);
   return (
     <div className="service-area-quick-links">
       <h2>{title}</h2>

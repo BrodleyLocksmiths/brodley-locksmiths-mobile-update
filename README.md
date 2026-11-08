@@ -1,46 +1,46 @@
-# Brodley Locksmiths — Stage 1 Implementation Kit
-**Prepared:** 8 November 2026
+# Brodley Locksmiths — Website Project
 
-## What has been done in this session
+**Production website:** https://www.brodley-locksmiths.com  
+**Current release:** Core Service Indexing & Quality Update (8 November 2026)  
+**Source:** Latest GitHub `main` export uploaded by the site owner, `brodley-locksmiths-mobile-update-main.zip`.
 
-- Reviewed the public homepage, About page and Clacton page text, plus source code from the last site ZIP available in this conversation (`brodley-locksmiths-next-seo-site-clarity-conversion-update.zip`).
-- Located a definite issue **in that historical ZIP**: `app/sitemap.js` calculates `const now = new Date()` and writes it to `lastModified` for every URL on every sitemap request. Google only trusts accurate last-modification dates; artificial updates can undermine the usefulness of this signal.
-- Prepared a small, isolated replacement `sitemap.js` that emits canonical URL entries and does **not** claim every page has just changed. Both the file and a unified patch are included.
-- Identified a potential urgent dependency-maintenance issue: historical package pins `next` to **14.2.22**. The Next.js maintainers have published many security fixes since then. Production may already have a different version; check current GitHub `package.json` and Yarn lockfile before updating. Prefer a tested migration to patched 15.x or 16.x; do not blindly edit the old full ZIP.
-- Confirmed the historical Next.js code has page-specific metadata, canonical generation, LocalBusiness/Service JSON-LD, and client-side quote submission with a server `/api/enquiry` that requires `RESEND_API_KEY` and `ENQUIRY_FROM`. Configuration and actual successful delivery are not verified.
+This is the **full Next.js website source**, not a partial sitemap patch. It contains `package.json`, the `app/`, `components/`, `lib/`, `public/` folders, the existing scripts and deployment configuration, and the latest content refinements.
 
-## VERY IMPORTANT: not a deployable whole-website ZIP
+## What changed in this release
 
-This kit contains **only** an incremental technical sitemap fix and work tracker. **Do not upload it as a replacement website**. A separate Clacton update was created in a different Work chat; the historical ZIP audited here may be older than the currently deployed site. Check the current `app/sitemap.js` in GitHub main and merge this change only if the incorrect `lastModified` behavior still exists.
+Read **`CORE-SERVICE-INDEXING-QUALITY-UPDATE-NOTES.md`** for details, including release checks and Google Search Console follow-up.
 
-## How to use the sitemap fix safely
+Highlights:
+- Distinctive, more useful customer guidance for **Lock Changes**, **uPVC Door Repairs**, **Anti-Snap Lock Upgrades** and **Key Safes**.
+- Cleaner customer calls to action: phone or request a quote, with Get Secure still available.
+- Less duplicated service content, less homepage link overload, and smaller local shortcut lists on the four core service pages.
+- Accurate sitemap last-modified signals: unchanged pages are no longer artificially marked as updated on each request.
+- The `uPVC Door Repairs` navigation label is no longer duplicated with “Tendring”. **No service URL changed**.
+- Preserved established internal links, current pages, area coverage, real-work photographs, original branding, redirects and code integrations.
 
-1. Open the current GitHub main branch and view `app/sitemap.js`.
-2. If it still sets all `lastModified` fields to `new Date()` on each request, use `sitemap-fix.patch` as a guide or copy the included `sitemap.js` **after comparing the page list to the current production list**.
-3. Do not drop newly added routes from the current sitemap; merge route additions into the revised file.
-4. Build and deploy through the existing GitHub/Vercel workflow. Check `/sitemap.xml` contains all intended canonical URLs and does not signal false modification dates.
-5. Confirm with Search Console; there is no need to repeatedly submit unchanged URLs.
+## Deployment — important
 
-## Current checks needed for Stage 1
+1. Unzip the download **locally**. The files at the top level include `package.json`, `app`, `components`, `lib` and `public`. Upload these contents into the GitHub repository **root** (do not create an extra directory).
+2. Keep the current Vercel/GitHub project connection and build configuration. The project currently has `"engines": { "node": "26.x" }` in `package.json`.
+3. The project uses Next.js 14.2.22 and React 18.3.1 for this targeted release. Framework upgrades require a separate tested change; none is included here.
+4. **Production env setting:** `NEXT_PUBLIC_LAUNCH_READY=true` is required. This project has deliberate noindex/robots disallow behaviour when that flag is absent or false.
+5. Keep the existing email-enquiry API environment variables and Google Workspace/DNS records unchanged.
+6. Commit to GitHub, confirm Vercel shows **Ready / Production**, and check the listed URLs and forms in the release notes.
 
-- Fresh November Search Console export: Page Indexing > Pages + sample URLs for `Discovered - currently not indexed` and `Crawled - currently not indexed`.
-- Performance > Search results > Last 3 months > export Queries and Pages (not just 7 days).
-- A current GitHub `package.json` (and ideally `yarn.lock`) or an export of the current production branch, to verify dependency status and merge safely.
-- Confirm whether real test emails arrive from both Quote and Get Secure forms. **Never send credentials or API keys.**
+## Where the sitemap lives
 
-## Release gate
+The Next.js App Router sitemap is generated by **`app/sitemap.js`** (not a `sitemap.js` file at the repository root). The generated public endpoint is `/sitemap.xml`.
 
-Do not alter live DNS, Google Workspace MX records, or submit untested frameworks changes. Apply fixes in a preview deployment; test homepage, service pages, Get Secure, quote and email before promoting to production.
+## SEO expectations
 
-## Why Stage 1 matters
+This release improves content quality, keeps clear internal links and provides more reliable sitemap dates. Neither code changes nor an indexing request guarantee Google indexing. Use Search Console URL Inspection's **live test** to verify actual Googlebot accessibility; review crawl/indexing results over subsequent weeks.
 
-Search indexing does not improve simply by creating more content. The useful first actions are accurate indexing signals, strong internal linking, usable pages, reliable forms, and verifying that the business is running maintained software.
+## Current deployment considerations
 
-## Authoritative references consulted
+- The repository includes a `package-lock.json` plus `packageManager: yarn@1.22.22`, reflecting the existing project. Preserve the working Vercel install settings rather than changing package managers during this release.
+- The local packaging environment was not the deployed Node.js 26 instance. The Vercel build is the final production verification.
+- No private passwords, API keys or access codes should ever be added to repository files.
 
-- Google: https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap
-- Google: https://developers.google.com/search/docs/appearance/ai-features
-- Google: https://developers.google.com/search/help/crawling-index-faq
-- Next.js releases: https://github.com/vercel/next.js/releases
-- Vercel May 2026 security guidance: https://vercel.com/changelog/next-js-may-2026-security-release
-- OpenAI crawler docs: https://developers.openai.com/api/docs/bots
+## Other historical notes
+
+Historical release documents and the 90-day tracker are included for context, but **do not** replace the deployment guidance in this README or the current release notes.
